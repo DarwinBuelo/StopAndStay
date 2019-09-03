@@ -17,7 +17,7 @@ $css = [
 ];
 $js = [
     'js/jquery-3.2.1.min.js',
-    'styles/bootstrap4/popper.js',
+    'js/jquery-ui.min.js',
     'styles/bootstrap4/bootstrap.min.js',
     'plugins/greensock/TweenMax.min.js',
     'plugins/greensock/TimelineMax.min.js',
