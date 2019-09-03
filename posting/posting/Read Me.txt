@@ -1,0 +1,19 @@
+css file
+1) style
+2) inputfile
+put in steve\login\css folder
+
+js file
+1)custom-file-input
+put in steve\login\js folder
+
+php file
+1) posting
+put in steve\login folder
+
+2) posting_auto
+put in steve\includes folder
+
+sql file
+1) bb_db
+yaon jan su dinagdag ko na sa database

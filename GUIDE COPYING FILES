@@ -1,0 +1,44 @@
+LOOP FOR COPYING FILES
+
+
+$files = ['image2.jpg','image4.jpg','image5.jpg'];
+foreach($files as $resFile){
+    rename($resFile, 'newfolder/'.$resFile);
+    copy($resFile, 'newfolder/'.$resFile);
+}
+
+
+<form method="post" action="upload-page.php" enctype="multipart/form-data">
+  <input name="filesToUpload[]" id="filesToUpload" type="file" multiple="" />
+</form>
+
+DISPLAY THE FILES
+
+var input = document.getElementById('filesToUpload');
+var list = document.getElementById('fileList');
+
+//empty list for now...
+while (list.hasChildNodes()) {
+	list.removeChild(ul.firstChild);
+}
+
+//for every file...
+for (var x = 0; x < input.files.length; x++) {
+	//add to list
+	var li = document.createElement('li');
+	li.innerHTML = 'File ' + (x + 1) + ':  ' + input.files[x].name;
+	list.append(li);
+}
+
+
+POSSIBLE UPLOAD SCRIPT
+
+if(count($_FILES['uploads']['filesToUpload'])) {
+	foreach ($_FILES['uploads']['filesToUpload'] as $file) {
+	    
+		//do your upload stuff here
+		echo $file;
+		
+	}
+}
+
