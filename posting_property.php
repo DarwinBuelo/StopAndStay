@@ -8,7 +8,7 @@
 }
 </style>
 <head>
-	<title>Website Name - Posting</title>
+	<title>Stop N Stay - Posting</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -46,7 +46,7 @@
 			<div class="wrap-login100">
 				<form class="login100-form validate-form p-l-35 p-r-55 p-t-120" method="POST" action="includes/post_property.php" enctype="multipart/form-data">
 					<span class="login100-form-title" style=" padding-top: 20px; padding-bottom:20px;">
-						Billboard Nation
+						Stop N Stay
 					</span>
 					
 					<div class="wrap-input100 validate-input m-b-16" data-validate="Please enter title">
@@ -170,23 +170,10 @@
 					<br>
 					<br>
 					<br>
-					<div class="wrap-input100 validate-input m-b-16" data-validate="Please enter Developer">
-						<input class="input100" type="text" name="dev" placeholder="Developer">
-						<span class="focus-input100"></span>
-					</div>
 					 <div class="wrap-input100 validate-input m-b-16">
                          <input id="ready" name="ready" type="text" placeholder="Ready By" class="input100" onfocus="(this.type='date')" onblur="(this.type='text')">
                          <span class="focus-input100"></span>
                     </div>
-					<div class="wrap-input100 validate-input" data-validate="Please enter Anuual Community Fee">
-						<input class="input100" type="text" name="acf" placeholder="Anual community fee">
-						<span class="focus-input100"></span>
-					</div>
-					<br>
-					<div class="wrap-input100 validate-input m-b-16">
-						<input class="input100" type="text" name="pr" placeholder="Propert Reference ID # (optional)">
-						<span class="focus-input100"></span>
-					</div>
 					
 					<div class="wrap-input100 validate-input" data-validate="Please enter car location">
 						<input class="input100" type="text" name="location" placeholder="Locate your property">
@@ -194,27 +181,20 @@
 					</div>
 					<br>
 					<center>
-						<div class ="form-control" style="height: 880px;">
+						<div class ="form-control" style="height: 600px;">
 						<input type="checkbox" name="extras[]" value="Balcony">Balcony<br><br>
 						<input type="checkbox" name="extras[]"  value="Built n Kitchen Appliances">Built n Kitchen Appliances<br><br>
 						<input type="checkbox" name="extras[]"  value="Built in Wardrobes">Built in Wardrobes<br><br>
-						<input type="checkbox" name="extras[]"  value="Central A/C & Heating">Central A/C & Heating<br><br>
-						<input type="checkbox" name="extras[]"  value="Concierge Service">Concierge Service<br><br>
 						<input type="checkbox" name="extras[]"  value="Covered Parking">Covered Parking<br><br>
 						<input type="checkbox" name="extras[]"  value="Maid Service">Maid Service<br><br>
 						<input type="checkbox" name="extras[]"  value="Maids Room">Maids Room<br><br>
 						<input type="checkbox" name="extras[]"  value="Pets Allowed">Pets Allowed<br><br>
 						<input type="checkbox" name="extras[]"  value="Private Garden">Private Garden<br><br>
 						<input type="checkbox" name="extras[]"  value="Private Gym">Private Gym<br><br>
-						<input type="checkbox" name="extras[]"  value="Private Jacuzzi">Private Jacuzzi<br><br>
 						<input type="checkbox" name="extras[]"  value="Private Pool">Private Pool<br><br>
 						<input type="checkbox" name="extras[]"  value="Security">Security<br><br>
-						<input type="checkbox" name="extras[]"  value="Shared Gym">Shared Gym<br><br>
-						<input type="checkbox" name="extras[]"  value="Shared Pool">Shared Pool<br><br>
-						<input type="checkbox" name="extras[]"  value="Shared Spa">Shared Spa<br><br>
 						<input type="checkbox" name="extras[]"  value="Study">Study<br><br>
 						<input type="checkbox" name="extras[]"  value="View of Landmark">View of Landmark<br><br>
-						<input type="checkbox" name="extras[]"  value="View of Water">View of Water<br><br>
 						<input type="checkbox" name="extras[]"  value="Walk-in Closet">Walk-in Closet<br><br>
 
 				</div>

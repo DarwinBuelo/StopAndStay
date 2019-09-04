@@ -1,9 +1,11 @@
 <?php
+include 'class/Layout.php';
 $companyname = '';
 $companydesc = '';
 $Outline = new Layout($companyname, $companydesc);
 
 $css = [
+    'css/main.css',
     'css/components.css',
     'css/icons.css',
     'css/responsee.css',
@@ -16,18 +18,11 @@ $css = [
     'http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800&subset=latin,latin-ext'
 ];
 $js = [
+    'js/jquery-1.8.3.min.js',
     'js/jquery-3.2.1.min.js',
     'js/jquery-ui.min.js',
-    'styles/bootstrap4/bootstrap.min.js',
-    'plugins/greensock/TweenMax.min.js',
-    'plugins/greensock/TimelineMax.min.js',
-    'plugins/scrollmagic/ScrollMagic.min.js',
-    'plugins/greensock/animation.gsap.min.js',
-    'plugins/greensock/ScrollToPlugin.min.js',
-    'plugins/OwlCarousel2-2.2.1/owl.carousel.js',
-    'plugins/easing/easing.js',
-    'plugins/parallax-js-master/parallax.min.js',
-    'js/custom.js'
+    'js/responsee.js',
+    'owl-carousel/owl.carousel.js'
 ];
 $Outline->addCSS($css);
 $Outline->addJS($js);

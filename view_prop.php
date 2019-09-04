@@ -1,105 +1,14 @@
-<!DOCTYPE html>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
 <?php
 session_start();
+include_once 'init.php';
 include_once('includes/db.php');
-if(!isset($_GET['viewid']))
-{
+$Outline->addJS('js/jquery-1.8.3.min.js');  
+if(!isset($_GET['viewid'])) {
   header('location:error_404.php');
-}
-else
-{
+} else {
+  $Outline->header('View Property');
 ?>
-<html lang="en-US">
-   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Billboard Nation</title>
-      <link rel="stylesheet" href="css/components.css">
-      <link rel="stylesheet" href="css/icons.css">
-      <link rel="stylesheet" href="css/responsee.css">
-      <link rel="stylesheet" href="owl-carousel/owl.carousel.css">
-      <link rel="stylesheet" href="owl-carousel/owl.theme.css">  
-      <!-- CUSTOM STYLE -->
-      <link rel="stylesheet" href="css/template-style.css">
-      <link rel="stylesheet" href="css/custom.css">
-       <link rel="stylesheet" href="css/responsive.css">
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-      <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
-      <script type="text/javascript" src="js/jquery-ui.min.js"></script>    
-   </head>
-   <style>
-       .full-img1{    
-          max-width: 100%;
-          max-height: 500px;
-        }
-
-        </style>
-     <body class="size-1520">
-        <div class="s-12 m-12 l-12 xl-12 xxl-12">
-        <div class="s-2 m-2 l-3 xl-1 xxl-1">
-          <!-- ADSPACE HERE -->&nbsp;
-        </div>
-        <div class="s-12 m-12 l-12 xl-12 xxl-12">
-        <!-- HEADER -->
-        <header>
-
-           <div class="line">
-              <div class="box">
-                  <div class="left"></div>
-                 <div class="mid">
-                    <img class="full-img logo" src="img/mocklogo.png">
-                 </div>
-                 <div class="right">
-                    <div class="margin">
-                       <div class="s-12 md-12 l-12 center">
-                          <?php 
-                          if(isset($_SESSION['user_id']))
-                          {
-                            echo "<form action='pre-post.php'>";
-                          }
-                          // else
-                          {
-                            echo "<form action='login'>";
-                          }
-
-                          ?>
-                    
-                          <button class="button rounded-btn submit-btn right" type="submit"><i class="icon-sli-flag"></i>Post My AD </button>
-                       
-                       </div>
-                    </div>
-                 </div>
-              </div>
-           </div>
-           <!-- TOP NAV -->  
-           <div class="line">
-              <nav>
-                 <p class="nav-text">Menu</p>
-                 <div class="top-nav" >
-                   <ul class="" style="">
-                   <li><a href="index.php"><img src="img/menus/home.png">Home</a></li>
-                      <li style="display:inline;"><a href="automotives.php"><img src="img/menus/gear.png">Automotives</a></li>
-                      <li style="display:inline;"><a href="properties.php"><img src="img/menus/key2.png">Properties</a></li>
-                      <li style="display:inline;"><a href="jobs.php"><img src="img/menus/handshake.png">Job Openings</a></li>
-                      <li style="display:inline;"><a href="classifieds.php"><img src="img/menus/handbag.png">Classifieds</a></li>
-                      <li style="display:inline;">
-                        <?php
-                          if(isset($_SESSION['user_id']))
-                            {
-                              echo "<a href='includes/logout.php'><img src='img/menus/person12.png'>Sign-out</a>";
-                            }
-                            else
-                            {
-                             echo "<a href='login'><img src='img/menus/person12.png'>Login</a>";
-                            }
-                        ?>
-                      </li>   
-                    </ul>
-                 </div>
-              </nav>
-           </div>
-        </header>
         <!-- ASIDE NAV AND CONTENT -->
       <div class="line">
                 <section class="s-12 m-12 l-9 xl-10 post-wrap"> 
@@ -108,7 +17,7 @@ else
                 <nav class="breadcrumb-nav">
                   <ul>
                     <li><a href="index.php"><i class="icon-sli-home"></i></a></li>
-                    <li><a href="properties.php">Properties</a></li>
+                    <li><a href="boardingHouse.php">Boarding House</a></li>
                   <li><a href="">View Post</a></li>
                   <!-- <li><span>Sub Category 1</span></li> -->
                   </ul>
@@ -133,7 +42,7 @@ else
                           $imgs=$res['photos'];
                           $imgs=explode("--/",$imgs);
                           foreach($imgs as $image)
-                          echo '<div class="item"><img class="full-img1" style="width:100%; height:100%;" src="post_img/'.$image.'" alt=""></div>';
+                          echo '<div class="item"><img class="full-img2" style="width:100%; height:100%;" src="post_img/'.$image.'" alt=""></div>';
                         ?>
                       </div>
                     </div>

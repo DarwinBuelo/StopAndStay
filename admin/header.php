@@ -1,6 +1,5 @@
 <?php
 ob_start();
-
 ?>
 <head>
     <!-- Required meta tags -->
@@ -17,7 +16,7 @@ ob_start();
     <link rel="stylesheet" href="assets/vendor/charts/c3charts/c3.css">
     <link rel="stylesheet" href="assets/vendor/fonts/flag-icon-css/flag-icon.min.css">
     <link rel="stylesheet" href="assets/vendor/bootstrap-select/css/bootstrap-select.css">
-    <title>Billboard Nation | ADMIN</title>
+    <title>Stop N Stay | ADMIN</title>
     <style>
     #appadd {
     overflow: hidden;
@@ -36,7 +35,7 @@ ob_start();
         <!-- ============================================================== -->
         <div class="dashboard-header">
             <nav class="navbar navbar-expand-lg bg-white fixed-top">
-                <a class="navbar-brand" href="index.php">Billboard Nation | Admin</a>
+                <a class="navbar-brand" href="index.php">Stop N Stay | Admin</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -78,18 +77,8 @@ ob_start();
                                 <a class="nav-link" href="index.php"><i class="fa fa-fw fa-rocket"></i>Dashboard</a>
                             </li>
                             <li class="nav-item">
-                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-car"></i> Automotives</a>
+                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-2" aria-controls="submenu-2"><i class="fa fa-fw fa-key"></i> Apartment</a>
                                 <div id="submenu-2" class="collapse submenu" style="">
-                                    <ul class="nav flex-column">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="at_view.php">View All</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-3"><i class="fas fa-fw fa-key"></i>Properties</a>
-                                <div id="submenu-3" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
                                             <a class="nav-link" href="prop_view.php">View All</a>
@@ -97,22 +86,12 @@ ob_start();
                                     </ul>
                                 </div>
                             </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-4" aria-controls="submenu-4"><i class="fab fa-fw fa-wpforms"></i>Job Openings</a>
-                                <div id="submenu-4" class="collapse submenu" style="">
-                                    <ul class="nav flex-column">
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="job_view.php">View All</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-5" aria-controls="submenu-5"><i class="fas fa-fw fa-shopping-bag"></i>Classifieds</a>
-                                <div id="submenu-5" class="collapse submenu" style="">
+                                <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-3" aria-controls="submenu-3"><i class="fas fa-fw fa-key"></i>Boarding House</a>
+                                <div id="submenu-3" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="class_view.php">View All</a>
+                                            <a class="nav-link" href="prop_view.php">View All</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -127,7 +106,7 @@ ob_start();
                                     </ul>
                                 </div>
                             </li>
-                             <li class="nav-item">
+                             <!-- <li class="nav-item">
                                 <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-8" aria-controls="submenu-5"><i class="fas fa-fw fa-table"></i>Ads</a>
                                 <div id="submenu-8" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
@@ -136,7 +115,7 @@ ob_start();
                                         </li>
                                     </ul>
                                 </div>
-                            </li>
+                            </li> -->
                             </li>
                         </ul>
                     </div>

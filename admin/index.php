@@ -10,7 +10,7 @@
     <link href="assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/libs/css/style.css">
     <link rel="stylesheet" href="assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
-    <title>Billboard Nation | Admin</title>
+    <title>Stop N Stay | Admin</title>
     <style>
         .imageThumb2 {
             max-height: 75px;
@@ -21,7 +21,9 @@
         }
     </style>
 </head>
-<?php include_once( "header.php"); include_once( "../includes/db.php"); session_start(); // if(isset()) ?>
+<?php 
+include_once( "header.php");
+ include_once( "../includes/db.php"); session_start(); // if(isset()) ?>
 <!-- ============================================================== -->
 <!-- wrapper  -->
 <!-- ============================================================== -->
@@ -34,7 +36,7 @@
             <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                     <div class="page-header">
-                        <h3 class="mb-2">Billboard Nation </h3>
+                        <h3 class="mb-2">Stop N Stay </h3>
                         <p class="pageheader-text">Proin placerat ante duiullam scelerisque a velit ac porta, fusce sit amet vestibulum mi. Morbi lobortis pulvinar quam.</p>
                         <div class="page-breadcrumb">
                             <nav aria-label="breadcrumb">
@@ -68,86 +70,20 @@
                 <div class="influence-profile-content pills-regular">
                     <ul class="nav nav-pills mb-3 nav-justified" id="pills-tab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link active" id="pills-campaign-tab" data-toggle="pill" href="#automotives" role="tab" aria-controls="pills-campaign" aria-selected="true">Automotives</a>
+                            <a class="nav-link" id="pills-packages-tab" data-toggle="pill" href="#apartment" role="tab" aria-controls="pills-packages" aria-selected="false">Apartment</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="pills-packages-tab" data-toggle="pill" href="#properties" role="tab" aria-controls="pills-packages" aria-selected="false">Properties</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="pills-review-tab" data-toggle="pill" href="#jobs" role="tab" aria-controls="pills-review" aria-selected="false">Job Openings</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="pills-packages-tab" data-toggle="pill" href="#classified" role="tab" aria-controls="pills-packages" aria-selected="false">Classifieds</a>
+                            <a class="nav-link" id="pills-review-tab" data-toggle="pill" href="#bhouse" role="tab" aria-controls="pills-review" aria-selected="false">Boarding House</a>
                         </li>
                     </ul>
                     <div class="tab-content" id="pills-tabContent">
                         <!-- =======================   TPOST PILL  ================================= -->
-                        <div class="tab-pane fade show active" id="automotives" role="tabpanel" aria-labelledby="pills-campaign-tab">
-                            <div class="row">
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <div class="section-block">
-                                        <h3 class="section-title">Automotives</h3>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h1 class="mb-1">
-                                                             <?php
-                                                            $sql="SELECT COUNT(pend_id)as num from tbl_pend";
-                                                            $res=mysqli_fetch_assoc(mysqli_query($conn,$sql));
-                                                            echo $res['num'];
-                                                            ?>
-                                                                </h1>
-                                            <p>Total Posts</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h2 class="mb-1">
-                                                                    <?php
-                                                            $sql="SELECT COUNT(pend_id)as num from tbl_pend where pend_stat=1";
-                                                            $res=mysqli_fetch_array(mysqli_query($conn,$sql));
-                                                            echo $res['num'];
-                                                            ?>
-                                                                </h2>
-                                            <p>Approved Posts</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h1 class="mb-1">
-                                                                    <?php
-                                                            $sql="SELECT COUNT(pend_id)as num from tbl_pend where pend_stat=0";
-                                                            $res=mysqli_fetch_array(mysqli_query($conn,$sql));
-                                                            echo $res['num'];
-                                                            ?>
-                                                                </h1>
-                                            <p>Pending Posts</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                           
-                            </div>
-                            <!-- ============================================================== -->
-                            <!-- end content -->
-                            <!-- ============================================================== -->
-                            
-                            <!-- ============================================================== -->
-                            <!-- end wrapper -->
-                            <!-- ============================================================== -->
-                        <!-- =======================  END OF TPOST PILL  ================================= -->
                         <!-- =======================   EVENT PILL  ================================= -->
-                        <div class="tab-pane fade show " id="properties" role="tabpanel" aria-labelledby="pills-campaign-tab">
+                        <div class="tab-pane fade show " id="apartment" role="tabpanel" aria-labelledby="pills-campaign-tab">
                             <div class="row">
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                     <div class="section-block">
-                                        <h3 class="section-title">Properties</h3>
+                                        <h3 class="section-title">Apartment</h3>
                                     </div>
                                 </div>
                                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
@@ -194,20 +130,11 @@
                                 </div>
                             </div>
                         </div>
-                         <!-- ============================================================== -->
-                            <!-- end content -->
-                            <!-- ============================================================== -->
-                            
-                            <!-- ============================================================== -->
-                            <!-- end wrapper -->
-                            <!-- ============================================================== -->
-                        <!-- =======================  END OF TPOST PILL  ================================= -->
-                        <!-- =======================   EVENT PILL  ================================= -->
-                        <div class="tab-pane fade show " id="jobs" role="tabpanel" aria-labelledby="pills-campaign-tab">
+                        <div class="tab-pane fade show " id="bhouse" role="tabpanel" aria-labelledby="pills-campaign-tab">
                             <div class="row">
                                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                     <div class="section-block">
-                                        <h3 class="section-title">Events</h3>
+                                        <h3 class="section-title">Boarding House</h3>
                                     </div>
                                 </div>
                                 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
@@ -215,7 +142,7 @@
                                         <div class="card-body">
                                             <h1 class="mb-1">
                                                              <?php
-                                                            $sql="SELECT COUNT(id)as num from job_opening";
+                                                            $sql="SELECT COUNT(ID)as num from tbl_property";
                                                             $res=mysqli_fetch_assoc(mysqli_query($conn,$sql));
                                                             echo $res['num'];
                                                             ?>
@@ -229,7 +156,7 @@
                                         <div class="card-body">
                                             <h2 class="mb-1">
                                                                     <?php
-                                                            $sql="SELECT COUNT(id)as num from job_opening where status=1";
+                                                            $sql="SELECT COUNT(ID)as num from tbl_property where status=1";
                                                             $res=mysqli_fetch_array(mysqli_query($conn,$sql));
                                                             echo $res['num'];
                                                             ?>
@@ -243,67 +170,7 @@
                                         <div class="card-body">
                                             <h1 class="mb-1">
                                                                     <?php
-                                                            $sql="SELECT COUNT(id)as num from job_opening where status=0";
-                                                            $res=mysqli_fetch_array(mysqli_query($conn,$sql));
-                                                            echo $res['num'];
-                                                            ?>
-                                                                </h1>
-                                            <p>Pending Posts</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                         <!-- ============================================================== -->
-                            <!-- end content -->
-                            <!-- ============================================================== -->
-                            
-                            <!-- ============================================================== -->
-                            <!-- end wrapper -->
-                            <!-- ============================================================== -->
-                        <!-- =======================  END OF TPOST PILL  ================================= -->
-                        <!-- =======================   EVENT PILL  ================================= -->
-                        <div class="tab-pane fade show " id="classified" role="tabpanel" aria-labelledby="pills-campaign-tab">
-                            <div class="row">
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                    <div class="section-block">
-                                        <h3 class="section-title">Classified</h3>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h1 class="mb-1">
-                                                             <?php
-                                                            $sql="SELECT COUNT(ID)as num from tbl_classified";
-                                                            $res=mysqli_fetch_assoc(mysqli_query($conn,$sql));
-                                                            echo $res['num'];
-                                                            ?>
-                                                                </h1>
-                                            <p>Total Posts</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h2 class="mb-1">
-                                                                    <?php
-                                                            $sql="SELECT COUNT(ID)as num from tbl_classified where stat=1";
-                                                            $res=mysqli_fetch_array(mysqli_query($conn,$sql));
-                                                            echo $res['num'];
-                                                            ?>
-                                                                </h2>
-                                            <p>Approved Posts</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h1 class="mb-1">
-                                                                    <?php
-                                                            $sql="SELECT COUNT(ID)as num from tbl_classified where stat=0";
+                                                            $sql="SELECT COUNT(ID)as num from tbl_property where status=0";
                                                             $res=mysqli_fetch_array(mysqli_query($conn,$sql));
                                                             echo $res['num'];
                                                             ?>
