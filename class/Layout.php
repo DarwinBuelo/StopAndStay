@@ -209,10 +209,10 @@ class Layout
                  <div class="top-nav" >
                    <ul class="" style="">
                     <li><a href="index.php"><img src="img/menus/home.png">Home</a></li>
-                        <li style="display:inline;"><a href="apartment.php"><img src="img/menus/gear.png">Apartment</a></li>
+                        <li style="display:inline;"><a href="apartment.php"><img src="img/menus/key2.png">Apartment</a></li>
                         <li style="display:inline;"><a href="boardingHouse.php"><img src="img/menus/key2.png">Boarding House</a></li>
-                        <li style="display:inline;"><a href="#"><img src="img/menus/handshake.png">Landmarks</a></li>
-                        <li style="display:inline;"><a href="#"><img src="img/menus/handbag.png">Reservation</a></li>
+                        <li style="display:inline;"><a href="#"><img src="img/menus/gear.png">Landmarks</a></li>
+                        <li style="display:inline;"><a href="#"><img src="img/menus/handshake.png">Reservation</a></li>
                         <li style="display:inline;"> ';
                           if(isset($_SESSION['user_id'])) {
                             $html .= "<a href='includes/logout.php'><img src='img/menus/person12.png'>Sign-out</a>";
