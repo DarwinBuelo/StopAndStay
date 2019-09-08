@@ -188,7 +188,7 @@ class Layout
                           ';
                 if(isset($_SESSION["user_id"]))
                 {
-                echo "<form action='posting_property.php'>";
+                echo "<form action='pre-post.php'>";
                 }
                 else
                 {

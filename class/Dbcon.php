@@ -1,16 +1,13 @@
 <?php
 //databaseConnection
 
-/**
- * @author Darwin Buelo
- */
 class Dbcon
 {
     //define the variable needed
     public static $host = '127.0.0.1';
     public static $username = 'root';
     public static $password = '';
-    public static $dbname = 'test';
+    public static $dbname = 'stop_n_stay';
     public static $conn;
     static $error;
 
@@ -54,7 +51,7 @@ class Dbcon
         }
         $sql .= "WHERE true ";
         foreach ($where as $key => $value){
-            $sql .= "AND {$key} = '{$value}'";
+            $sql .= " AND {$key} = '{$value}'";
         }
         return self::execute($sql);
     }
@@ -84,9 +81,10 @@ class Dbcon
     public static function execute($query)
     {
         self::connect();
-        if ($result = mysqli_query(self::$conn, $query) or die(mysqli_error(self::$conn))) {
+        if ($result = mysqli_query(self::$conn, $query)) {
             return $result;
         } else {
+            self::$error = mysqli_error(self::$conn);
             return false;
         }
     }

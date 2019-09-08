@@ -17,27 +17,24 @@ if (isset($_POST['submit_login'])) {
                     header('location: ../login/index.php?login=error');
           } else {
                if ($row = mysqli_fetch_assoc($result)) {
-                    if($row['user_name']=='admitratorzxcv32lc')
-                    {
-                    $_SESSION['user_id'] = $row['user_id'];
-                    $_SESSION['fname'] = $row['user_fname'];
-                    $_SESSION['username'] = $row['user_name'];
-                    $_SESSION['password'] = $row['user_pass'];
-                    $_SESSION['user_number'] = $row['user_contact'];
-                    $_SESSION['user_email'] = $row['user_email'];
-                    $_SESSION['usertype'] = 'user';
-                    header('location: ../admin/index.php'); 
-                    }
-                    else
-                    {
-                    $_SESSION['user_id'] = $row['user_id'];
-                    $_SESSION['fname'] = $row['user_fname'];
-                    $_SESSION['username'] = $row['user_name'];
-                    $_SESSION['password'] = $row['user_pass'];
-                    $_SESSION['user_number'] = $row['user_contact'];
-                    $_SESSION['user_email'] = $row['user_email'];
-                    $_SESSION['usertype'] = 'user';
-                    header('location: ../index.php?login=success');  
+                    if ($row['user_name']=='admitratorzxcv32lc') {
+                        $_SESSION['user_id'] = $row['user_id'];
+                        $_SESSION['fname'] = $row['user_fname'];
+                        $_SESSION['username'] = $row['user_name'];
+                        $_SESSION['password'] = $row['user_pass'];
+                        $_SESSION['user_number'] = $row['user_contact'];
+                        $_SESSION['user_email'] = $row['user_email'];
+                        $_SESSION['usertype'] = 'user';
+                        header('location: ../admin/index.php');
+                    } else {
+                        $_SESSION['user_id'] = $row['user_id'];
+                        $_SESSION['fname'] = $row['user_fname'];
+                        $_SESSION['username'] = $row['user_name'];
+                        $_SESSION['password'] = $row['user_pass'];
+                        $_SESSION['user_number'] = $row['user_contact'];
+                        $_SESSION['user_email'] = $row['user_email'];
+                        $_SESSION['usertype'] = 'user';
+                        header('location: ../index.php?login=success');
                     }
                     exit();
                }

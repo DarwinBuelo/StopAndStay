@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <html lang="en"><head>
 	<title>Website Name - Posting</title>
 	<meta charset="UTF-8">
@@ -44,35 +47,17 @@
 					<tr>
 						<td align="center">
 							<div class="wrap-login100" style="background:#B91515; width:132px; height:132px; margin:5px;">
-								<a href="posting.php">
-								<img src="icon/1.png" style="height:60px; width:60px; margin-top: 15px;"/>
-								<h5 style="color:#ffff;"><b>Automotives</b></h5>
-								</a>
-							</div>
-						</td>
-						<td align="center" style="margin:5px;">
-							<div class="wrap-login100" style="background:#B91515; width:132px; height:132px; margin:5px;">
-								<a href="posting_property.php">
+								<a href="posting_property.php?page=0">
 								<img src="icon/2.ico" style="height:60px; width:60px; margin-top: 15px;"/>
-								<h5 style="color:#ffff;"><b>Properties</b></h5>
-								</a>
-							</div>
-						</td>
-					</tr>
-					<tr>
-						<td align="center" style="margin:5px;">
-							<div class="wrap-login100" style="background:#B91515; width:132px; height:132px; margin:5px;">
-								<a href="posting_job.php">
-								<img src="icon/3.png" style="height:60px; width:60px; margin-top: 15px;"/>
-								<h5 style="color:#ffff;"><b>Job Openings</b></h5>
+								<h5 style="color:#ffff;"><b>Boarding House</b></h5>
 								</a>
 							</div>
 						</td>
 						<td align="center" style="margin:5px;">
 							<div class="wrap-login100" style="background:#B91515; width:132px; height:132px; margin:5px;">
-								<a href="posting_classified.php">
-								<img src="icon/5.ico" style="height:60px; width:60px; margin-top: 15px;"/>
-								<h5 style="color:#ffff;"><b>Classifieds</b></h5>
+								<a href="posting_property.php?page=1">
+								<img src="icon/2.ico" style="height:60px; width:60px; margin-top: 15px;"/>
+								<h5 style="color:#ffff;"><b>Apartment</b></h5>
 								</a>
 							</div>
 						</td>

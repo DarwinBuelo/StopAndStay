@@ -3,7 +3,7 @@
      $db_host = 'localhost';
      $db_uname = 'root';
      $db_pword = '';
-     $db_name = 'bb_db';
+     $db_name = 'stop_n_stay';
 
      global $conn;
 
@@ -12,12 +12,3 @@
      if (mysqli_connect_errno()) {
           echo "Failed to Connect: ".mysqli_connect_errorno();
      }
-
-// echo $gc;
-// // echo "<br>";
-// // echo $nopairsl;
-// // echo "<br>";
-// // echo $nopairs;
-// // echo "<br>";
-// // echo $less;
-// // echo "<br>";

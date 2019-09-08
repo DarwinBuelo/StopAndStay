@@ -18,4 +18,20 @@ class Util
             return false;
         }
     }
+
+    
+    public static function date($date=null){
+        if(!empty($date)){
+            $formated = date('m/d/Y', strtotime($date));
+        }else{
+            $formated = date('m/d/Y');
+        }
+        return $formated;
+    }
+
+    public static function debug($data){
+        echo "<pre>";
+        var_dump($data);
+        echo "</pre>";
+    }
 }

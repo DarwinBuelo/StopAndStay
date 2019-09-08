@@ -50,6 +50,7 @@
 					</span>
 					
 					<div class="wrap-input100 validate-input m-b-16" data-validate="Please enter title">
+                        <input class="input100" type="hidden" name="page" value="<?= $_GET['page']; ?>">
 						<input class="input100" type="text" name="title" placeholder="Title">
 						<span class="focus-input100"></span>
 					</div>
@@ -106,7 +107,7 @@
 				<script src="js/custom-file-input.js"></script>
 					<br>
 					<div class="wrap-input100 validate-input" data-validate="Please enter contact #">
-						<input class="input100" type="text" name="contact_num" placeholder="Phone Number">
+						<input class="input100" type="text" name="contact_num" placeholder="Contact Number">
 						<span class="focus-input100"></span>
 					</div>
 					<br>

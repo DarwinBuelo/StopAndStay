@@ -19,7 +19,6 @@
 <?php 
 include_once("header.php");
 include_once("../includes/db.php");
-
 if(isset($_GET['searchit']))
 {
      if($_GET['searchit']=="")
@@ -89,32 +88,34 @@ if(isset($_GET['searchit']))
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php 
+                                            <?php
+                                            include '../class/User.php';
                                             include('prop_pagination.php');
-                                            while($row=mysqli_fetch_array($result))
-                                            {
-                                                echo "<tr><td>".$row['title']."</td>";
-                                                echo "<td id='appadd'>".$row['description']."</td>";
-                                                echo "<td id='appadd'>USER POSTER</td>"; //add to database
-                                                // echo "<td id='appadd'>".$row['poster']."</td>";
-                                                echo "<td id='appadd'>".$row['location']."</td>";
-                                                
-                                                if($row['status']==1)
-                                                {
-                                                    echo "<td id='appadd'style='color:#048e09'>";
-                                                    echo "Approved</td>";
+                                            if (!empty($result)) {
+                                                while ($row=mysqli_fetch_array($result)) {
+                                                    echo "<tr><td>".$row['title']."</td>";
+                                                    echo "<td id='appadd'>".$row['description']."</td>";
+                                                    echo "<td id='appadd'>".User::getEmailAddress($row['user_id'])."</td>"; //add to database
+                                                    // echo "<td id='appadd'>".$row['poster']."</td>";
+                                                    echo "<td id='appadd'>".$row['location']."</td>";
+
+                                                    if($row['status']==1)
+                                                    {
+                                                        echo "<td id='appadd'style='color:#048e09'>";
+                                                        echo "Approved</td>";
+                                                    }
+                                                    else
+                                                    {
+                                                        echo "<td id='appadd'style='color:#d00c0c'>";
+                                                        echo "Not Approved</td>";
+                                                    }
+                                                    echo "<td id='appadd'><a title='Approve' href='prop_app.php?item=";
+                                                    echo $row['ID']."'><i class='fas fa-check'>&nbsp;&nbsp;</i></a>";
+                                                    echo "<a href='prop_view_item.php?type=".$type."&item=";
+                                                    echo $row['ID']."'><i class='fas fa-eye'></i></a>";
+                                                    echo "</td>";
+                                                    echo "</tr>";
                                                 }
-                                                else
-                                                {
-                                                    echo "<td id='appadd'style='color:#d00c0c'>";
-                                                    echo "Not Approved</td>";
-                                                }
-                                                echo "<td id='appadd'><a title='Approve' href='prop_app.php?item=";
-                                                echo $row['ID']."'><i class='fas fa-check'>&nbsp;&nbsp;</i></a>";
-                                                echo "<a href='prop_view_item.php?item=";
-                                                echo $row['ID']."'><i class='fas fa-eye'></i></a>";
-                                                echo "</td>";
-                                                echo "</tr>";
                                             }
                                             ?>
                                            <!-- =====================PRINT VIA PHP============= -->

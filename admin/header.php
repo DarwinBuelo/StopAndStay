@@ -81,7 +81,7 @@ ob_start();
                                 <div id="submenu-2" class="collapse submenu" style="">
                                     <ul class="nav flex-column">
                                         <li class="nav-item">
-                                            <a class="nav-link" href="prop_view.php">View All</a>
+                                            <a class="nav-link" href="prop_view.php?page=1">View All</a>
                                         </li>
                                     </ul>
                                 </div>

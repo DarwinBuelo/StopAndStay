@@ -40,6 +40,8 @@ $Outline->header('Home');
                             tbl_property
                         WHERE
                             status = 1
+                          AND
+                            property_type = 1  
                         LIMIT
                             5
                       ";
@@ -69,11 +71,13 @@ $Outline->header('Home');
                     <?php
                       $sql = "
                           SELECT DISTINCT 
-                              title
+                            title
                           FROM
-                              tbl_property
+                            tbl_property
                           WHERE
-                              status = 1
+                            status = 1
+                          AND
+                            property_type = 0  
                           LIMIT
                               5
                       ";
@@ -94,69 +98,69 @@ $Outline->header('Home');
                   </div>
                 </div>
 
-                <div class="s-12 m-12 l-6 xl-6 xxl-6">
-                  <h3 class="margin-bottom" style="text-align:center;">Landmarks</h3>
-                   <div class="margin2x">
-                    <div class="s-12 m-12 l-12 xl-12 xxl-12">
-                    <?php
-                      $sql = "
-                      SELECT DISTINCT 
-                          title
-                      FROM
-                          tbl_property
-                      WHERE
-                          status = 1
-                      LIMIT
-                          5
-                      ";
-                      $res = mysqli_query($conn,$sql);
-                      $x=0;
-                      while($row = mysqli_fetch_array($res)) { ?>
-                        <ul>
-                          <li><?php echo ''.$row['title']; ?></li>
-                        </ul>
-                     <?php $x++;}
-                      while($x < 5) { ?>
-                        <ul>
-                        <li></li>
-                        </ul>
-                     <?php $x++;}
-                     ?>
-                    </div>
-                  </div>
-                </div>
+<!--                <div class="s-12 m-12 l-6 xl-6 xxl-6">-->
+<!--                  <h3 class="margin-bottom" style="text-align:center;">Landmarks</h3>-->
+<!--                   <div class="margin2x">-->
+<!--                    <div class="s-12 m-12 l-12 xl-12 xxl-12">-->
+<!--                    --><?php
+//                      $sql = "
+//                      SELECT DISTINCT
+//                          title
+//                      FROM
+//                          tbl_property
+//                      WHERE
+//                          status = 1
+//                      LIMIT
+//                          5
+//                      ";
+//                      $res = mysqli_query($conn,$sql);
+//                      $x=0;
+//                      while($row = mysqli_fetch_array($res)) { ?>
+<!--                        <ul>-->
+<!--                          <li>--><?php //echo ''.$row['title']; ?><!--</li>-->
+<!--                        </ul>-->
+<!--                     --><?php //$x++;}
+//                      while($x < 5) { ?>
+<!--                        <ul>-->
+<!--                        <li></li>-->
+<!--                        </ul>-->
+<!--                     --><?php //$x++;}
+//                     ?>
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
 
-                <div class="s-12 m-12 l-6 xl-6 xxl-6">
-                  <h3 class="margin-bottom" style="text-align:center;">Reservation</h3>
-                   <div class="margin2x">
-                    <div class="s-12 m-12 l-12 xl-12 xxl-12">
-                    <?php
-                      $sql = "
-                      SELECT DISTINCT 
-                            title
-                        FROM
-                            tbl_property
-                        WHERE
-                            status = 1
-                        LIMIT
-                      5
-                      ";
-                      $res = mysqli_query($conn,$sql);
-                      $x=0;
-                      while($row = mysqli_fetch_array($res)) { ?>
-                        <ul>
-                          <li><?php echo ''.$row['title']; ?></li>
-                        </ul>
-                     <?php $x++;}
-                      while($x < 5) { ?>
-                        <ul>
-                        <li></li>
-                        </ul>
-                     <?php $x++;}
-                     ?>
-                    </div>
-                  </div>
-                </div>
+<!--                <div class="s-12 m-12 l-6 xl-6 xxl-6">-->
+<!--                  <h3 class="margin-bottom" style="text-align:center;">Reservation</h3>-->
+<!--                   <div class="margin2x">-->
+<!--                    <div class="s-12 m-12 l-12 xl-12 xxl-12">-->
+<!--                    --><?php
+//                      $sql = "
+//                      SELECT DISTINCT
+//                            title
+//                        FROM
+//                            tbl_property
+//                        WHERE
+//                            status = 1
+//                        LIMIT
+//                      5
+//                      ";
+//                      $res = mysqli_query($conn,$sql);
+//                      $x=0;
+//                      while($row = mysqli_fetch_array($res)) { ?>
+<!--                        <ul>-->
+<!--                          <li>--><?php //echo ''.$row['title']; ?><!--</li>-->
+<!--                        </ul>-->
+<!--                     --><?php //$x++;}
+//                      while($x < 5) { ?>
+<!--                        <ul>-->
+<!--                        <li></li>-->
+<!--                        </ul>-->
+<!--                     --><?php //$x++;}
+//                     ?>
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
 
                 </div>
              </div>

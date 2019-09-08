@@ -1,0 +1,1 @@
+ALTER TABLE tbl_property ADD property_type INT NOT NULL AFTER user_id;
