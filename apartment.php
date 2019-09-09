@@ -57,10 +57,10 @@ $Outline->header('Apartment');
                     if(isset($_GET['tagid']))
                     {
                     $tag = $_GET['tagid'];
-                    $sql=mysqli_query($conn,"SELECT * FROM tbl_property where title Like '%$tag%' and status = 1");
+                    $sql=mysqli_query($conn,"SELECT * FROM tbl_property where title Like '%$tag%' and status = 1 and property_type = 1");
                     }
                     else{
-                    $sql=mysqli_query($conn,"SELECT * from tbl_property where status = 1");   
+                    $sql=mysqli_query($conn,"SELECT * from tbl_property where status = 1 and property_type = 1");
                     }
                     
                     while($res=mysqli_fetch_array($sql))
