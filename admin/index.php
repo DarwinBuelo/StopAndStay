@@ -91,7 +91,7 @@ include_once( "header.php");
                                         <div class="card-body">
                                             <h1 class="mb-1">
                                                              <?php
-                                                            $sql="SELECT COUNT(ID)as num from tbl_property";
+                                                            $sql="SELECT COUNT(ID)as num from tbl_property where property_type=1";
                                                             $res=mysqli_fetch_assoc(mysqli_query($conn,$sql));
                                                             echo $res['num'];
                                                             ?>
@@ -105,7 +105,7 @@ include_once( "header.php");
                                         <div class="card-body">
                                             <h2 class="mb-1">
                                                                     <?php
-                                                            $sql="SELECT COUNT(ID)as num from tbl_property where status=1";
+                                                            $sql="SELECT COUNT(ID)as num from tbl_property where status=1 and property_type=1";
                                                             $res=mysqli_fetch_array(mysqli_query($conn,$sql));
                                                             echo $res['num'];
                                                             ?>
@@ -119,7 +119,7 @@ include_once( "header.php");
                                         <div class="card-body">
                                             <h1 class="mb-1">
                                                                     <?php
-                                                            $sql="SELECT COUNT(ID)as num from tbl_property where status=0";
+                                                            $sql="SELECT COUNT(ID)as num from tbl_property where status=0 and property_type=1";
                                                             $res=mysqli_fetch_array(mysqli_query($conn,$sql));
                                                             echo $res['num'];
                                                             ?>
@@ -142,7 +142,7 @@ include_once( "header.php");
                                         <div class="card-body">
                                             <h1 class="mb-1">
                                                              <?php
-                                                            $sql="SELECT COUNT(ID)as num from tbl_property";
+                                                            $sql="SELECT COUNT(ID)as num from tbl_property where property_type=0";
                                                             $res=mysqli_fetch_assoc(mysqli_query($conn,$sql));
                                                             echo $res['num'];
                                                             ?>
@@ -156,7 +156,7 @@ include_once( "header.php");
                                         <div class="card-body">
                                             <h2 class="mb-1">
                                                                     <?php
-                                                            $sql="SELECT COUNT(ID)as num from tbl_property where status=1";
+                                                            $sql="SELECT COUNT(ID)as num from tbl_property where status=1 and property_type=0";
                                                             $res=mysqli_fetch_array(mysqli_query($conn,$sql));
                                                             echo $res['num'];
                                                             ?>
@@ -170,7 +170,7 @@ include_once( "header.php");
                                         <div class="card-body">
                                             <h1 class="mb-1">
                                                                     <?php
-                                                            $sql="SELECT COUNT(ID)as num from tbl_property where status=0";
+                                                            $sql="SELECT COUNT(ID)as num from tbl_property where status=0 and property_type=0";
                                                             $res=mysqli_fetch_array(mysqli_query($conn,$sql));
                                                             echo $res['num'];
                                                             ?>
