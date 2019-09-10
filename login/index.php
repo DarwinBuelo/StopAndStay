@@ -1,3 +1,6 @@
+<?php
+require '../fb-init.php';
+?>
 <html lang="en"><head>
 	<title>Stop N Stay - Login</title>
 	<meta charset="UTF-8">
@@ -45,13 +48,11 @@
 					</div>
 
 					<div class="text-right p-t-13 p-b-23">
-						<span class="txt1">
-							Forgot
-						</span>
-
-						<a href="#" class="txt2">
-							Email / Password?
+						<a class="txt1 p-b-9" aria-hidden="true">
+							Log In With
 						</a>
+
+						<a href="<?= $logInURL; ?>" class="fa fa-facebook" aria-hidden="true">acebook</a>
 					</div>
 
 					<div class="container-login100-form-btn">
@@ -91,6 +92,13 @@
 	<script src="vendor/countdowntime/countdowntime.js"></script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
+        <script src="js/facebook.js"></script>
+        
+<script>
+    FB.getLoginStatus(function(response) {
+        statusChangeCallback(response);
+    });
+</script>
 
 
 </body></html>
