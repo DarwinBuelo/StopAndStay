@@ -139,6 +139,12 @@ class Layout
 
     public function navigationBar()
     {
+        $topLeftButton = '';
+        if(!isset($_SESSION['customer_email'])){
+            $topLeftButton = "Welcome: Guest";
+        } else {
+            $topLeftButton = "Welcome: " . $_SESSION['customer_email'] . "";
+        }
         $html = '
         <head>
         <meta charset="UTF-8"> 
@@ -168,62 +174,126 @@ class Layout
         <div class="s-12 m-12 l-12 xl-12 xxl-12">
           <header>
 
-           <div class="line">
-              <div class="box">
-                <div class="left">
-                <div style="width: 80%; margin-top: 5%;">
-                        <form  class="customform" method="POST" action="../includes/searchmain.php?page=boardingHouse">
-                            <div class="wrap-input100 validate-input m-b-16" style="width: 100%;">
-                              <input class="input100" type="text" placeholder="Search Title" name="tags" title="Search form"/>
-                              <span class="focus-input100"></span>
-                            </div>
-                        </form>
-                  </div>
-                </div>
-                 <div class="mid">
-                 </div>
-                 <div class="right">
-                    <div class="margin">
-                       <div class="s-12 md-12 l-12">
-                          ';
-                if(isset($_SESSION["user_id"]))
-                {
-                echo "<form action='pre-post.php'>";
-                }
-                else
-                {
-                echo "<form action='login'>";
-                }
-        
-               $html .= ' <button class="button rounded-btn submit-btn right" type="submit"><i class="icon-sli-flag"></i>Post My AD </button>
-                          </form>
-                       </div>
-                    </div>
-                 </div>
-              </div>
-           </div>
-           <!-- TOP NAV -->  
-           <div class="line">
-              <nav>
-                <p class="nav-text">Menu</p>
-                 <div class="top-nav" >
-                   <ul class="" style="">
-                    <li><a href="index.php"><img src="img/menus/home.png">Home</a></li>
-                        <li style="display:inline;"><a href="apartment.php"><img src="img/menus/key2.png">Apartment</a></li>
-                        <li style="display:inline;"><a href="boardingHouse.php"><img src="img/menus/key2.png">Boarding House</a></li>
-                        <li style="display:inline;"><a href="#"><img src="img/menus/gear.png">Landmarks</a></li>
-                        <li style="display:inline;"><a href="#"><img src="img/menus/handshake.png">Reservation</a></li>
-                        <li style="display:inline;"> ';
-                          if(isset($_SESSION['user_id'])) {
-                            $html .= "<a href='includes/logout.php'><img src='img/menus/person12.png'>Sign-out</a>";
-                          } else {
-                            $html .= "<a href='login'><img src='img/menus/person12.png'>Login</a>";
-                          }
-               $html .= ' </li> 
-                    </ul>
-                 </div>
-              </nav>
-           </div>
+           <div id="top"><!-- Top Begin -->
+
+       <div class="container"><!-- container Begin -->
+
+           <div class="col-md-6 offer"><!-- col-md-6 offer Begin -->
+
+               <a href="#" class="btn btn-success btn-sm">
+                   '.$topLeftButton.'
+               </a>
+
+
+           </div><!-- col-md-6 offer Finish -->
+
+           <div class="col-md-6"><!-- col-md-6 Begin -->
+
+               <ul class="menu"><!-- cmenu Begin -->
+                   <li>
+                       <a href="checkout.php">';
+            if (isset($_SESSION['user_id'])) {
+                $html .= "<a href='includes/logout.php'>Sign-out</a>";
+              } else {
+                $html .= "<a href='login'>Register | Login</a>";
+              }
+
+                $html .= '</a>
+                   </li>
+
+               </ul><!-- menu Finish -->
+
+           </div><!-- col-md-6 Finish -->
+
+       </div><!-- container Finish -->
+
+   </div><!-- Top Finish -->
+
+   <div id="navbar" class="navbar navbar-default"><!-- navbar navbar-default Begin -->
+
+       <div class="container"><!-- container Begin -->
+
+           <div class="navbar-header"><!-- navbar-header Begin -->
+
+               <a href="front.php" class="navbar-brand home"><!-- navbar-brand home Begin -->
+
+                   <h3 class="hidden-xs">Stop And Stay</h3>
+                   <h3 class="visible-xs">Stop And Stay</h3>
+
+               </a><!-- navbar-brand home Finish -->
+
+               <button class="navbar-toggle" data-toggle="collapse" data-target="#navigation">
+
+                   <span class="sr-only">Toggle Navigation</span>
+
+                   <i class="fa fa-align-justify"></i>
+
+               </button>
+
+               <button class="navbar-toggle" data-toggle="collapse" data-target="#search">
+
+                   <span class="sr-only">Toggle Search</span>
+
+                   <i class="fa fa-search"></i>
+
+               </button>
+
+           </div><!-- navbar-header Finish -->
+
+           <div class="navbar-collapse collapse" id="navigation"><!-- navbar-collapse collapse Begin -->
+
+               <div class="padding-nav"><!-- padding-nav Begin -->
+
+                   <ul class="nav navbar-nav left"><!-- nav navbar-nav left Begin -->
+
+                       <li class="active">
+                           <a href="index.php">Home</a>
+                       </li>
+                       <li class="active">
+                           <a href="boardingHouse.php">Boarding House</a>
+                       </li>
+                       <li class="active">
+                           <a href="apartment.php">Apartment</a>
+                       </li>
+                       <li class="active">
+                           <a href="#">My Account</a>
+                       </li>
+                       <li class="active">
+                           <a href="#">Contact Us</a>
+                       </li>
+
+                   </ul><!-- nav navbar-nav left Finish -->
+
+               </div><!-- padding-nav Finish -->';
+
+                    if (isset($_SESSION["user_id"])) {
+                        $html .= '<a href="pre-post.php" class="btn navbar-btn btn-primary right">';
+
+
+                    } else {
+                        $html .= '<a href="login" class="btn navbar-btn btn-primary right">';
+                    }
+                 $html .= '  <span>Post my Ads</span>
+               </a>
+
+               <div class="navbar-collapse collapse right"><!-- navbar-collapse collapse right Begin -->
+
+                   <!--<button class="btn btn-primary navbar-btn" type="button" data-toggle="collapse" data-target="#search">-->
+
+                       <!--<span class="sr-only">Toggle Search</span>-->
+
+                       <!--<i class="fa fa-search"></i>-->
+
+                   <!--</button>-->
+
+               </div><!-- navbar-collapse collapse right Finish -->
+
+
+           </div><!-- navbar-collapse collapse Finish -->
+
+       </div><!-- container Finish -->
+
+   </div><!-- navbar navbar-default Finish -->
         </header>';
         echo $html;
     }

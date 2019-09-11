@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>M-Dev Store</title>
-    <link rel="stylesheet" href="styles/bootstrap-337.min.css">
-    <link rel="stylesheet" href="font-awsome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="css/bootstrap-337.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style1.css">
 </head>
 <body>
 
@@ -30,7 +30,6 @@
                        echo "Welcome: " . $_SESSION['customer_email'] . "";
 
                    }
-
                    ?>
 
                </a>
@@ -41,26 +40,16 @@
            <div class="col-md-6"><!-- col-md-6 Begin -->
 
                <ul class="menu"><!-- cmenu Begin -->
-
-                   <li>
-                       <a href="customer_register.php">Register</a>
-                   </li>
                    <li>
                        <a href="checkout.php">
 
-                           <?php
-
-                           if(!isset($_SESSION['customer_email'])){
-
-                                echo "<a href='checkout.php'> Login </a>";
-
-                               }else{
-
-                                echo " <a href='logout.php'> Log Out </a> ";
-
-                               }
-
-                           ?>
+                        <?php
+                                if (isset($_SESSION['user_id'])) {
+                                $html = "<a href='includes/logout.php'>Sign-out</a>";
+                              } else {
+                                $html = "<a href='login'>Register | Login</a>";
+                              }
+                        ?>
 
                        </a>
                    </li>
@@ -110,83 +99,49 @@
 
                    <ul class="nav navbar-nav left"><!-- nav navbar-nav left Begin -->
 
-                       <li class="<?php if($active=='Home') echo"active"; ?>">
-                           <a href="front.php">Home</a>
+                       <li class="active">
+                           <a href="index.php">Home</a>
                        </li>
-                       <li class="<?php if($active=='Shop') echo"active"; ?>">
-                           <a href="shop.php">Boarding House</a>
+                       <li class="active">
+                           <a href="boardingHouse.php">Boarding House</a>
                        </li>
-                       <li class="<?php if($active=='Shop') echo"active"; ?>">
-                           <a href="shop.php">Apartment</a>
+                       <li class="active">
+                           <a href="apartment.php">Apartment</a>
                        </li>
-                       <li class="<?php if($active=='Account') echo"active"; ?>">
-
-                           <?php
-
-                           if(!isset($_SESSION['customer_email'])){
-
-                               echo"<a href='checkout.php'>My Account</a>";
-
-                           }else{
-
-                              echo"<a href='customer/my_account.php?my_orders'>My Account</a>";
-
-                           }
-
-                           ?>
-
+                       <li class="active">
+                           <a href='#'>My Account</a>
                        </li>
                        <li class="<?php if($active=='Contact') echo"active"; ?>">
-                           <a href="contact.php">Contact Us</a>
+                           <a href="#">Contact Us</a>
                        </li>
 
                    </ul><!-- nav navbar-nav left Finish -->
 
                </div><!-- padding-nav Finish -->
+               <?php
+                    if (isset($_SESSION["user_id"])) {
+                        echo '<a href="pre-post.php" class="btn navbar-btn btn-primary right">';
 
-               <a href="cart.php" class="btn navbar-btn btn-primary right"><!-- btn navbar-btn btn-primary Begin -->
 
-                   <i class="fa fa-envelope"></i>
-
-                   <span><?php items(); ?> Inbox</span>
-
-               </a><!-- btn navbar-btn btn-primary Finish -->
+                    } else {
+                        echo '<a href="login" class="btn navbar-btn btn-primary right">';
+                    }
+                ?>
+                   <span>Post my Ads</span>
+               </a>
 
                <div class="navbar-collapse collapse right"><!-- navbar-collapse collapse right Begin -->
 
-                   <button class="btn btn-primary navbar-btn" type="button" data-toggle="collapse" data-target="#search"><!-- btn btn-primary navbar-btn Begin -->
+                   <!--<button class="btn btn-primary navbar-btn" type="button" data-toggle="collapse" data-target="#search">-->
 
-                       <span class="sr-only">Toggle Search</span>
+                       <!--<span class="sr-only">Toggle Search</span>-->
 
-                       <i class="fa fa-search"></i>
+                       <!--<i class="fa fa-search"></i>-->
 
-                   </button><!-- btn btn-primary navbar-btn Finish -->
+                   <!--</button>-->
 
                </div><!-- navbar-collapse collapse right Finish -->
 
-               <div class="collapse clearfix" id="search"><!-- collapse clearfix Begin -->
-
-                   <form method="get" action="results.php" class="navbar-form"><!-- navbar-form Begin -->
-
-                       <div class="input-group"><!-- input-group Begin -->
-
-                           <input type="text" class="form-control" placeholder="Search" name="user_query" required>
-
-                           <span class="input-group-btn"><!-- input-group-btn Begin -->
-
-                           <button type="submit" name="search" value="Search" class="btn btn-primary"><!-- btn btn-primary Begin -->
-
-                               <i class="fa fa-search"></i>
-
-                           </button><!-- btn btn-primary Finish -->
-
-                           </span><!-- input-group-btn Finish -->
-
-                       </div><!-- input-group Finish -->
-
-                   </form><!-- navbar-form Finish -->
-
-               </div><!-- collapse clearfix Finish -->
 
            </div><!-- navbar-collapse collapse Finish -->
 

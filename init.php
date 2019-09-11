@@ -5,6 +5,9 @@ $companydesc = '';
 $Outline = new Layout($companyname, $companydesc);
 
 $css = [
+    'css/bootstrap-337.min.css',
+    'css/font-awesome.min.css',
+    'css/style1.css',
     'css/main.css',
     'css/components.css',
     'css/icons.css',
