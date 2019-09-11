@@ -3,7 +3,11 @@
 session_start();
 include_once 'init.php';
 include_once('includes/db.php');
-$Outline->addJS('js/jquery-1.8.3.min.js');  
+require 'bityLink.php';
+$Outline->addJS('js/jquery-1.8.3.min.js');
+$url      = "https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+$url = 'https://www.messenger.com';
+
 if(!isset($_GET['viewid'])) {
   header('location:error_404.php');
 } else {
@@ -73,9 +77,9 @@ if(!isset($_GET['viewid'])) {
                       </button><br><br>
                     <h3>Information</h3>
                     <p>
-                      <i class="material-icons">event_available</i> &nbsp;&nbsp; January 25, 2018 <br>
+                      <i class="material-icons">event_available</i> &nbsp;&nbsp; <?= date_format(date_create($res['ready']), 'm/d/Y'); ?> <br>
                       <i class="material-icons">location_on</i> &nbsp;&nbsp; <?php echo $res['location']; }}?><br>
-                      <i class="material-icons">link</i> &nbsp;&nbsp; BITLY LINK
+                      <i class="material-icons">link</i> &nbsp;&nbsp; <?= shortenURL($url); ?>
                     </p>
                   </form>
                 </div>
