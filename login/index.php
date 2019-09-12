@@ -33,7 +33,7 @@ require '../fb-init.php';
 			<div class="wrap-login100">
 				<form class="login100-form validate-form p-l-35 p-r-55 p-t-120" method="POST" action="../includes/login_user.php">
 					<span class="login100-form-title" style="
-    padding-top: 20px; padding-bottom:20px;">
+    padding-top: 20px; padding-bottom:20px; background-color: #4FBFA8;">
 						Sign In
 					</span>
 
@@ -56,7 +56,7 @@ require '../fb-init.php';
 					</div>
 
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn" name="submit_login">
+                                            <button class="login100-form-btn" style="background-color: #4FBFA8;" name="submit_login">
 							Sign in
 						</button>
 					</div>
@@ -66,7 +66,7 @@ require '../fb-init.php';
 							Don’t have an account?
 						</span>
 
-						<a href="register.php" class="txt3">
+						<a href="register.php" class="txt3" style="color: #4FBFA8;">
 							Sign up now
 						</a>
 					</div>

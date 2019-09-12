@@ -46,17 +46,17 @@
 			<table>
 					<tr>
 						<td align="center">
-							<div class="wrap-login100" style="background:#B91515; width:132px; height:132px; margin:5px;">
+							<div class="wrap-login100" style="background-color: #5CB85C; width:132px; height:132px; margin:5px;">
 								<a href="posting_property.php?page=0">
-								<img src="icon/2.ico" style="height:60px; width:60px; margin-top: 15px;"/>
+								<img src="icon/apartment.png" style="height:60px; width:60px; margin-top: 15px; color: #FFFFFF"/>
 								<h5 style="color:#ffff;"><b>Boarding House</b></h5>
 								</a>
 							</div>
 						</td>
 						<td align="center" style="margin:5px;">
-							<div class="wrap-login100" style="background:#B91515; width:132px; height:132px; margin:5px;">
+							<div class="wrap-login100" style="background-color: #4FBFA8; width:132px; height:132px; margin:5px;">
 								<a href="posting_property.php?page=1">
-								<img src="icon/2.ico" style="height:60px; width:60px; margin-top: 15px;"/>
+                                                                    <img src="icon/bhouse.png" style="height:60px; width:60px; margin-top: 15px;"/>
 								<h5 style="color:#ffff;"><b>Apartment</b></h5>
 								</a>
 							</div>

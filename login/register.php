@@ -30,7 +30,7 @@
 			<div class="wrap-login100">
 				<form class="login100-form validate-form p-l-35 p-r-55 p-t-120" method="POST" action="../includes/register_user.php">
 					<span class="login100-form-title" style="
-    padding-top: 20px; padding-bottom:20px; background-color:#de0b0b;
+    padding-top: 20px; padding-bottom:20px;  background-color: #4FBFA8;;
 ">
 						Register
 					</span>
@@ -57,7 +57,7 @@
 					</div>
 
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn" name="submit_signup" style="background-color:#de0b0b;">
+						<button class="login100-form-btn" name="submit_signup" style=" background-color: #4FBFA8;">
 							Sign Up
 						</button>
 					</div>

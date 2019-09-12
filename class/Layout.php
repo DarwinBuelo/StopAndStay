@@ -273,7 +273,7 @@ class Layout
                     } else {
                         $html .= '<a href="login" class="btn navbar-btn btn-primary right">';
                     }
-                 $html .= '  <span>Post my Ads</span>
+                 $html .= '  <span style="color: #ffffff">Post my Ads</span>
                </a>
 
                <div class="navbar-collapse collapse right"><!-- navbar-collapse collapse right Begin -->

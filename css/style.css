@@ -47,6 +47,6 @@ body
 }
 .box:hover:before
 {
- background: #b91515; 
+ background-color: #4FBFA8;
  color: #fff;
 }

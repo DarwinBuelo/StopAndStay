@@ -1,3 +1,13 @@
+<?php
+    $page = $_GET['page'];
+    if ($page == 0) {
+        $color = '#5CB85C';
+        $title = 'Boarding House';
+    } else {
+        $color = '#4FBFA8';
+        $title = 'Apartment';
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <style>
@@ -45,20 +55,20 @@
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<form class="login100-form validate-form p-l-35 p-r-55 p-t-120" method="POST" action="includes/post_property.php" enctype="multipart/form-data">
-					<span class="login100-form-title" style=" padding-top: 20px; padding-bottom:20px;">
-						Stop N Stay
+					<span class="login100-form-title" style=" padding-top: 20px; padding-bottom:20px; background-color: <?= $color; ?>">
+						<?= $title; ?>
 					</span>
 					
 					<div class="wrap-input100 validate-input m-b-16" data-validate="Please enter title">
-                        <input class="input100" type="hidden" name="page" value="<?= $_GET['page']; ?>">
+                        <input class="input100" type="hidden" name="page" value="<?= $page; ?>">
 						<input class="input100" type="text" name="title" placeholder="Title">
 						<span class="focus-input100"></span>
 					</div>
 
 					<div class="container-login100-form-btn">
-					<input type="file" name="image[]" id="image" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" multiple />
+                                            <input type="file" name="image[]" id="image" class="inputfile inputfile-1" data-multiple-caption="{count} files selected" multiple />
 					<label for="image">
-					<svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg> <span>Add Photos</span></label>
+					<svg xmlns="http://www.w3.org/2000/svg"  width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"/></svg> <span>Add Photos</span></label>
 					<div id="image-holder"></div>
 					<script>
 					$("#image").on('change', function () {
@@ -113,7 +123,7 @@
 					<br>
 
 					<div class="wrap-input100 validate-input" data-validate="Please enter price">
-						<input class="input100" type="text" name="price" placeholder="Price">
+						<input class="input100" type="number" name="price" placeholder="Monthly Price">
 						<span class="focus-input100"></span>
 					</div>
 
@@ -124,8 +134,8 @@
 						<input class="input100" type="text" name="size" placeholder="Size">
 						<span class="focus-input100"></span>
 					</div>
-						<div class="wrap-input100 validate-input m-b-16" data-validate="Please enter Total Closing Fee">
-						<input class="input100" type="text" name="tcf" placeholder="Total closing fee">
+						<div class="wrap-input100 validate-input m-b-16" data-validate="Please enter Advance Payment">
+						<input class="input100" type="number" name="tcf" placeholder="Advance Payment">
 						<span class="focus-input100"></span>
 					</div>
 						<br>
@@ -151,7 +161,7 @@
 					<br>
 					<br>
 					<br>
-						<div class ="box">
+                                        <div class ="box">
 						<select name="bath">
 							 <option value="" disabled selected style="display: none">Bathrooms</option>
 						   <option value="1">1</option>
@@ -202,7 +212,7 @@
 				</center>
 					<br>
 					<div class="container-login100-form-btn">
-						<button class="login100-form-btn" name="btn_sub"  style="width: 400px;">
+						<button class="login100-form-btn" name="btn_sub"  style="width: 400px; background-color: <?= $color; ?>">
 							Submit
 						</button>
 					</div>

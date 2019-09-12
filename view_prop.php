@@ -5,7 +5,7 @@ include_once 'init.php';
 include_once('includes/db.php');
 require 'bityLink.php';
 $Outline->addJS('js/jquery-1.8.3.min.js');
-$url      = "https://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+$url      = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 $url = 'https://www.messenger.com';
 
 if(!isset($_GET['viewid'])) {
@@ -52,34 +52,52 @@ if(!isset($_GET['viewid'])) {
                     </div>
 
                   <h5><strong><?php echo money_formater($res['price']); ?></strong></h5>
+                  <div  class="line hide-s">
+                  <table>
+                    <th align="center">Ready By</th>
+                    <th align="center">Size</th>
+                    <th align="center">Bedrooms</th>
+                    <th align="center">Bathrooms</th>
+                    <tr>
+                      <td align="center">
+                        <img class="details_icons" src="img/Calendar.png">
+                        <br><?= date_format(date_create($res['ready']), 'm/d/Y'); ?>
+                      </td>
+                      <td align="center">
+                        <img class="details_icons" src="img/sm.png">
+                        <br><?= $res['size']; ?>
+                      </td>
+                      <td align="center">
+                        <img class="details_icons" src="img/bed.png">
+                        <br><?= $res['bed']; ?></td>
+                      <td align="center">
+                        <img class="details_icons" src="img/bath.png">
+                        <br><?= $res['bath']; ?></td>
+                      </tr>
+                  </table>
+                </div>
                   <!--  -->
                   <h4>Description:</h4>
                     <p class="margin-bottom"><?php echo $res['description']; ?></p>
-                  <h4>Size:</h4>
-                    <?php 
-                    
-                    echo '<p class="margin-bottom">'.$res['size'].'</p>';
-                    ?>
                     <h4>Extra Features:</h4>
                     <?php 
-                    $extras = explode(", ",$res['extras']);
-                    foreach($extras as $extra)
-                    {
-                    echo '<p class="margin-bottom">'.$extra.'</p>';
-                    }
-                    
+                        $extras = explode(", ",$res['extras']);
+                        foreach ($extras as $extra) {
+                            echo '<p class="margin-bottom">'.$extra.'</p>';
+                        }
                     ?>
                   </div>
                 <div class="s-12 m-3 l-3 xl-3 xxl-3">
-                  <form class="customform s-12 margin-bottom2x" >
-                      <button class="button rounded-btn submit-btn s-12" type="submit">
-                        <b><?php echo $res['contact'] ?></b>
-                      </button><br><br>
+                    <form class="customform s-12 margin-bottom2x" action="includes/reservation.php">
+                      <button class="button rounded-btn submit-btn s-12" name="btnReserve">
+                        <b>Reservation</b>
+                      </button><br>
                     <h3>Information</h3>
                     <p>
                       <i class="material-icons">event_available</i> &nbsp;&nbsp; <?= date_format(date_create($res['ready']), 'm/d/Y'); ?> <br>
-                      <i class="material-icons">location_on</i> &nbsp;&nbsp; <?php echo $res['location']; }}?><br>
-                      <i class="material-icons">link</i> &nbsp;&nbsp; <?= shortenURL($url); ?>
+                      <i class="material-icons">phone</i> &nbsp;&nbsp; <?= $res['contact']; ?> <br>
+                      <i class="material-icons">link</i> &nbsp;&nbsp; <?= shortenURL($url); ?><br>
+                      <i class="material-icons">location_on</i> &nbsp;&nbsp; <a href="#" style="color: black;"><?php echo $res['location']; }}?></a><br>
                     </p>
                   </form>
                 </div>
@@ -90,13 +108,75 @@ if(!isset($_GET['viewid'])) {
   <div class="s-2 m-2 l-3 xl-1 xxl-1">
       <!-- ADSPACE HERE -->&nbsp;
   </div>
-</div>
-      <!-- FOOTER -->
-      <!-- <footer>
-         <?php //footer here
+  <div class="modal fade" id="insertAdsModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="fa fa-plus"></i>     Insert My Ads</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Title</label>
+                    <input type="text" name="title" id="title" class="form-control" required />
+                </div>
+                <div class="form-group">
+					<label>Location</label>
+					<div>
+						<select name='location' id='location' class="form-control" required>
+						<option value = '0'>Left</option>
+						<option value = '1'>Right</option>
+						<option value = '2'>Header</option>
+						</select>
+					</div>
+                </div>
+                <div class="form-group">
+					<input type="file" name="image[]" id="image" data-multiple-caption="{count} files selected" multiple />
+                <div id="image-holder"></div>
+                <script>
+					$("#image").on('change', function () {
+					     //Get count of selected files
+					     var countFiles = $(this)[0].files.length;
+					     var imgPath = $(this)[0].value;
+					     var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+                         console.log(extn);
+					     var image_holder = $("#image-holder");
+					     image_holder.empty();
+					     if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg") {
+					         if (typeof (FileReader) != "undefined") {
 
-         ?>
-      </footer> -->
+					             //loop for each file selected for uploaded.
+					             for (var i = 0; i < countFiles; i++) {
+
+					                 var reader = new FileReader();
+					                 reader.onload = function (e) {
+					                     var img = $('<img/>').addClass('thumb').attr
+					                     ('src', e.target.result); //create image element
+									$(image_holder).append(img);
+					                 }
+
+					                 image_holder.show();
+					                 reader.readAsDataURL($(this)[0].files[i]);
+					             	console.log("wew");
+					             }
+
+					         } else {
+					             alert("This browser does not support FileReader.");
+					         }
+					     } else {
+					         alert("Pls select only images");
+					     }
+					 });
+					</script>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" name="save" id="save" class="btn btn-info" value="Save"/>
+            </div>
+                </div>
+            </div>
+        </div>
+</div>
       <script type="text/javascript" src="js/responsee.js"></script> 
       <script type="text/javascript" src="owl-carousel/owl.carousel.js"></script>
       <script type="text/javascript">
