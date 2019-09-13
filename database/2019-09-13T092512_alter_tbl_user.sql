@@ -1,0 +1,1 @@
+ALTER TABLE tbl_users ADD facebook_id VARCHAR(225) NULL DEFAULT NULL AFTER user_type;
