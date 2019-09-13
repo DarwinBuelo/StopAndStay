@@ -13,14 +13,15 @@ if (isset($_POST['submit_signup'])) {
     $result = mysqli_query($conn, $sql);
     $resultCheck = mysqli_num_rows($result);
     if ($resultCheck < 1) {
-         $sql1 = "INSERT INTO tbl_users (user_email,user_fname,user_pass) VALUES ('$username','$fname','$password') ";
-         $result1 = mysqli_query($conn, $sql1);
-         $content = emailBody($fname, $username);
-         $subject = 'Account Verification';
-         Email::send($username, $fname, $content, $subject);
-         header('location: ../index.php');
+        $sql1 = "INSERT INTO tbl_users (user_email,user_fname,user_pass) VALUES ('$username','$fname','$password') ";
+        $result1 = mysqli_query($conn, $sql1);
+        $content = emailBody($fname, $username);
+        $subject = 'Account Verification';
+        Email::send($username, $fname, $content, $subject);
+        header('location: ../index.php');
     } else {
-          header('location: ../posting_motor.php?dup=error');
+        $redirect = '<a href="http://localhost/stopNstay/login/register.php">Try Again</a>';
+        die('Error: Email Already Exist   '.$redirect);
     }
 }
 function emailBody($fname, $username)
