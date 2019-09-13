@@ -1,5 +1,10 @@
 <?php
 include 'class/Layout.php';
+
+spl_autoload_register(function ($class) {
+    require_once "class/".$class.".php";
+});
+
 $companyname = '';
 $companydesc = '';
 $Outline = new Layout($companyname, $companydesc);
