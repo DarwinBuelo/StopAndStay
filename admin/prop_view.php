@@ -93,9 +93,10 @@ if(isset($_GET['searchit']))
                                             include('prop_pagination.php');
                                             if (!empty($result)) {
                                                 while ($row=mysqli_fetch_array($result)) {
+                                                    $user = !empty(User::getEmailAddress($row['user_id'])) ? User::getEmailAddress($row['user_id']): User::getName($row['user_id']);
                                                     echo "<tr><td>".$row['title']."</td>";
                                                     echo "<td id='appadd'>".$row['description']."</td>";
-                                                    echo "<td id='appadd'>".User::getEmailAddress($row['user_id'])."</td>"; //add to database
+                                                    echo "<td id='appadd'>".$user."</td>"; //add to database
                                                     // echo "<td id='appadd'>".$row['poster']."</td>";
                                                     echo "<td id='appadd'>".$row['location']."</td>";
 

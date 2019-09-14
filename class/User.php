@@ -17,4 +17,18 @@ class User
         $data = DBcon::fetch_array($result);
         return $data[0];
     }
+
+    public static function getName($userID)
+    {
+        $sql = "
+            SELECT
+                user_fname
+            FROM
+                ".static::TABLE_NAME."
+            WHERE
+                user_id = ".$userID;
+        $result = DBcon::execute($sql);
+        $data = DBcon::fetch_array($result);
+        return $data[0];
+    }
 }

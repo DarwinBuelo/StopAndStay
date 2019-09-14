@@ -21,18 +21,22 @@ if (isset($_POST['btnReserve'])) {
 }
 function ifReserved($ownerID, $tblPropertyID, $conn)
 {
-    $sql = "
-        SELECT
-            user_id
-        FROM
-            tenant_reservation
-        WHERE
-            user_id = {$_SESSION['user_id']}
-        AND
-            owner_id = {$ownerID}
-        AND
-            tbl_property_id = {$tblPropertyID}
-    ";
-    return Dbcon::fetch_num_rows($sql, $conn);
+    if (isset($_SESSION['user_id'])) {
+        $sql = "
+            SELECT
+                user_id
+            FROM
+                tenant_reservation
+            WHERE
+                user_id = {$_SESSION['user_id']}
+            AND
+                owner_id = {$ownerID}
+            AND
+                tbl_property_id = {$tblPropertyID}
+        ";
+        return Dbcon::fetch_num_rows($sql, $conn);
+    } else {
+        Util::getParam()
+    }
 }
 //EOF
