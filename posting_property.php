@@ -192,7 +192,7 @@
 					</div>
 					<br>
 					<center>
-						<div class ="form-control" style="height: 600px;">
+						<div class ="form-control" style="height: 125vh;">
 						<input type="checkbox" name="extras[]" value="Balcony">Balcony<br><br>
 						<input type="checkbox" name="extras[]"  value="Built n Kitchen Appliances">Built n Kitchen Appliances<br><br>
 						<input type="checkbox" name="extras[]"  value="Built in Wardrobes">Built in Wardrobes<br><br>
@@ -207,6 +207,9 @@
 						<input type="checkbox" name="extras[]"  value="Study">Study<br><br>
 						<input type="checkbox" name="extras[]"  value="View of Landmark">View of Landmark<br><br>
 						<input type="checkbox" name="extras[]"  value="Walk-in Closet">Walk-in Closet<br><br>
+                        <input type="checkbox" name="extras[]"  value="CCTV">CCTV<br><br>
+                        <input type="checkbox" name="extras[]"  value="Wifi">Wifi<br><br>
+                        <input type="checkbox" name="extras[]"  value="Fire Extinguisher">Fire Extinguisher<br><br>
 
 				</div>
 				</center>
