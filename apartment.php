@@ -82,7 +82,7 @@ $Outline->header('Apartment');
                     // echo '<form class="customform s-12 margin-bottom2x" action="view_post.php?viewid='.$res['pend_id'].'">
                     // <div><button class="button rounded-btn submit-btn s-12" type="submit">View Ad</button></div>
                     // </form>';
-                    echo "<a href='view_prop.php?viewid=".$res['ID']."' class='button rounded-btn submit-btn s-12 l-10 m-10' type='submit'>View Ad</a>"; 
+                    echo "<a href='view_prop.php?viewid=".$res['ID']."&ownerID=".$res['user_id']."&page=0' class='button rounded-btn submit-btn s-12 l-10 m-10' type='submit'>View Ad</a>";
                     echo "</div></div></div>";
                     //  if($counterpost%3==0)
                     // {

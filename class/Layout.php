@@ -43,6 +43,7 @@ class Layout
                 }
                 ?>
                 <title><?=  (isset($page) ? $page : null) ?><?= !empty($this->companyName) ? '-'.$this->companyName : null?></title>
+            </head>
         <?php
         $this->navigationBar();
     }

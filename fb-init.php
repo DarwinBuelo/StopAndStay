@@ -23,7 +23,7 @@ try {
         $res = $fb->get('/me?locale=en_US&fields=id,name,first_name,last_name,email,gender,education,birthday,location,picture,link');
         $user = $res->getGraphUser();
         $count = createSql($user->getField('id'), $conn);
-        if ($count < 1) {
+        if ($count[0] < 1) {
             $data = [
                 'user_fname' => $user->getField('name'),
                 'facebook_id' => $user->getField('id'),
@@ -31,24 +31,15 @@ try {
             ];
             Dbcon::insert('tbl_users', $data);
         }
-        $_SESSION['fname'] = $user->getField('name');
-        $_SESSION['user_id'] = $user->getField('id');
-        header('Location: https://localhost/stopNstay/index.php?login='.$_SESSION['accessToken']);
+        if ($row = mysqli_fetch_assoc($count[1])) {
+            $_SESSION['fname'] = $user->getField('name');
+            $_SESSION['user_id'] = $row['user_id'];
+        }
+        header('Location: https://localhost/stopNstay/index.php?login=success');
    }
 } catch (Exception $ex) {
     echo $ex->getTraceAsString();
 }
-//if (isset($_SESSION['accessToken'])) {
-//    try {
-//        $fb->setDefaultAccessToken($_SESSION['accessToken']);
-//        $res = $fb->get('/me?locale=en_US&fields=id,name,first_name,last_name,email,gender,education,birthday,location,picture,link');
-//        $user = $res->getGraphUser();
-//        $_SESSION['fname'] = $user->getField('name');
-//        $_SESSION['user_email'] = $user->getField('email');
-//    } catch (Exception $ex) {
-//        echo $ex->getTraceAsString();
-//    }
-//}
 function createSql($facebookID, $conn)
 {
     $sql = "
@@ -62,6 +53,6 @@ function createSql($facebookID, $conn)
     ";
     $result = mysqli_query($conn, $sql);
     $resultCheck = mysqli_num_rows($result);
-    return $resultCheck;
+    return [$resultCheck, $result];
 }
 //EOF

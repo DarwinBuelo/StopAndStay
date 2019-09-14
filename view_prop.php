@@ -12,6 +12,18 @@ if(!isset($_GET['viewid'])) {
   header('location:error_404.php');
 } else {
   $Outline->header('View Property');
+$ownerID = isset($_GET['ownerID']) ? $_GET['ownerID'] : '';
+$page = isset($_GET['page']) ? $_GET['page'] : '';
+$returnTitle = '';
+  if (isset($page)) {
+      if ($page == '0') {
+          $returnTitle = 'Apartment';
+          $href = 'apartment.php';
+      } else {
+          $returnTitle = 'Boarding House';
+          $href = 'boardingHouse.php';
+      }
+  }
 ?>
         <!-- ASIDE NAV AND CONTENT -->
       <div class="line">
@@ -21,7 +33,7 @@ if(!isset($_GET['viewid'])) {
                 <nav class="breadcrumb-nav">
                   <ul>
                     <li><a href="index.php"><i class="icon-sli-home"></i></a></li>
-                    <li><a href="boardingHouse.php">Boarding House</a></li>
+                    <li><a href="<?= $href; ?>"><?= _($returnTitle); ?></a></li>
                   <li><a href="">View Post</a></li>
                   <!-- <li><span>Sub Category 1</span></li> -->
                   </ul>
@@ -29,7 +41,7 @@ if(!isset($_GET['viewid'])) {
                 <!-- ECHO THE POST NAME -->
                 <?php
 
-                $teabag=$_GET['viewid'];
+                $teabag= isset($_GET['viewid']) ? $_GET['viewid'] : 0;
                 $sql=mysqli_query($conn,"SELECT * FROM tbl_property where id=$teabag");
                 while($res=mysqli_fetch_array($sql))
                 {  
@@ -88,9 +100,19 @@ if(!isset($_GET['viewid'])) {
                     ?>
                   </div>
                 <div class="s-12 m-3 l-3 xl-3 xxl-3">
-                    <form class="customform s-12 margin-bottom2x" action="includes/reservation.php">
-                      <button class="button rounded-btn submit-btn s-12" name="btnReserve">
-                        <b>Reservation</b>
+                    <form class="customform s-12 margin-bottom2x" method="post" action="<?= $_SERVER['PHP_SELF']; ?>?page=<?= $page; ?>&viewid=<?= $teabag; ?>&ownerID=<?= $ownerID; ?>">
+                    <?php
+                        include 'includes/reservation.php';
+                        if (ifReserved($ownerID, $teabag, $conn) < 1) {
+                            $bgcolor = '#B91515';
+                            $btnReserve = 'Reserve Now';
+                        } else {
+                            $bgcolor = '#4FBFA8';
+                            $btnReserve = 'Reserved';
+                        }
+                    ?>
+                      <button class="button rounded-btn submit-btn s-12" style="background-color: <?= $bgcolor; ?>" name="btnReserve" <?= (isset($_SESSION['user_id']) ? '' : 'disabled'); ?>>
+                        <b><?= $btnReserve; ?></b>
                       </button><br>
                     <h3>Information</h3>
                     <p>
@@ -108,74 +130,6 @@ if(!isset($_GET['viewid'])) {
   <div class="s-2 m-2 l-3 xl-1 xxl-1">
       <!-- ADSPACE HERE -->&nbsp;
   </div>
-  <div class="modal fade" id="insertAdsModal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title"><i class="fa fa-plus"></i>     Insert My Ads</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label>Title</label>
-                    <input type="text" name="title" id="title" class="form-control" required />
-                </div>
-                <div class="form-group">
-					<label>Location</label>
-					<div>
-						<select name='location' id='location' class="form-control" required>
-						<option value = '0'>Left</option>
-						<option value = '1'>Right</option>
-						<option value = '2'>Header</option>
-						</select>
-					</div>
-                </div>
-                <div class="form-group">
-					<input type="file" name="image[]" id="image" data-multiple-caption="{count} files selected" multiple />
-                <div id="image-holder"></div>
-                <script>
-					$("#image").on('change', function () {
-					     //Get count of selected files
-					     var countFiles = $(this)[0].files.length;
-					     var imgPath = $(this)[0].value;
-					     var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
-                         console.log(extn);
-					     var image_holder = $("#image-holder");
-					     image_holder.empty();
-					     if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg") {
-					         if (typeof (FileReader) != "undefined") {
-
-					             //loop for each file selected for uploaded.
-					             for (var i = 0; i < countFiles; i++) {
-
-					                 var reader = new FileReader();
-					                 reader.onload = function (e) {
-					                     var img = $('<img/>').addClass('thumb').attr
-					                     ('src', e.target.result); //create image element
-									$(image_holder).append(img);
-					                 }
-
-					                 image_holder.show();
-					                 reader.readAsDataURL($(this)[0].files[i]);
-					             	console.log("wew");
-					             }
-
-					         } else {
-					             alert("This browser does not support FileReader.");
-					         }
-					     } else {
-					         alert("Pls select only images");
-					     }
-					 });
-					</script>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <input type="submit" name="save" id="save" class="btn btn-info" value="Save"/>
-            </div>
-                </div>
-            </div>
-        </div>
 </div>
       <script type="text/javascript" src="js/responsee.js"></script> 
       <script type="text/javascript" src="owl-carousel/owl.carousel.js"></script>

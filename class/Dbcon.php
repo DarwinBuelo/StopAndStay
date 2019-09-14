@@ -194,4 +194,12 @@ class Dbcon
         $data = mysqli_fetch_assoc($this->execute($query));
         return $data;
     }
+
+    public function fetch_num_rows($sql, $conn)
+    {
+        $result = mysqli_query($conn, $sql);
+        $resultCheck = mysqli_num_rows($result);
+        return $resultCheck;
+    }
 }
+//EOF
