@@ -1,5 +1,4 @@
 <?php
-include 'Dbcon.php';
 class Account
 {
     public static function getReserveUser($ownerID)
