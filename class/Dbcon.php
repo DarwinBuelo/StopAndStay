@@ -3,6 +3,12 @@
 
 class Dbcon
 {
+    //Tables
+    const TABLE_TENANT_RESERVATION = 'tenant_reservation';
+    const TABLE_COMMENTS = 'comments';
+    const TABLE_PROPERTY = 'tbl_property';
+    const TABLE_USERS = 'tbl_users';
+
     //define the variable needed
     public static $host = '127.0.0.1';
     public static $username = 'root';
@@ -40,14 +46,16 @@ class Dbcon
         $this->close();
     }
 
-    public static function  update($table, array $data,array $where){
+    public static function  update($table, $data = [], $where = []){
         $sql =  "UPDATE {$table} SET ";
-        foreach ($data as $key => $value){
-            if ($key === array_key_last($data)){
+        $x = 1;
+        foreach ($data as $key => $value) {
+            if ($x === count($data)){
                 $sql .= " {$key} = '{$value}' ";
             }else{
                 $sql .= " {$key} = '{$value}', ";
             }
+            $x++;
         }
         $sql .= "WHERE true ";
         foreach ($where as $key => $value){
@@ -89,13 +97,27 @@ class Dbcon
         }
     }
 
-    public function fetch_all_assoc($object)
+    public function fetch_all_assoc($object, $keys)
     {
         //handle database object
         if (!empty($object)) {
-            $result = mysqli_fetch_all($object, MYSQLI_ASSOC);
-            mysqli_free_result($object);
+            $query = self::execute($object);
+            $result = mysqli_fetch_all($query, MYSQLI_ASSOC);
+            mysqli_free_result($query);
+            $tmp = [];
             self::close();
+            if (is_array($keys)) {
+                foreach ($keys as $key => $value) {
+                    foreach ($result as $res) {
+                        $tmp[$res[$value]] = $res;
+                    }
+                }
+                return $tmp;
+            } else {
+                foreach ($result as $res) {
+                    $tmp[$res[$keys]] = $res;
+                }
+            }
             return $result;
         }
     }
@@ -122,12 +144,13 @@ class Dbcon
         }
     }
 
-    public function fetch_assoc($object)
+    public function fetch_assoc($sql)
     {
         //handle database object
-        if (!empty($object)) {
-            $result = mysqli_fetch_assoc($object);
-            mysqli_free_result($object);
+        if (!empty($sql)) {
+            $query = self::execute($sql);
+            $result = mysqli_fetch_assoc($query);
+            mysqli_free_result($query);
             self::close();
             return $result;
         }

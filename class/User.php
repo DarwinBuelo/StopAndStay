@@ -32,3 +32,4 @@ class User
         return $data[0];
     }
 }
+//EOF

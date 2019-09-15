@@ -6,7 +6,6 @@ session_start();
 $Outline->header('Apartment');
 ?>
         <div class="s-12 m-2 l-2 xl-2 xxl-2 ads-left">
-          
             <!-- ================== DISPLAYING APPROVED ADPOSTINGS ===========================-->
             <?php
               $adsLocation = view_ads::ADS_LOCATION_LEFT;
@@ -14,7 +13,7 @@ $Outline->header('Apartment');
             ?>
             <!-- ================== END OF DISPLAYING AD POSTINGS ============================ -->
           <!-- ADSPACE HERE -->&nbsp;
-          
+
         </div>
         <div class="s-12 m-8 l-8 xl-8 xxl-8">
         <!-- HEADER -->
@@ -27,7 +26,7 @@ $Outline->header('Apartment');
                  <!-- CONTENT -->
               <section class="s-12 m-12 l-12 xl-12"> 
 
-              <!-- CAROUSEL -->  
+              <!-- CAROUSEL -->
               <div class="line hide-s">
                 <div id="header-carousel" class="owl-carousel owl-theme">
                   <?php
@@ -35,7 +34,7 @@ $Outline->header('Apartment');
                     view_ads::viewingAds($conn,$adsLocation);
                   ?>
                 </div>
-              </div>                  
+              </div>
 
               <!-- Breadcrumb -->
               <nav class="breadcrumb-nav">
@@ -102,7 +101,7 @@ $Outline->header('Apartment');
       </div>
     </div>
  <div class="s-12 m-2 l-2 xl-2 xxl-2 ads-right">
-   
+
             <!-- ================== DISPLAYING APPROVED ADPOSTINGS ===========================-->
             <?php
               $adsLocation = view_ads::ADS_LOCATION_RIGHT;

@@ -257,7 +257,7 @@ class Layout
                            <a href="apartment.php">Apartment</a>
                        </li>
                        <li class="active">
-                           <a href="#">My Account</a>
+                           <a href="myAccount.php">My Account</a>
                        </li>
                        <li class="active">
                            <a href="#">Contact Us</a>
