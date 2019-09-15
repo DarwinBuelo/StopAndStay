@@ -97,7 +97,7 @@ class Dbcon
         }
     }
 
-    public function fetch_all_assoc($object, $keys)
+    public function fetch_all_assoc($object, $keys = null)
     {
         //handle database object
         if (!empty($object)) {
@@ -114,11 +114,8 @@ class Dbcon
                 }
                 return $tmp;
             } else {
-                foreach ($result as $res) {
-                    $tmp[$res[$keys]] = $res;
-                }
+				return $result;
             }
-            return $result;
         }
     }
 

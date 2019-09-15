@@ -13,8 +13,7 @@ $data          = "
     ORDER BY
         date desc
 ";
-$result        = Dbcon::execute($data);
-$fetchValue    = Dbcon::fetch_all_assoc($result);
+$fetchValue    = Dbcon::fetch_all_assoc($data);
 $message       = [];
 $existing      = [];
 foreach ($fetchValue as $column) {
