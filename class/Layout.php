@@ -255,11 +255,14 @@ class Layout
                        </li>
                        <li class="active">
                            <a href="apartment.php">Apartment</a>
-                       </li>
-                       <li class="active">
+                       </li>';
+                       if(isset($_SESSION['user_id'])){
+                           $html .= ' <li class="active">
                            <a href="myAccount.php">My Account</a>
-                       </li>
-                       <li class="active">
+                       </li>';
+                       }
+                      
+                       $html .='<li class="active">
                            <a href="#">Contact Us</a>
                        </li>
 
