@@ -3,6 +3,11 @@ include_once 'includes/db.php';
 include_once 'view_ads.php';
 include_once 'init.php';
 session_start();
+// if the user is not login will be redirected to the login page
+if(!isset($_SESSION['user_id'])){
+    Util::redirect('login/');
+}
+
 $Outline->header('My Account');
 
 if (isset($_POST['btnAction'])) {
