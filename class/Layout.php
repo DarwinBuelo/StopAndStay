@@ -2,12 +2,12 @@
 
 class Layout
 {
-    protected $css =[];
+    protected $css = [];
     protected $js = [];
     protected $companyName = 'Test Company';
-    protected $companyDesc =  'Test Description';
+    protected $companyDesc = 'Test Description';
 
-    function __construct($companyName=null, $companyDesc = null, $css = null, $js = null)
+    function __construct($companyName = null, $companyDesc = null, $css = null, $js = null)
     {
         $this->setCompanyName($companyName);
         if (!empty($companyDesc)) {
@@ -30,35 +30,35 @@ class Layout
          * @TODO add favicon
          */
         ?>
-            <!DOCTYPE HTML>
-            <html lang="en-US">
+        <!DOCTYPE HTML>
+        <html lang="en-US">
             <head>
                 <meta charset="utf-8">
                 <meta http-equiv="X-UA-Compatible" content="IE=edge">
                 <meta name="description" content="Unicat project">
                 <meta name="viewport" content="width=device-width, initial-scale=1">
                 <?php
-                foreach ($this->css as $css){
+                foreach ($this->css as $css) {
                     ?><link rel="stylesheet" type="text/css" href="<?= $css ?>"><?php
                 }
                 ?>
-                <title><?=  (isset($page) ? $page : null) ?><?= !empty($this->companyName) ? '-'.$this->companyName : null?></title>
+                <title><?= (isset($page) ? $page : null) ?><?= !empty($this->companyName) ? '-'.$this->companyName : null ?></title>
             </head>
-        <?php
-        $this->navigationBar();
-    }
-
-    /**
-     * Create the footer and include the JS needed in the system
-     */
-    public function footer()
-    {
-        if (count($this->js) > 0) {
-            foreach ($this->js as $js) {
-                ?><script src="<?= $js ?>"></script><?php
-            }
+            <?php
+            $this->navigationBar();
         }
-        ?></body></html><?php
+
+        /**
+         * Create the footer and include the JS needed in the system
+         */
+        public function footer()
+        {
+            if (count($this->js) > 0) {
+                foreach ($this->js as $js) {
+                    ?><script src="<?= $js ?>"></script><?php
+                }
+            }
+            ?></body></html><?php
     }
 
     /**
@@ -70,7 +70,7 @@ class Layout
             foreach ($path as $file) {
                 $this->css[] = $file;
             }
-        }else{
+        } else {
             $this->css[] = $path;
         }
     }
@@ -82,16 +82,17 @@ class Layout
     {
         if (is_array($path)) {
             foreach ($path as $file) {
-                $this->js[] =  $file;
+                $this->js[] = $file;
             }
         } else {
             $this->js[] = $path;
         }
     }
 
-    public function loadJS(){
-        if(count($this->js)>0){
-            foreach ($this->js as $js){
+    public function loadJS()
+    {
+        if (count($this->js) > 0) {
+            foreach ($this->js as $js) {
                 $html = "<script src='{$js}'></script>";
                 print $html;
             }
@@ -111,7 +112,7 @@ class Layout
      */
     public function setCompanyDescription($desc)
     {
-        $this->companyDesc =  $desc;
+        $this->companyDesc = $desc;
     }
 
     /**
@@ -141,10 +142,10 @@ class Layout
     public function navigationBar()
     {
         $topLeftButton = '';
-        if(!isset($_SESSION['customer_email'])){
+        if (!isset($_SESSION['customer_email'])) {
             $topLeftButton = "Welcome: Guest";
         } else {
-            $topLeftButton = "Welcome: " . $_SESSION['customer_email'] . "";
+            $topLeftButton = "Welcome: ".$_SESSION['customer_email']."";
         }
         $html = '
         <head>
@@ -193,13 +194,13 @@ class Layout
                <ul class="menu"><!-- cmenu Begin -->
                    <li>
                        <a href="checkout.php">';
-            if (isset($_SESSION['user_id'])) {
-                $html .= "<a href='includes/logout.php'>Sign-out</a>";
-              } else {
-                $html .= "<a href='login'>Register | Login</a>";
-              }
+        if (isset($_SESSION['user_id'])) {
+            $html .= "<a href='includes/logout.php'>Sign-out</a>";
+        } else {
+            $html .= "<a href='login'>Register | Login</a>";
+        }
 
-                $html .= '</a>
+        $html .= '</a>
                    </li>
 
                </ul><!-- menu Finish -->
@@ -256,13 +257,16 @@ class Layout
                        <li class="active">
                            <a href="apartment.php">Apartment</a>
                        </li>';
-                       if(isset($_SESSION['user_id'])){
-                           $html .= ' <li class="active">
+        if (isset($_SESSION['user_id'])) {
+            $html .= ' <li class="active">
                            <a href="myAccount.php">My Account</a>
                        </li>';
-                       }
-                      
-                       $html .='<li class="active">
+            $html .= ' <li class="active">
+                           <a href="messages.php">Message</a>
+                       </li>';
+        }
+
+        $html .= '<li class="active">
                            <a href="#">Contact Us</a>
                        </li>
 
@@ -270,14 +274,12 @@ class Layout
 
                </div><!-- padding-nav Finish -->';
 
-                    if (isset($_SESSION["user_id"])) {
-                        $html .= '<a href="pre-post.php" class="btn navbar-btn btn-primary right">';
-
-
-                    } else {
-                        $html .= '<a href="login" class="btn navbar-btn btn-primary right">';
-                    }
-                 $html .= '  <span style="color: #ffffff">Post my Ads</span>
+        if (isset($_SESSION["user_id"])) {
+            $html .= '<a href="pre-post.php" class="btn navbar-btn btn-primary right">';
+        } else {
+            $html .= '<a href="login" class="btn navbar-btn btn-primary right">';
+        }
+        $html .= '  <span style="color: #ffffff">Post my Ads</span>
                </a>
 
                <div class="navbar-collapse collapse right"><!-- navbar-collapse collapse right Begin -->
