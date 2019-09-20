@@ -57,6 +57,26 @@ class Chat
         return $return;
     }
 
+    public static function getMyChatMates($currentUser)
+    {
+        // will get all the id of the user which chatted me or I chatted you
+        $sql = "SELECT * FROM chats WHERE sender_id = {$currentUser} OR recevier ={$currentUser}";
+
+       //segreate the result
+
+    }
+
+    public static function retreiveMessage($currentUser, $anyuser)
+    {
+
+        // test
+        $sql = "SELECT chat_id FROM chats WHERE (receiver_id = {$currentUser} AND sender_id = {$anyuser}) OR (receiver_id = {$anyuser} AND sender_id = {$currentUser})";
+        $result = DBcon::execute($sql);
+        $data = DBcon::fetch_all_assoc($result);
+
+        Util::debug($data);
+    }
+
     public function submit()
     {
         $data = [
@@ -115,6 +135,7 @@ class Chat
     {
         $this->timeSent = $time;
     }
+
     public function getStatus()
     {
         return $this->status;
@@ -122,6 +143,6 @@ class Chat
 
     public function setStatus($status)
     {
-        $this->status = $status ;
+        $this->status = $status;
     }
 }

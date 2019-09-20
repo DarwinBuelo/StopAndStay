@@ -1,6 +1,5 @@
 <?php
 
 require_once 'init.php';
-$prop = UserProperty::LoadArray();
-Util::debug($prop);
+$chat = Chat::retreiveMessage(9,1);
 ?>
