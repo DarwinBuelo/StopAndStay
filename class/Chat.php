@@ -11,9 +11,9 @@ class Chat
     protected $timeSent;
     protected $status;
 
-    public static function Load($id)
+    public static function Load($chatID)
     {
-        $sql = "SELECT * FROM ".self::TABLE;
+        $sql = "SELECT * FROM ".self::TABLE." WHERE chat_id=".$chatID;
         $result = DBcon::execute($sql);
         $data = DBcon::fetch_assoc($result);
         if (!empty($data)) {
@@ -29,6 +29,9 @@ class Chat
             return false;
         }
     }
+    /*
+     * get the chats for the user
+     */
 
     public static function getChatsForMe($userID, $key = 'sender_id')
     {
@@ -49,9 +52,14 @@ class Chat
                     time_sent";
         $result = DBcon::execute($sql);
         $data = DBcon::fetch_all_assoc($result);
+
         if (!empty($data)) {
             foreach ($data as $item) {
-                $return[$item[$key]] = static::Load($item['chat_id']);
+                if ($item[$key] == $userID) {
+                    $return[$item['receiver_id']][$item['chat_id']] = static::Load(intval($item['chat_id']));
+                } else {
+                    $return[$item[$key]][$item['chat_id']] = static::Load(intval($item['chat_id']));
+                }
             }
         }
         return $return;
@@ -62,8 +70,7 @@ class Chat
         // will get all the id of the user which chatted me or I chatted you
         $sql = "SELECT * FROM chats WHERE sender_id = {$currentUser} OR recevier ={$currentUser}";
 
-       //segreate the result
-
+        //segreate the result
     }
 
     public static function retreiveMessage($currentUser, $anyuser)

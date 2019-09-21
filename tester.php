@@ -1,5 +1,6 @@
 <?php
 
 require_once 'init.php';
-$chat = Chat::retreiveMessage(9,1);
+$chat = Chat::getChatsForMe(9);
+Util::debug($chat);
 ?>

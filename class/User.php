@@ -1,9 +1,32 @@
 <?php
-include 'Dbcon.php';
+
 class User
 {
     const TABLE_NAME = 'tbl_users';
 
+    protected $userID;
+    protected $userName;
+    protected $userFname;
+    protected $userContact;
+    protected $userEmail;
+    protected $confirm;
+    protected $userType;
+    protected $facebookID;
+
+
+    public static function Load($chatID){
+        $sql = "SELECT * FROM ". self::TABLE_NAME." WHERE chat_id = ".$chatID;
+        $result = Dbcon::execute($sql);
+        $data = DBcon::fetch_assoc($result);
+        $new = new static();
+        $this->userID = $data['user_id'];
+        $this->userName = $data['user_name'];
+        $this->user_fname = $data['user_fname'];
+        /**
+         * TODO: Complete this code
+         */
+    }
+    
     public static function getEmailAddress($userID)
     {
         $sql = "
