@@ -62,21 +62,21 @@ $ChaterIDs = array_keys($Chats);
                 </form>
             </div>
         </div>
-    <?php
-}
-?>
+        <?php
+    }
+    ?>
 
 </div>
 <!-- MODAL -->
 <div class="modal modalShow">
     <div class="modalBox">
         <form action="#" method="post">
-            <input type="hidden" name="sender" value="<?= $User ?>"
-                   <div class="to"><input type="text" name="to"></div>
+            <input type="hidden" name="sender" value="<?= $User ?>">
+            <div><input type="text" name="to" class="to" placeholder="Name"></div>
+            <div><textarea class="message" name="message" placeholder="Message"></textarea></div>
+            <div class="inlineButton right"><button type="button" class="btn btn-danger">Cancel</button><button type="button" class="btn btn-primary">Send</button>
+        </form>
     </div>
-
-</form>
-</div>
 </div>
 
 <script>

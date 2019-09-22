@@ -139,18 +139,51 @@
 
 .modalBox{
     background: white;
-
     width: 523px;
-
     height: 330px;
-
     margin: auto;
-
     margin-top: auto;
-
     margin-top: 59px;
-
     border-radius: 30px;
-
     box-shadow: 5px 5px 23px black;
 }
+
+
+.modalBox .to{
+    background: #f7f7f7;
+    padding: 5px;
+    margin: 11px;
+    margin-top: 11px;
+    width: 500px;
+    border-bottom: 1px solid #d0d0d0;
+    margin-top: 23px;
+    margin-bottom: 0px;
+}
+
+.modalBox .message{
+    background: #f7f7f7;
+    padding:5px;
+    margin-left: 10px;
+    height: 200px;
+    width: 500px;
+    resize:none;
+}
+
+.modalBox .inlineButton{
+    margin:10px;
+}
+
+.modalBox .btn{
+    margin:5px;
+}
+
+@media (max-width: 546px){
+    .modalBox{
+        width: 90vw;
+    }
+    
+    .modal .to,.modal .message{
+        width: 84vw;
+    }
+}
+ 
