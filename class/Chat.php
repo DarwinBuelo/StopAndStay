@@ -91,6 +91,8 @@ class Chat
             'receiver_id' => $this->getReceiverID(),
             'message' => $this->getMessage()
         ];
+
+        Dbcon::insert(self::TABLE,$data);
     }
 
     public function getChatID()

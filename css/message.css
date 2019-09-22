@@ -6,9 +6,7 @@
 .tab {
     padding:0;
     float: left;
-    border: 1px solid #ccc;
-    border-right:none;
-    background-color: #f1f1f1;
+    border-right: 1px solid #ccc;
     height: 77vh;
 }
 
@@ -27,14 +25,10 @@
     transition: 0.3s;
 }
 
-/* Change background color of buttons on hover */
-.tab button:hover {
-    background-color: #ddd;
-}
 
 /* Create an active/current "tab button" class */
 .tab button.active {
-    background-color: white;/*#4fbfa8;*/
+    background-color: #eae8e8;
 }
 
 /* Style the tab content */
@@ -50,6 +44,14 @@
 
 .tabcontent.active{
     display: block;
+}
+
+.tabcontent h3{
+    margin-left: -12px;
+    border-bottom: 1px solid #aeacac;
+    margin-right: -13px;
+    margin-top: unset;
+    padding: 10px;
 }
 
 .myMessage{
@@ -106,4 +108,49 @@
     color: white;
     padding: 10px;
     border-radius: 16px;
+}
+
+.messageHolder{
+    direction: ltr;
+    margin-top: -21px;
+}
+
+.myTimesent{
+    float: right;
+    margin-right: 23px;
+    font-size: 11px;
+    color: gray;
+    min-width: 158px;
+    text-align: center;
+}
+.timesent{
+    float: left;
+    margin-right: 23px;
+    font-size: 11px;
+    color: gray;
+    min-width: 158px;
+    text-align: center;
+}
+
+.modalShow{
+    display: block;
+    background: #0000004d;
+}
+
+.modalBox{
+    background: white;
+
+    width: 523px;
+
+    height: 330px;
+
+    margin: auto;
+
+    margin-top: auto;
+
+    margin-top: 59px;
+
+    border-radius: 30px;
+
+    box-shadow: 5px 5px 23px black;
 }
