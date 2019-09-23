@@ -88,6 +88,7 @@ $ChaterIDs = array_keys($Chats);
     foreach ($Chats as $key => $chat) {
         ?>
         <div id = "mobileContent<?= $key ?>" class = " tabcontent col-md-9  mobileContent">
+            <button class="mobileTriggerBack" >Back </button>
             <h3><?= User::getName($key) ?></h3>
             <div class="messageBlock align-bottom">
                 <?php
@@ -131,6 +132,12 @@ require 'view/messageModal.php';
            $('#mobileContent'+key).fadeIn();
            $('.messagesList').fadeOut();
         });
+
+        $('.mobileTriggerBack').click(function(){
+            $('.mobileContent').fadeOut();
+           $('.messagesList').fadeIn();
+        });
+
     });
     function openCity(evt, cityName) {
         // Declare all variables
