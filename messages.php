@@ -7,6 +7,7 @@ include_once 'view_ads.php';
 include_once 'init.php';
 $User = $_SESSION['user_id'];
 $Outline->addCSS('css/message.css');
+$Outline->addJS('js/message.js');
 $Outline->header('Boarding House');
 $Outline->loadJS();
 $Chats = Chat::getChatsForMe($User);
@@ -14,8 +15,8 @@ $ChaterIDs = array_keys($Chats);
 ?>
 <div class="row messageHolder">
     <div class="tab col-md-3">
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#gridSystemModal">
-            Launch demo modal
+        <button type="button" class="btn btn-primary btn-lg modalTriggerShow" data-toggle="modal" data-target="#gridSystemModal">
+           <i class="fas fa-plus"></i> New Message
         </button>
 
         <?php
@@ -55,7 +56,7 @@ $ChaterIDs = array_keys($Chats);
                 ?>
             </div>
             <div class="messageForm">
-                <form action="processMessage.php">
+                <form action="processMessage.php" method="post">
                     <input type="hidden" name="to" value = "<?= $key ?>">
                     <input class="inputMessage" type="text" name="message">
                     <button class="btn btn-secondary">Send</button>
@@ -67,18 +68,9 @@ $ChaterIDs = array_keys($Chats);
     ?>
 
 </div>
-<!-- MODAL -->
-<div class="modal modalShow">
-    <div class="modalBox">
-        <form action="#" method="post">
-            <input type="hidden" name="sender" value="<?= $User ?>">
-            <div><input type="text" name="to" class="to" placeholder="Name"></div>
-            <div><textarea class="message" name="message" placeholder="Message"></textarea></div>
-            <div class="inlineButton right"><button type="button" class="btn btn-danger">Cancel</button><button type="button" class="btn btn-primary">Send</button>
-        </form>
-    </div>
-</div>
-
+<?php
+    require 'view/messageModal.php';
+?>
 <script>
 
     function openCity(evt, cityName) {

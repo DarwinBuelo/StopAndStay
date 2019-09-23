@@ -4,6 +4,8 @@ session_start();
 include_once 'init.php';
 include_once('includes/db.php');
 require 'bityLink.php';
+$Outline->addCSS('css/message.css');
+$Outline->addJS('js/message.js');
 $Outline->addJS('js/jquery-1.8.3.min.js');
 $url      = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
 $url = 'https://www.messenger.com';
@@ -11,9 +13,10 @@ $url = 'https://www.messenger.com';
 if(!isset($_GET['viewid'])) {
   header('location:error_404.php');
 } else {
-  $Outline->header('View Property');
-$ownerID = isset($_GET['ownerID']) ? $_GET['ownerID'] : '';
-$page = isset($_GET['page']) ? $_GET['page'] : '';
+$Outline->header('View Property');
+$Outline->loadJS();
+$ownerID = Util::getParam('ownerID');
+$page = Util::getParam('page');
 $returnTitle = '';
   if (isset($page)) {
       if ($page == '0') {
@@ -24,6 +27,8 @@ $returnTitle = '';
           $href = 'boardingHouse.php';
       }
   }
+  require 'view/messageModal.php'
+
 ?>
         <!-- ASIDE NAV AND CONTENT -->
       <div class="line">
@@ -113,6 +118,8 @@ $returnTitle = '';
                     ?>
                       <button class="button rounded-btn submit-btn s-12" style="background-color: <?= $bgcolor; ?>" name="btnReserve" <?= (isset($_SESSION['user_id']) ? '' : 'disabled'); ?>>
                         <b><?= $btnReserve; ?></b>
+                        <button type="button" class="btn rounded-btn submit-btn s-12  btn-primary modalTriggerShow"  name="btnReserve" data-owner="<?= $ownerID ?>">
+                        <b>Send Message</b>
                       </button><br>
                     <h3>Information</h3>
                     <p>

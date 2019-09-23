@@ -133,7 +133,7 @@
 }
 
 .modalShow{
-    display: block;
+    display: none;
     background: #0000004d;
 }
 
@@ -146,6 +146,7 @@
     margin-top: 59px;
     border-radius: 30px;
     box-shadow: 5px 5px 23px black;
+    padding-top: 23px;
 }
 
 
@@ -156,7 +157,6 @@
     margin-top: 11px;
     width: 500px;
     border-bottom: 1px solid #d0d0d0;
-    margin-top: 23px;
     margin-bottom: 0px;
 }
 
