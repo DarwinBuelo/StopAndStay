@@ -1,8 +1,6 @@
 <?php
-$tes="arrwew";
 
-print_r (explode("--/",$tes));
-
-
-
+require_once 'init.php';
+$chat = Chat::getChatsForMe(9);
+Util::debug($chat);
 ?>

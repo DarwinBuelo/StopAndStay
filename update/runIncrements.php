@@ -3,9 +3,9 @@ include('../class/Dbcon.php');
 
 const TABLE_NAME = 'run_increments';
 
-$files         = glob("../database/*.*");
+$files = glob("../database/*.*");
 Dbcon::$dbname = 'stop_n_stay';
-$data          = "
+$data = "
     SELECT
         file_name
     FROM
@@ -13,42 +13,42 @@ $data          = "
     ORDER BY
         date desc
 ";
-$fetchValue    = Dbcon::fetch_all_assoc($data);
-$message       = [];
-$existing      = [];
+$result = DBcon::execute($data);
+$fetchValue = Dbcon::fetch_all_assoc($result);
+$message = [];
+$existing = [];
 foreach ($fetchValue as $column) {
     $existing[] = $column["file_name"];
 }
 ?>
 <html>
- <body>
+    <body>
 
-    <?php
-foreach ($files as $file) {
-    $content  = file_get_contents($file);
-    $fileType = substr(strrchr($file, "."), 1);
-    if ($fileType === 'sql') {
-        $sqlData = [
-            'file_name' => $file
-        ];
-        if (!in_array($file, $existing)) {
-            $result = Dbcon::execute($content);
-            if($result){
-                Dbcon::insert(TABLE_NAME, $sqlData);
-                $message[]= ["Success" => "Success in executing the query : " .$file ];
-            }
-            else{
-               if(strpos(Dbcon::$error,"already exists") != false){
-                   Dbcon::insert(TABLE_NAME, $sqlData);
-               }
-               $message[]= ["Failed" => "Failed to run the script : " .$file,"Error" => Dbcon::$error];
+        <?php
+        foreach ($files as $file) {
+            $content = file_get_contents($file);
+            $fileType = substr(strrchr($file, "."), 1);
+            if ($fileType === 'sql') {
+                $sqlData = [
+                    'file_name' => $file
+                ];
+                if (!in_array($file, $existing)) {
+                    $result = Dbcon::execute($content);
+                    if ($result) {
+                        Dbcon::insert(TABLE_NAME, $sqlData);
+                        $message[] = ["Success" => "Success in executing the query : ".$file];
+                    } else {
+                        if (strpos(Dbcon::$error, "already exists") != false) {
+                            Dbcon::insert(TABLE_NAME, $sqlData);
+                        }
+                        $message[] = ["Failed" => "Failed to run the script : ".$file, "Error" => Dbcon::$error];
+                    }
+                }
+            } else {
+                continue;
             }
         }
-    } else {
-        continue;
-    }
-}
-?>
-     <pre><?php var_dump($message)?></pre>
+        ?>
+        <pre><?php var_dump($message) ?></pre>
     </body>
 </html>

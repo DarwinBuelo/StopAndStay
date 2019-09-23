@@ -28,7 +28,8 @@ class Account
             WHERE
                 tr.owner_id = {$ownerID}
         ";
-        $data = DBcon::fetch_all_assoc($sql, 'user_id');
+        $result = Dbcon::execute($sql);
+        $data = DBcon::fetch_all_assoc($result, 'user_id');
         return $data;
     }
 }

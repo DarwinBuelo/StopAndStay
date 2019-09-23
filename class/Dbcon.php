@@ -1,4 +1,5 @@
 <?php
+
 //databaseConnection
 
 class Dbcon
@@ -17,14 +18,13 @@ class Dbcon
     public static $conn;
     static $error;
 
-
     //Connect to the database
     public static function connect()
     {
         try {
             self::$conn = mysqli_connect(self::$host, self::$username, self::$password, self::$dbname);
         } catch (Exception $e) {
-            echo "<pre>" . $e . "</pre>";
+            echo "<pre>".$e."</pre>";
         }
     }
 
@@ -46,19 +46,18 @@ class Dbcon
         $this->close();
     }
 
-    public static function  update($table, $data = [], $where = []){
-        $sql =  "UPDATE {$table} SET ";
-        $x = 1;
+    public static function update($table, array $data, array $where)
+    {
+        $sql = "UPDATE {$table} SET ";
         foreach ($data as $key => $value) {
-            if ($x === count($data)){
+            if ($key === array_key_last($data)) {
                 $sql .= " {$key} = '{$value}' ";
-            }else{
+            } else {
                 $sql .= " {$key} = '{$value}', ";
             }
-            $x++;
         }
         $sql .= "WHERE true ";
-        foreach ($where as $key => $value){
+        foreach ($where as $key => $value) {
             $sql .= " AND {$key} = '{$value}'";
         }
         return self::execute($sql);
@@ -81,7 +80,7 @@ class Dbcon
             mysqli_query(self::$conn, $query);
             return mysqli_insert_id(self::$conn);
         } catch (Exception $e) {
-            self::$error =  $e;
+            self::$error = $e;
             return false;
         }
     }
@@ -101,9 +100,8 @@ class Dbcon
     {
         //handle database object
         if (!empty($object)) {
-            $query = self::execute($object);
-            $result = mysqli_fetch_all($query, MYSQLI_ASSOC);
-            mysqli_free_result($query);
+            $result = mysqli_fetch_all($object, MYSQLI_ASSOC);
+            mysqli_free_result($object);
             $tmp = [];
             self::close();
             if (is_array($keys)) {
@@ -114,18 +112,18 @@ class Dbcon
                 }
                 return $tmp;
             } else {
-				return $result;
+                return $result;
             }
         }
     }
 
-    public function fetch_all_array($object)
+    public static function fetch_all_array($object)
     {
         //handle database object
         if (!empty($object)) {
             $result = mysqli_fetch_all($object, MYSQLI_NUM);
             mysqli_free_result($object);
-            self::close();
+            static::close();
             return $result;
         }
     }
@@ -134,27 +132,27 @@ class Dbcon
     {
         //handle database object
         if (!empty($object)) {
-            $result = mysqli_fetch_array($object,MYSQLI_NUM);
+            $result = mysqli_fetch_array($object, MYSQLI_NUM);
+            mysqli_free_result($object);
+            static::close();
+            return $result;
+        }
+    }
+
+    public static function fetch_assoc($object)
+    {
+        //handle database object
+        if (!empty($object)) {
+            $result = mysqli_fetch_assoc($object);
             mysqli_free_result($object);
             self::close();
             return $result;
         }
     }
 
-    public function fetch_assoc($sql)
+    public function fetch_row($object)
     {
-        //handle database object
-        if (!empty($sql)) {
-            $query = self::execute($sql);
-            $result = mysqli_fetch_assoc($query);
-            mysqli_free_result($query);
-            self::close();
-            return $result;
-        }
-    }
-
-    public function fetch_row($object){
-        if(!empty($object)){
+        if (!empty($object)) {
             $result = mysqli_fetch_row($object);
             mysqli_free_result($object);
             self::close();
@@ -162,12 +160,11 @@ class Dbcon
         }
     }
 
-
     //delete the file from database
     public static function delete($table, $where)
     {
         $query = "DELETE FROM {$table} WHERE true ";
-        foreach( $where as $key => $value) {
+        foreach ($where as $key => $value) {
             $query .= "AND {$key} = '{$value}' ";
         }
         self::execute($query);
@@ -194,8 +191,6 @@ class Dbcon
         }
     }
 
-
-
     public static function close()
     {
         mysqli_close(self::$conn);
@@ -207,6 +202,12 @@ class Dbcon
         mysqli_close($this->conn);
     }
 
+    public static function fetch_num_rows($sql)
+    {
+        $result = self::execute($sql);
+        $resultCheck = mysqli_num_rows($result);
+        return $resultCheck;
+    }
 
     function page_selectAll($offset = 1, $rowsperpage = 1)
     {
@@ -214,12 +215,4 @@ class Dbcon
         $data = mysqli_fetch_assoc($this->execute($query));
         return $data;
     }
-
-    public function fetch_num_rows($sql, $conn)
-    {
-        $result = mysqli_query($conn, $sql);
-        $resultCheck = mysqli_num_rows($result);
-        return $resultCheck;
-    }
 }
-//EOF

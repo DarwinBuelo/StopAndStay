@@ -1,0 +1,189 @@
+
+
+* {box-sizing: border-box}
+
+/* Style the tab */
+.tab {
+    padding:0;
+    float: left;
+    border-right: 1px solid #ccc;
+    height: 77vh;
+}
+
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+    display: block;
+    background-color: inherit;
+    color: black;
+    padding: 22px 30px;
+    width: 100%;
+    border: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+
+/* Create an active/current "tab button" class */
+.tab button.active {
+    background-color: #eae8e8;
+}
+
+/* Style the tab content */
+.tabcontent {
+    float: left;
+    padding: 0px 12px;
+    border: 1px solid #ccc;
+    border-left: none;
+    height: 77vh;
+    width: 74vw;
+    display:none;
+}
+
+.tabcontent.active{
+    display: block;
+}
+
+.tabcontent h3{
+    margin-left: -12px;
+    border-bottom: 1px solid #aeacac;
+    margin-right: -13px;
+    margin-top: unset;
+    padding: 10px;
+}
+
+.myMessage{
+    padding: 14px;
+    float: right;
+    margin-top: 10px;
+    margin-right: 23px;
+    border-radius: 17px 17px 0px 17px;
+    background: #3ba4d5;
+    color: white;
+    min-width: 158px;
+    max-width: 500px;
+    word-wrap: break-word;
+    word-break: break-all;
+
+}
+
+.userMessage{
+    padding: 14px;
+    float: left;
+    margin-top: 10px;
+    margin-left: 11px;
+    border-radius: 17px 17px 17px 0px;
+    background: #f0f0f0;
+    color: black;
+    min-width: 158px;
+    max-width: 500px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.messageBlock{
+    overflow-y: auto ;
+    overflow-x: hidden;
+    min-height: 55vh;
+    max-height: 60vh;
+    vertical-align: buttom;
+}
+
+.messageForm{
+    margin-top: 10px;
+    float:right;
+}
+
+.messageForm .inputMessage{
+    background: #dfdfdf;
+    width: 60vw;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.messageForm button{
+    background: #4463a8;
+    color: white;
+    padding: 10px;
+    border-radius: 16px;
+}
+
+.messageHolder{
+    direction: ltr;
+    margin-top: -21px;
+}
+
+.myTimesent{
+    float: right;
+    margin-right: 23px;
+    font-size: 11px;
+    color: gray;
+    min-width: 158px;
+    text-align: center;
+}
+.timesent{
+    float: left;
+    margin-right: 23px;
+    font-size: 11px;
+    color: gray;
+    min-width: 158px;
+    text-align: center;
+}
+
+.modalShow{
+    display: none;
+    background: #0000004d;
+}
+
+.modalBox{
+    background: white;
+    width: 523px;
+    height: 330px;
+    margin: auto;
+    margin-top: auto;
+    margin-top: 59px;
+    border-radius: 30px;
+    box-shadow: 5px 5px 23px black;
+    padding-top: 23px;
+}
+
+
+.modalBox .to{
+    background: #f7f7f7;
+    padding: 5px;
+    margin: 11px;
+    margin-top: 11px;
+    width: 500px;
+    border-bottom: 1px solid #d0d0d0;
+    margin-bottom: 0px;
+}
+
+.modalBox .message{
+    background: #f7f7f7;
+    padding:5px;
+    margin-left: 10px;
+    height: 200px;
+    width: 500px;
+    resize:none;
+}
+
+.modalBox .inlineButton{
+    margin:10px;
+}
+
+.modalBox .btn{
+    margin:5px;
+}
+
+@media (max-width: 546px){
+    .modalBox{
+        width: 90vw;
+    }
+    
+    .modal .to,.modal .message{
+        width: 84vw;
+    }
+}
+ 
