@@ -177,13 +177,78 @@
     margin:5px;
 }
 
+/*  Mobile responsiveness */
+.mobile{
+    display: none;
+}
+
+
+
+.mobile .messagesList{
+    width: 100vw;
+}
+
+.mobile .tablinks{
+    width: 100vw;
+    padding: 10px;
+    padding-left: 10px;
+    margin-top: 5px;
+    border-bottom: 1px solid #bdbdbd;
+    text-align: left;
+    padding-left: 20px;
+}
+.mobile .tablinks:hover{
+    background-color: #dfdfdf;
+}
+.mobile .btn{
+    margin: auto;
+    text-align: center;
+    width: 100vw;
+}
+
+.mobile .mobileContent{
+    width: 100vw;
+}
+
+.mobile .messageForm{
+    float: none;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+.mobile .inputMessage{
+    width: 100vw;
+    display: block;
+    border-radius: 0px;
+}
+
+.mobile .messageForm button{
+    border-radius: 0px;
+}
 @media (max-width: 546px){
     .modalBox{
         width: 90vw;
     }
-    
+
     .modal .to,.modal .message{
         width: 84vw;
     }
 }
- 
+
+@media (max-width: 680px){
+    .tab{
+        display: none;
+    }
+
+    .tabcontent{
+        display: none;
+    }
+
+    .tabcontent.active{
+        display: none;
+    }
+    .mobile{
+        display: block;
+    }
+
+}

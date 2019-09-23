@@ -49,7 +49,7 @@ class Chat
               OR
                     receiver_id = {$userID}
                ORDER BY
-                    time_sent";
+                    time_sent DESC";
         $result = DBcon::execute($sql);
         $data = DBcon::fetch_all_assoc($result);
 

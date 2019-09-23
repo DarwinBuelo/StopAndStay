@@ -16,7 +16,7 @@ $ChaterIDs = array_keys($Chats);
 <div class="row messageHolder">
     <div class="tab col-md-3">
         <button type="button" class="btn btn-primary btn-lg modalTriggerShow" data-toggle="modal" data-target="#gridSystemModal">
-           <i class="fas fa-plus"></i> New Message
+            <i class="fas fa-plus"></i> New Message
         </button>
 
         <?php
@@ -66,13 +66,72 @@ $ChaterIDs = array_keys($Chats);
         <?php
     }
     ?>
-
 </div>
+
+<!-- Mobile Responsiveness -->
+<div class="mobile ">
+    <div class="messagesList">
+    <button type="button" class="btn btn-primary btn-lg modalTriggerShow" data-toggle="modal" data-target="#gridSystemModal">
+        <i class="fas fa-plus"></i> New Message
+    </button>
+
+    <?php
+    $html = null;
+    foreach ($ChaterIDs as $chatmate) {
+        $html .= '<button class="tablinks mobileTrigger" data-key="'.$chatmate.'">'.User::getName($chatmate).'</button>';
+        
+    }
+    echo $html;
+    ?>
+    </div>
+    <?php
+    foreach ($Chats as $key => $chat) {
+        ?>
+        <div id = "mobileContent<?= $key ?>" class = " tabcontent col-md-9  mobileContent">
+            <h3><?= User::getName($key) ?></h3>
+            <div class="messageBlock align-bottom">
+                <?php
+                $html = null;
+                ksort($chat);
+                foreach ($chat as $message) {
+                    $timeSent = date("m/d/Y h:ia", strtotime($message->getTimesent()));
+                    if ($message->getSenderID() == $User) {
+                        $html .= " <div class='row'><div class='myMessage'>{$message->getMessage()}</div></div>";
+                        $html .= "<div class='row'><div class='myTimesent'>{$timeSent}</div></div>";
+                    } else {
+                        $html .= " <div class='row'><div class='userMessage'>{$message->getMessage()}</div></div>";
+                        $html .= "<div class='row'><div class='timesent'>{$timeSent}</div></div>";
+                    }
+                }
+                echo $html;
+                ?>
+            </div>
+            <div class="messageForm">
+                <form action="processMessage.php" method="post">
+                    <input type="hidden" name="to" value = "<?= $key ?>">
+                    <input class="inputMessage" type="text" name="message">
+                    <button class="btn btn-secondary">Send</button>
+                </form>
+            </div>
+        </div>
+        <?php
+    }
+    ?>
+</div>
+
+
+
 <?php
-    require 'view/messageModal.php';
+require 'view/messageModal.php';
 ?>
 <script>
-
+    $(document).ready(function(){
+        $('.mobileTrigger').click(function(){
+           var key = $(this).data('key');
+           $('#mobileContent'+key).fadeIn();
+           $('.messagesList').fadeOut();
+        });
+    });
     function openCity(evt, cityName) {
         // Declare all variables
         var i, tabcontent, tablinks;
@@ -93,6 +152,7 @@ $ChaterIDs = array_keys($Chats);
         document.getElementById(cityName).style.display = "block";
         evt.currentTarget.className += " active";
     }
+    
 </script>
 <?php
 $Outline->footer();
