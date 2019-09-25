@@ -188,8 +188,9 @@ if ($page == 0) {
                             <input id="ready" name="ready" type="text" placeholder="Ready By" class="input100" onfocus="(this.type = 'date')" onblur="(this.type = 'text')">
                             <span class="focus-input100"></span>
                         </div>
-
+<input type="hidden" name="coord" id="coord" value="">
                         <div class="wrap-input100 validate-input mapModalShow" data-validate="Please enter car location">
+                            
                             <input id="locator" class="input100 mapModalShow" type="text" name="location" placeholder="Locate your property">
                             <span class="focus-input100 mapModalShow"></span>
                         </div>

@@ -48,7 +48,7 @@
         <div id="coordinate" style="display:none">123.73472378685148,13.138748870162956</div>
         <div id="locName" style="display:none"></div>
         <script>
-           
+
             mapboxgl.accessToken = 'pk.eyJ1IjoibWljcm9zYW0iLCJhIjoiY2pwOXdlM2hxMDBsZzNycGs4ODBwbTBxZyJ9.NUTOMtn_cFkY3tNXeffz8A';
             var map = new mapboxgl.Map({
                 container: 'map',
@@ -56,13 +56,6 @@
                 zoom: 12.5,
                 center: [123.73333, 13.13333]
             });
-
-            map.addControl(new mapboxgl.GeolocateControl({
-                positionOptions: {
-                    enableHighAccuracy: true
-                },
-                trackUserLocation: true
-            }));
 
             var layerList = document.getElementById('menu');
             var inputs = layerList.getElementsByTagName('input');
@@ -75,14 +68,11 @@
             for (var i = 0; i < inputs.length; i++) {
                 inputs[i].onclick = switchLayer;
             }
-            var url = new URL(window.location.href);
-            var long = url.searchParams.get("long");
-            var lat = url.searchParams.get("lat");
-        
+            
             var marker = new mapboxgl.Marker({
-                draggable: true
+                draggable: false
             })
-                    .setLngLat([long,lat ])
+                    .setLngLat([123.73472378685148, 13.138748870162956])
                     .addTo(map);
             function onDragEnd() {
                 var lngLat = marker.getLngLat();

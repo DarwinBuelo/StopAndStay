@@ -6,7 +6,7 @@
             <button class="mapModalclose">x</button>
         </div>
         <div class="iframe">
-            <iframe id="mapIframe" src="view/googleMap.php?long=123.7345438292341&lat=13.155774496108464"></iframe>
+            <iframe id="mapIframe" src="view/googleMap.php"></iframe>
         </div>
         <div class="mapFooter"> Please drag the pointer to the location and click save</div>
     </div>

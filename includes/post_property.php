@@ -36,7 +36,7 @@ if (isset($_POST['btn_sub'])) {
     $acf = mysqli_real_escape_string($conn, $_POST['acf']);
     $pr = mysqli_real_escape_string($conn, $_POST['pr']);
     $location = mysqli_real_escape_string($conn, $_POST['location']);
-
+    $coord = mysqli_real_escape_string($conn,  $_POST['coord']);
     $extra2 = '';
     if (!empty($_POST['extras'])) {
         $x = 0;
@@ -49,7 +49,7 @@ if (isset($_POST['btn_sub'])) {
             $x++;
         }
     }
-    $sql1 = "INSERT INTO tbl_property (title,photos,contact,price,description,size,tcf,bed,bath,dev,ready,acf,pri,location,extras, user_id, property_type) values('$title','$img','$contact_num','$price','$description','$size','$tcf','$bed','$bath','$dev','$ready','$acf','$pr','$location','$extra2', '$user_id', '$page')";
+    $sql1 = "INSERT INTO tbl_property (title,photos,contact,price,description,size,tcf,bed,bath,dev,ready,acf,pri,location,coord,extras, user_id, property_type) values('$title','$img','$contact_num','$price','$description','$size','$tcf','$bed','$bath','$dev','$ready','$acf','$pr','$location','$coord','$extra2', '$user_id', '$page')";
     $result1 = mysqli_query($conn, $sql1);
     header('location:../index.php?regsuc=1');
 } else {
