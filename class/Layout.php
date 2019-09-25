@@ -217,7 +217,7 @@ class Layout
 
            <div class="navbar-header"><!-- navbar-header Begin -->
 
-               <a href="front.php" class="navbar-brand home"><!-- navbar-brand home Begin -->
+               <a href="index.php" class="navbar-brand home"><!-- navbar-brand home Begin -->
 
                    <h3 class="hidden-xs">Stop And Stay</h3>
                    <h3 class="visible-xs">Stop And Stay</h3>
