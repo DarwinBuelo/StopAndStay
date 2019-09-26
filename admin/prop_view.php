@@ -19,6 +19,7 @@
 <?php 
 include_once("header.php");
 include_once("../includes/db.php");
+require '../init.php';
 if(isset($_GET['searchit']))
 {
      if($_GET['searchit']=="")
