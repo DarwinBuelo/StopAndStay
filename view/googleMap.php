@@ -48,21 +48,17 @@
         <div id="coordinate" style="display:none">123.73472378685148,13.138748870162956</div>
         <div id="locName" style="display:none"></div>
         <script>
-           
+
+            var url = new URL(window.location.href);
+            var long = url.searchParams.get("long");
+            var lat = url.searchParams.get("lat");
             mapboxgl.accessToken = 'pk.eyJ1IjoibWljcm9zYW0iLCJhIjoiY2pwOXdlM2hxMDBsZzNycGs4ODBwbTBxZyJ9.NUTOMtn_cFkY3tNXeffz8A';
             var map = new mapboxgl.Map({
                 container: 'map',
                 style: 'mapbox://styles/mapbox/streets-v11',
                 zoom: 12.5,
-                center: [123.73333, 13.13333]
+                center: [long, lat]
             });
-
-            map.addControl(new mapboxgl.GeolocateControl({
-                positionOptions: {
-                    enableHighAccuracy: true
-                },
-                trackUserLocation: true
-            }));
 
             var layerList = document.getElementById('menu');
             var inputs = layerList.getElementsByTagName('input');
@@ -78,19 +74,22 @@
             var url = new URL(window.location.href);
             var long = url.searchParams.get("long");
             var lat = url.searchParams.get("lat");
-        
-            var marker = new mapboxgl.Marker({
-                draggable: true
-            })
-                    .setLngLat([long,lat ])
-                    .addTo(map);
+            var dragable = url.searchParams.get("drag");
+            if (dragable == "true") {
+                var marker = new mapboxgl.Marker({
+                    draggable: true
+                }).setLngLat([long, lat]).addTo(map);
+            }else{
+                var marker = new mapboxgl.Marker({
+                    draggable: false
+                }).setLngLat([long, lat]).addTo(map);
+            }
+            
             function onDragEnd() {
                 var lngLat = marker.getLngLat();
                 coordinates.style.display = 'block';
                 coordinates.innerHTML = 'Longitude: ' + lngLat.lng + '<br />Latitude: ' + lngLat.lat;
                 coordinate.innerHTML = lngLat.lng + ',' + lngLat.lat;
-
-
             }
             marker.on('dragend', onDragEnd);
         </script>

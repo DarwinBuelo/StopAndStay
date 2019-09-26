@@ -4,7 +4,7 @@ session_start();
 include_once 'init.php';
 include_once('includes/db.php');
 require 'bityLink.php';
-$Outline->addCSS('css/message.css');
+$Outline->addCSS(['css/message.css','css/mapModal.css']);
 $Outline->addJS('js/message.js');
 $Outline->addJS('js/jquery-1.8.3.min.js');
 $url      = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
@@ -27,7 +27,8 @@ $returnTitle = '';
           $href = 'boardingHouse.php';
       }
   }
-  require 'view/messageModal.php'
+
+  require 'view/messageModal.php';
 
 ?>
         <!-- ASIDE NAV AND CONTENT -->
@@ -60,6 +61,8 @@ $returnTitle = '';
                     <div class="line">
                       <div id="header-carousel" class="owl-carousel owl-theme">
                         <?php
+                          $coord = explode(',',$res['coord']);
+                          
                           $imgs=$res['photos'];
                           $imgs=explode("--/",$imgs);
                           foreach($imgs as $image)
@@ -126,7 +129,7 @@ $returnTitle = '';
                       <i class="material-icons">event_available</i> &nbsp;&nbsp; <?= date_format(date_create($res['ready']), 'm/d/Y'); ?> <br>
                       <i class="material-icons">phone</i> &nbsp;&nbsp; <?= $res['contact']; ?> <br>
                       <i class="material-icons">link</i> &nbsp;&nbsp; <?= shortenURL($url); ?><br>
-                      <i class="material-icons">location_on</i> &nbsp;&nbsp; <a href="#" style="color: black;"><?php echo $res['location']; }}?></a><br>
+                      <i class="material-icons">location_on</i> &nbsp;&nbsp; <a href="#" class="mapModalShow" style="color: black;"><?php echo $res['location']; }}?></a><br>
                     </p>
                   </form>
                 </div>
@@ -157,6 +160,7 @@ $returnTitle = '';
    </body>
 </html>
 <?php
+  require 'view/mapModal2.php';
 function money_formater($value) {
   return 'Php ' . number_format($value,2);
 }

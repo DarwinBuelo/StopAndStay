@@ -7,6 +7,8 @@
     margin: auto;
     display: none;
     z-index: 1000;
+    top:0;
+    left:0;
 }
 
 .mapModal .modalBox{
