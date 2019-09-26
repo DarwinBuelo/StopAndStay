@@ -28,7 +28,6 @@ if (!isset($_GET['viewid'])) {
         }
     }
     if (isset($_SESSION['user_id'])) {
-
         require 'view/messageModal.php';
     }
     ?>
@@ -46,11 +45,11 @@ if (!isset($_GET['viewid'])) {
                 </ul>
             </nav>
             <!-- ECHO THE POST NAME -->
-            <?php
-            $teabag = isset($_GET['viewid']) ? $_GET['viewid'] : 0;
-            $sql = mysqli_query($conn, "SELECT * FROM tbl_property where id=$teabag");
-            while ($res = mysqli_fetch_array($sql)) {
-                ?>
+    <?php
+    $teabag = isset($_GET['viewid']) ? $_GET['viewid'] : 0;
+    $sql = mysqli_query($conn, "SELECT * FROM tbl_property where id=$teabag");
+    while ($res = mysqli_fetch_array($sql)) {
+        ?>
                 <h3 class="margin-bottom"><?php echo $res['title']; ?></h3>
 
                 <!-- Pruducts -->
@@ -59,14 +58,14 @@ if (!isset($_GET['viewid'])) {
 
                         <div class="line">
                             <div id="header-carousel" class="owl-carousel owl-theme">
-                                <?php
-                                $coord = explode(',', $res['coord']);
+        <?php
+        $coord = explode(',', $res['coord']);
 
-                                $imgs = $res['photos'];
-                                $imgs = explode("--/", $imgs);
-                                foreach ($imgs as $image)
-                                    echo '<div class="item"><img class="full-img2" style="width:100%; height:100%;" src="post_img/'.$image.'" alt=""></div>';
-                                ?>
+        $imgs = $res['photos'];
+        $imgs = explode("--/", $imgs);
+        foreach ($imgs as $image)
+            echo '<div class="item"><img class="full-img2" style="width:100%; height:100%;" src="post_img/'.$image.'" alt=""></div>';
+        ?>
                             </div>
                         </div>
 
@@ -99,36 +98,39 @@ if (!isset($_GET['viewid'])) {
                         <h4>Description:</h4>
                         <p class="margin-bottom"><?php echo $res['description']; ?></p>
                         <h4>Extra Features:</h4>
-                        <?php
-                        $extras = explode(", ", $res['extras']);
-                        foreach ($extras as $extra) {
-                            echo '<p class="margin-bottom">'.$extra.'</p>';
-                        }
-                        ?>
+        <?php
+        $extras = explode(", ", $res['extras']);
+        foreach ($extras as $extra) {
+            echo '<p class="margin-bottom">'.$extra.'</p>';
+        }
+        ?>
                     </div>
                     <div class="s-12 m-3 l-3 xl-3 xxl-3">
                         <form class="customform s-12 margin-bottom2x" method="post" action="<?= $_SERVER['PHP_SELF']; ?>?page=<?= $page; ?>&viewid=<?= $teabag; ?>&ownerID=<?= $ownerID; ?>">
-                            <?php
-                            include 'includes/reservation.php';
-                            if (ifReserved($ownerID, $teabag, $conn) < 1) {
-                                $bgcolor = '#B91515';
-                                $btnReserve = 'Reserve Now';
-                            } else {
-                                $bgcolor = '#4FBFA8';
-                                $btnReserve = 'Reserved';
-                            }
-                            ?>
-                            <button class="button rounded-btn submit-btn s-12" style="background-color: <?= $bgcolor; ?>" name="btnReserve" <?= (isset($_SESSION['user_id']) ? '' : 'disabled'); ?>>
-                                <b><?= $btnReserve; ?></b></button>
-                            <?php
-                            if (isset($_SESSION['user_id'])) {
-                                ?>
+                        <?php
+                        include 'includes/reservation.php';
+                        if (ifReserved($ownerID, $teabag, $conn) < 1) {
+                            $bgcolor = '#B91515';
+                            $btnReserve = 'Reserve Now';
+                        } else {
+                            $bgcolor = '#4FBFA8';
+                            $btnReserve = 'Reserved';
+                        }
+                        ?>
+                            <button class="button rounded-btn submit-btn s-12" style="background-color: <?= $bgcolor; ?>" name="btnReserve" <?= (isset($_SESSION['user_id']) ? ''
+                            : 'disabled'); ?>>
+                                <b><?= $btnReserve; ?></b>
+                            </button>
+        <?php
+        if (isset($_SESSION['user_id'])) {
+            ?>
                                 <button type="button" class="btn rounded-btn submit-btn s-12  btn-primary modalTriggerShow"  name="btnReserve" data-owner="<?= $ownerID ?>">
                                     <b>Send Message</b>
                                 </button>
-                                <?php
-                            }
-                            ?>
+
+            <?php
+        }
+        ?>
 
                             <br>
                             <h3>Information</h3>
@@ -136,11 +138,9 @@ if (!isset($_GET['viewid'])) {
                                 <i class="material-icons">event_available</i> &nbsp;&nbsp; <?= date_format(date_create($res['ready']), 'm/d/Y'); ?> <br>
                                 <i class="material-icons">phone</i> &nbsp;&nbsp; <?= $res['contact']; ?> <br>
                                 <i class="material-icons">link</i> &nbsp;&nbsp; <?= shortenURL($url); ?><br>
-                                <i class="material-icons">location_on</i> &nbsp;&nbsp; <a href="#" class="mapModalShow" style="color: black;"><?php
-                                    echo $res['location'];
-                                }
-                            }
-                            ?></a><br>
+                                <i class="material-icons">location_on</i> &nbsp;&nbsp; <a href="#" class="mapModalShow" style="color: black;"><?php echo $res['location'];
+    }
+} ?></a><br>
                     </p>
                 </form>
             </div>
