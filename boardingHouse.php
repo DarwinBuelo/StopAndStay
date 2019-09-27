@@ -69,7 +69,9 @@ $Outline->header('Boarding House');
                             } else {
                                 $sql = mysqli_query($conn, "SELECT * from tbl_property where status = 1 and property_type = 0");
                             }
-
+                            ?>
+                            <div id="bhouseList">
+                            <?php
                             while ($res = mysqli_fetch_array($sql)) {
 
 
@@ -99,6 +101,7 @@ $Outline->header('Boarding House');
                                 // $counterpost=$counterpost+1;
                             }
                             ?>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -122,7 +125,7 @@ $Outline->footer();
 
 function money_formater($value)
 {
-    return 'Php '.number_format($value, 2);
+    return '₱'.number_format($value, 2);
 }
 ?>
 
@@ -140,5 +143,8 @@ function money_formater($value)
             autoplay: true,
             autoplayTimeout: 3000
         });
+
+      
+        
     })
 </script> 

@@ -62,6 +62,9 @@ var multirange = function(input) {
 	}
 
 	function update() {
+            
+                console.log($('#min').val()+','+$('#max').val());
+       
                 document.getElementById('min').value =  "₱"+input.valueLow * max;
                 document.getElementById('max').value =  "₱"+input.valueHigh * max;
 		ghost.style.setProperty("--low", 100 * ((input.valueLow - min) / (max - min)) + 1 + "%");
