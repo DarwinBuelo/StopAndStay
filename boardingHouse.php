@@ -44,7 +44,7 @@ $Outline->header('Boarding House');
                     <div class="maxHolder"><input type="text" id="max"></div>
                     </div>
                     <div class="sliderHolder">
-                        <input type="range" multiple value="10,10000"/>
+                        <input  type="range" id="rangeMulti" multiple="" value="10,500"/>
                     </div>
                     <!-- Breadcrumb -->
                     <nav class="breadcrumb-nav">
@@ -73,8 +73,6 @@ $Outline->header('Boarding House');
                             <div id="bhouseList">
                             <?php
                             while ($res = mysqli_fetch_array($sql)) {
-
-
                                 echo "<div class='s-12 m-6 l-6 xl-4 xxl-4 item-container' style='padding-top:5px;'><div class='item-image'>";
                                 // POSTING IMAGE
 
@@ -84,7 +82,7 @@ $Outline->header('Boarding House');
                                 // POSTING PRICE
                                 echo "<div class='details'>";
                                 echo "<a href=''><h4><strong>".$res['title']."</strong></h4></a>";
-                                echo "<span class='price'>".money_formater($res['price'])."</span>";
+                                echo "<span class='price' data-price ='".$res['price']."'>".money_formater($res['price'])."</span>";
                                 echo "<p class='specs'>".$res['location']."</p>";
                                 echo '<p class="margin-bottom" style="padding-right:15px;white-space: nowrap;overflow: hidden; text-overflow: ellipsis;">'.$res['description'].'</p>';
                                 // echo '<form class="customform s-12 margin-bottom2x" action="view_post.php?viewid='.$res['pend_id'].'">
@@ -133,6 +131,8 @@ function money_formater($value)
 
 <script type="text/javascript">
     $(document).ready(function ($) {
+
+
         var owl = $('#header-carousel');
         owl.owlCarousel({
             nav: false,
