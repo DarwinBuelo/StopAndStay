@@ -3,8 +3,11 @@ include_once 'includes/db.php';
 include_once 'view_ads.php';
 include_once 'init.php';
 session_start();
+$Outline->addCSS('css/multirange.css');
+$Outline->addJS('js/multirange.js');
 $Outline->header('Boarding House');
 ?>
+
 <div class="s-12 m-2 l-2 xl-2 xxl-2 ads-left">
 
     <!-- ================== DISPLAYING APPROVED ADPOSTINGS ===========================-->
@@ -36,7 +39,16 @@ $Outline->header('Boarding House');
                             ?>
                         </div>
                     </div>
-
+                    Price Range
+                    <div class="priceHolder">
+                         
+                    <div class="minHolder"><input type="text" id="min"></div>
+                    <div class="maxHolder"><input type="text" id="max"></div>
+                    </div>
+                   
+                    <div class="sliderHolder">
+                        <input  type="range" id="rangeMulti" multiple="" value="0,5000"/>
+                    </div>
                     <!-- Breadcrumb -->
                     <nav class="breadcrumb-nav">
                         <ul>
@@ -60,10 +72,10 @@ $Outline->header('Boarding House');
                             } else {
                                 $sql = mysqli_query($conn, "SELECT * from tbl_property where status = 1 and property_type = 0");
                             }
-
+                            ?>
+                            <div id="bhouseList">
+                            <?php
                             while ($res = mysqli_fetch_array($sql)) {
-
-
                                 echo "<div class='s-12 m-6 l-6 xl-4 xxl-4 item-container' style='padding-top:5px;'><div class='item-image'>";
                                 // POSTING IMAGE
 
@@ -73,7 +85,7 @@ $Outline->header('Boarding House');
                                 // POSTING PRICE
                                 echo "<div class='details'>";
                                 echo "<a href=''><h4><strong>".$res['title']."</strong></h4></a>";
-                                echo "<span class='price'>".money_formater($res['price'])."</span>";
+                                echo "<span class='price' data-price ='".$res['price']."'>".money_formater($res['price'])."</span>";
                                 echo "<p class='specs'>".$res['location']."</p>";
                                 echo '<p class="margin-bottom" style="padding-right:15px;white-space: nowrap;overflow: hidden; text-overflow: ellipsis;">'.$res['description'].'</p>';
                                 // echo '<form class="customform s-12 margin-bottom2x" action="view_post.php?viewid='.$res['pend_id'].'">
@@ -90,6 +102,7 @@ $Outline->header('Boarding House');
                                 // $counterpost=$counterpost+1;
                             }
                             ?>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -100,10 +113,10 @@ $Outline->header('Boarding House');
 <div class="s-12 m-2 l-2 xl-2 xxl-2 ads-right">
 
     <!-- ================== DISPLAYING APPROVED ADPOSTINGS ===========================-->
-<?php
-$adsLocation = view_ads::ADS_LOCATION_RIGHT;
-view_ads::viewingAds($conn, $adsLocation);
-?>
+    <?php
+    $adsLocation = view_ads::ADS_LOCATION_RIGHT;
+    view_ads::viewingAds($conn, $adsLocation);
+    ?>
     <!-- ================== END OF DISPLAYING AD POSTINGS ============================ -->
     <!-- ADSPACE HERE -->&nbsp;
 
@@ -113,11 +126,16 @@ $Outline->footer();
 
 function money_formater($value)
 {
-    return 'Php '.number_format($value, 2);
+    return '₱'.number_format($value, 2);
 }
 ?>
+
+
+
 <script type="text/javascript">
-    jQuery(document).ready(function ($) {
+    $(document).ready(function ($) {
+
+
         var owl = $('#header-carousel');
         owl.owlCarousel({
             nav: false,
@@ -128,5 +146,8 @@ function money_formater($value)
             autoplay: true,
             autoplayTimeout: 3000
         });
+
+      
+        
     })
 </script> 
