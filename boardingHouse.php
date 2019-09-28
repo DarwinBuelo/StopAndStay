@@ -39,12 +39,15 @@ $Outline->header('Boarding House');
                             ?>
                         </div>
                     </div>
+                    Price Range
                     <div class="priceHolder">
+                         
                     <div class="minHolder"><input type="text" id="min"></div>
                     <div class="maxHolder"><input type="text" id="max"></div>
                     </div>
+                   
                     <div class="sliderHolder">
-                        <input  type="range" id="rangeMulti" multiple="" value="10,500"/>
+                        <input  type="range" id="rangeMulti" multiple="" value="0,5000"/>
                     </div>
                     <!-- Breadcrumb -->
                     <nav class="breadcrumb-nav">

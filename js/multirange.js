@@ -15,7 +15,7 @@
         var min = +(input.min || 0);
         var max = +(input.max || 100);
         var ghost = input.cloneNode();
-
+        console.log(input.min);
         input.classList.add("multirange", "original");
         ghost.classList.add("multirange", "ghost");
 
@@ -76,10 +76,9 @@
         }
 
         function update() {
-            var minVal = input.valueLow;
-            var maxVal = input.valueHigh;
+            var minVal = values[1] * input.valueLow / 100 ;
+            var maxVal =values[1]  * input.valueHigh / 100 ;
             $("#bhouseList .price").filter(function () {
-//                $(this).toggle($(this).text().toLowerCase().indexOf(maxVAl) > -1)
                   var elementValue = $(this).data('price');
                   if( elementValue >= minVal && elementValue <= maxVal){
                     $(this).parent().parent().parent().fadeIn();
@@ -88,7 +87,6 @@
                   }
             });
             
-            console.log(max);
             document.getElementById('min').value = "₱" + minVal;
             document.getElementById('max').value = "₱" + maxVal;
             ghost.style.setProperty("--low", 100 * ((input.valueLow - min) / (max - min)) + 1 + "%");
