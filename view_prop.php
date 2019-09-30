@@ -4,7 +4,7 @@ session_start();
 include_once 'init.php';
 include_once('includes/db.php');
 require 'bityLink.php';
-$Outline->addCSS(['css/message.css', 'css/mapModal.css']);
+$Outline->addCSS(['css/message.css', 'css/mapModal.css', 'css/comment.css']);
 $Outline->addJS('js/message.js');
 $Outline->addJS('js/jquery-1.8.3.min.js');
 $url = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
@@ -65,8 +65,9 @@ if (!isset($_GET['viewid'])) {
 
                                 $imgs = $res['photos'];
                                 $imgs = explode("--/", $imgs);
-                                foreach ($imgs as $image)
+                                foreach ($imgs as $image) {
                                     echo '<div class="item"><img class="full-img2" style="width:100%; height:100%;" src="post_img/'.$image.'" alt=""></div>';
+                                }
                                 ?>
                             </div>
                         </div>
@@ -119,8 +120,8 @@ if (!isset($_GET['viewid'])) {
                                 $btnReserve = 'Reserved';
                             }
                             ?>
-                            <button class="button rounded-btn submit-btn s-12" style="background-color: <?= $bgcolor; ?>" name="btnReserve" <?= (isset($_SESSION['user_id']) ? ''
-                            : 'disabled');
+                            <button class="button rounded-btn submit-btn s-12" style="background-color: <?= $bgcolor; ?>" name="btnReserve" <?=
+                            (isset($_SESSION['user_id']) ? '' : 'disabled');
                             ?>>
                                 <b><?= $btnReserve; ?></b>
                             </button>
@@ -150,6 +151,29 @@ if (!isset($_GET['viewid'])) {
                 </form>
             </div>
         </div>
+        <div class="col-md-9 commentBoxHolder">
+            <form method="post" action="process.php" class="commentForm">
+                Name: <input type="text" name="name" class="sender">
+                Message : <textarea class="message"></textarea>
+                Rate :
+                <input type="radio" name="rating" value="1">1
+                <input type="radio" name="rating" value="2">2
+                <input type="radio" name="rating" value="3">3
+                <input type="radio" name="rating" value="4">4
+                <input type="radio" name="rating" value="5">5
+                <div class="submit">
+                <button type="submit" class="btn btn-primary">Post</button>
+                </div>
+            </form>
+            <div class="commentList">
+                <div class="comment">
+                    Name: Guest
+                    Comment : This is a test comment
+                    Date: 01/10/2019
+                    Rating: 5
+                </div>
+            </div>
+        </div>
     </section>
 </div>
 </div> 
@@ -172,7 +196,7 @@ if (!isset($_GET['viewid'])) {
             autoplayTimeout: 3000
         });
     })
-</script>     
+</script>
 </body>
 </html>
 <?php

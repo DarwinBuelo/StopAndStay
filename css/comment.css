@@ -1,0 +1,40 @@
+.commentBoxHolder{
+}
+
+.commentForm{
+
+}
+
+.commentBoxHolder .sender{
+    width: 100%;
+    background: #eaeaea;
+    padding: 5px;
+
+}
+
+.commentBoxHolder .message{
+    background: rgb(238, 238, 238) none repeat scroll 0% 0%;
+    width: 565px;
+    height: 115px;
+    padding: 5px;
+    resize: none;
+}
+
+
+.commentBoxHolder .commentForm input[type='radio']{
+    padding: 5px;
+    margin-left: 20px;
+}
+
+.commentBoxHolder .submit{
+    display: block;
+    width: 100%;
+    text-align: right;
+    padding: 10px;
+}
+
+.commentBoxHolder .comment{
+    display: block;
+    background-color: #dbdfce;
+    padding: 10px;
+}
