@@ -5,8 +5,8 @@ include_once 'class/Dbcon.php';
 require 'vendor/autoload.php';
 
 $fb = new Facebook\Facebook([
-    'app_id' => '418393419036017',
-    'app_secret' => 'c7ac7c14a50d5f62c1feb8a49a4a8d5b',
+    'app_id' => '696828140836013',
+    'app_secret' => '27c4a8e229dc72e0be621013b6311d9d',
     'default_graph_version' => 'v4.0'
 ]);
 if (isset($_GET['state'])) {
