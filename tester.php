@@ -1,6 +1,6 @@
 <?php
 
 require_once 'init.php';
-$chat = Chat::getChatsForMe(9);
+$chat = SMS::send();
 Util::debug($chat);
-?>
+//EOF

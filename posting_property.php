@@ -120,7 +120,7 @@ if ($page == 0) {
                         <script src="js/custom-file-input.js"></script>
                         <br>
                         <div class="wrap-input100 validate-input" data-validate="Please enter contact #">
-                            <input class="input100" type="text" name="contact_num" placeholder="Contact Number">
+                            <input class="input100" type="number" name="contact_num" placeholder="Contact Number (Format: 639*********)">
                             <span class="focus-input100"></span>
                         </div>
                         <br>
