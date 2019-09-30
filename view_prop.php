@@ -125,7 +125,7 @@ if (!isset($_GET['viewid'])) {
                             <?php
                             if (isset($_SESSION['user_id'])) {
                                 ?>
-                                <button type="button" class="btn rounded-btn submit-btn s-12  btn-primary modalTriggerShow"  name="btnReserve" data-owner="<?= $ownerID ?>">
+                                <button type="button" class="btn rounded-btn submit-btn s-12  btn-primary modalTriggerShow"  name="btnMessage" data-owner="<?= $ownerID ?>">
                                     <b>Send Message</b>
                                 </button>
 
