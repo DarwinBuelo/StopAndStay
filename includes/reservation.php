@@ -3,9 +3,9 @@ const TABLE_NAME = 'tenant_reservation';
 if (isset($_POST['btnReserve'])) {
     if (isset($_SESSION['user_id'])) {
         $userID = $_SESSION['user_id'];
+        $User = UserProperty::Load($ownerID);
+        $tenantName = User::getName($userID);
         if (ifReserved($ownerID, $teabag, $conn) < 1) {
-            $User = UserProperty::Load($ownerID);
-            $tenantName = User::getName($userID);
             $data = [
                 'user_id'  =>  $userID,
                 'tbl_property_id'  =>  $teabag,
@@ -13,7 +13,7 @@ if (isset($_POST['btnReserve'])) {
                 'owner_id'  =>  $ownerID
             ];
             Dbcon::insert(TABLE_NAME, $data);
-            SMS::send($tenantName, $tenantName.' has been booked for reservation', $User->getContact());
+            SMS::send($tenantName, $tenantName.' has booked a reservation for '.$title, $User->getContact());
         } else {
             $where = [
                 'user_id'  =>  $userID,
@@ -21,6 +21,7 @@ if (isset($_POST['btnReserve'])) {
                 'owner_id'  =>  $ownerID
             ];
             Dbcon::delete(TABLE_NAME, $where);
+            SMS::send($tenantName, $tenantName.' has cancelled reservation for '.$title, $User->getContact());
         }
     }
 }
