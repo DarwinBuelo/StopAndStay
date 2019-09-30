@@ -47,8 +47,10 @@ if (!isset($_GET['viewid'])) {
             <!-- ECHO THE POST NAME -->
             <?php
             $teabag = isset($_GET['viewid']) ? $_GET['viewid'] : 0;
+            $title = '';
             $sql = mysqli_query($conn, "SELECT * FROM tbl_property where id=$teabag");
             while ($res = mysqli_fetch_array($sql)) {
+                $title = $res['title'];
                 ?>
                 <h3 class="margin-bottom"><?php echo $res['title']; ?></h3>
 
