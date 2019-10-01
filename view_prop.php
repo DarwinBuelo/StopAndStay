@@ -138,6 +138,7 @@ if (!isset($_GET['viewid'])) {
 
                             <br>
                             <h3>Information</h3>
+
                             <p>
                                 <i class="material-icons">event_available</i> &nbsp;&nbsp; <?= date_format(date_create($res['ready']), 'm/d/Y'); ?> <br>
                                 <i class="material-icons">phone</i> &nbsp;&nbsp; <?= $res['contact']; ?> <br>
@@ -149,10 +150,31 @@ if (!isset($_GET['viewid'])) {
                             ?></a><br>
                     </p>
                 </form>
+                <?php
+                $sql = "SELECT * FROM reviews WHERE prop_id='".Util::getParam('viewid')."'";
+                $resultss = Dbcon::execute($sql);
+                $datass = Dbcon::fetch_all_assoc($resultss);
+                if (count($datass) > 0) {
+                    $html = null;
+                    $rating = 0;
+                    foreach ($datass as $item) {
+                        $html .= "<div class='comment'>";
+                        $html .= "Name : ".$item['name'];
+                        $html .= "Comment : ".$item['comment'];
+                        $html .= "Rating : ".$item['rate'];
+                        $html .= "Date : ".date('Y/m/d', strtotime($item['date']));
+                        $html .= "</div>";
+                        $rating += $item['rate'];
+                    }
+                    $totalRating = $rating / count($datass);
+                    echo "Rating : " . round($totalRating,2);
+                }
+                ?>
             </div>
         </div>
         <div class="col-md-9 commentBoxHolder">
             <form method="post" action="process.php" class="commentForm">
+                <input type="hidden" name="propID" value="<?= Util::getParam('viewid') ?>">
                 Name: <input type="text" name="name" class="sender">
                 Message : <textarea class="message"></textarea>
                 Rate :
@@ -162,16 +184,11 @@ if (!isset($_GET['viewid'])) {
                 <input type="radio" name="rating" value="4">4
                 <input type="radio" name="rating" value="5">5
                 <div class="submit">
-                <button type="submit" class="btn btn-primary">Post</button>
+                    <button type="submit" class="btn btn-primary">Post</button>
                 </div>
             </form>
             <div class="commentList">
-                <div class="comment">
-                    Name: Guest
-                    Comment : This is a test comment
-                    Date: 01/10/2019
-                    Rating: 5
-                </div>
+                <?= isset($html)? $html : null ?>
             </div>
         </div>
     </section>
