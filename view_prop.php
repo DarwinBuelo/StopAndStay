@@ -159,11 +159,12 @@ if (!isset($_GET['viewid'])) {
                     $rating = 0;
                     foreach ($datass as $item) {
                         $html .= "<div class='comment'>";
-                        $html .= "Name : ".$item['name'];
-                        $html .= "Comment : ".$item['comment'];
-                        $html .= "Rating : ".$item['rate'];
-                        $html .= "Date : ".date('Y/m/d', strtotime($item['date']));
-                        $html .= "</div>";
+                        $html .= "<div class='name'><b>".$item['name']."</b></div>";
+                        $html .= "<div class='commentMessage'>".$item['comment']."</div>";
+                        $html .= "<div class='row details'>";
+                        $html .= "<div class='col-md-6 rating'>Rating : ".$item['rate']."</div>";
+                        $html .= "<div class='col-md-6  date'>Date : ".date('Y/m/d', strtotime($item['date']))."</div>";
+                        $html .= "</div></div>";
                         $rating += $item['rate'];
                     }
                     $totalRating = $rating / count($datass);
@@ -173,16 +174,17 @@ if (!isset($_GET['viewid'])) {
             </div>
         </div>
         <div class="col-md-9 commentBoxHolder">
+            <h3>Comment Box</h3>
             <form method="post" action="process.php" class="commentForm">
                 <input type="hidden" name="propID" value="<?= Util::getParam('viewid') ?>">
                 Name: <input type="text" name="name" class="sender">
-                Message : <textarea class="message"></textarea>
+                Message : <textarea class="message" name="message"></textarea>
                 Rate :
                 <input type="radio" name="rating" value="1">1
                 <input type="radio" name="rating" value="2">2
                 <input type="radio" name="rating" value="3">3
                 <input type="radio" name="rating" value="4">4
-                <input type="radio" name="rating" value="5">5
+                <input type="radio" name="rating" value="5" checked>5
                 <div class="submit">
                     <button type="submit" class="btn btn-primary">Post</button>
                 </div>
