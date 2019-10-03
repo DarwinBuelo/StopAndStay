@@ -264,6 +264,9 @@ class Layout
             $html .= ' <li class="active">
                            <a href="messages.php">Message</a>
                        </li>';
+              $html .= ' <li class="active">
+                           <a href="manageProp.php">My Properties</a>
+                       </li>';
         }
 
         $html .= '<li class="active">

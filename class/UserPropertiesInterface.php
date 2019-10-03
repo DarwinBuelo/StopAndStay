@@ -117,6 +117,17 @@ class UserPropertiesInterface
         }
     }
 
+    public static function GetMyProperties($myID){
+         $sql = "SELECT id FROM ".self::TABLE." WHERE user_id =".$myID;
+         $result = Dbcon::execute($sql);
+         $data = Dbcon::fetch_all_assoc($result);
+         $ids = [];
+         foreach ($data as $item){
+             $ids[] = $item['id'];
+         }
+         return static::LoadArray($ids);
+    }
+
     public function getPropertyID()
     {
         return $this->propertyID;
