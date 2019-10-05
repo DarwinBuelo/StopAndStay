@@ -15,28 +15,37 @@ $myProps = UserProperty::GetMyProperties($User);
 <div class="row myPropList">
     <div class="line">
         <?php
-        foreach ($myProps as $prop) {
-            $photo = explode('--/', $prop->getPhotos());
-            ?>
-            <div class="row myPropContainer">
-                <div class="col-md-3" >
-                    <img src="post_img/<?= $photo[0] ?>">
-                </div>
-                <div class="col-md-6">
-                    <div class="row">
-                        <?= $prop->getTitle() ?>
+        if (!empty($myProps)) {
+
+
+            foreach ($myProps as $prop) {
+                $photo = explode('--/', $prop->getPhotos());
+                ?>
+                <div class="row myPropContainer">
+                    <div class="col-md-3" >
+                        <img src="post_img/<?= $photo[0] ?>">
                     </div>
-                    <div class="row">
-                        <i><?= $prop->getDescription() ?></i>
+                    <div class="col-md-6">
+                        <div class="row">
+                            <?= $prop->getTitle() ?>
+                        </div>
+                        <div class="row">
+                            <i><?= $prop->getDescription() ?></i>
+                        </div>
                     </div>
-                </div>
-                <div class='col-md-3 align-content-center h-100'>
-                    <button class="btn btn-primary center" id="modalTrigger" data-key="<?= $prop->getPropertyID() ?>">Edit</button>
+                    <div class='col-md-3 align-content-center h-100'>
+                        <button class="btn btn-primary center" id="modalTrigger" data-key="<?= $prop->getPropertyID() ?>">Edit</button>
+                    </div>
+
                 </div>
 
-            </div>
+                <?php
+            }
+        }else{
+            echo "<div class='row'>";
+            echo "<div class='col-md-12 text-center'><h3>You Have No Properties Posted</h3></div>";
+            echo  "</div>";
 
-            <?php
         }
         ?>
     </div>
@@ -218,11 +227,11 @@ $myProps = UserProperty::GetMyProperties($User);
                                                 <div class="col-md-5">
                                                     Fire Extinguisher
                                                 </div>
-                                               
+
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
 
 
@@ -239,7 +248,7 @@ $myProps = UserProperty::GetMyProperties($User);
                                     <div class="row">
                                         <div class="col-md-11">
                                             <div class="mapIframe">
-                                                
+
                                             </div>
                                         </div>
                                     </div>
@@ -268,11 +277,11 @@ $myProps = UserProperty::GetMyProperties($User);
             var propID = $(this).data("key");
             $.ajax({
                 url: 'process.php',
-                data:{
+                data: {
                     'task': 'editProps',
                     'propID': propID
                 },
-                success: function(response){
+                success: function (response) {
                     var data = JSON.parse(response);
                     //fill up the form
                     $('#propID').val(propID);
@@ -286,29 +295,29 @@ $myProps = UserProperty::GetMyProperties($User);
                     $('#ready').val(data.ready);
                     var extras = data.extras.split(", ");
                     var input = $("[id=extra]")
-                    input.each(function(){
-                        if(extras.includes($(this).val())){
+                    input.each(function () {
+                        if (extras.includes($(this).val())) {
                             $(this).attr('checked', true);
                         }
                     });
-                     $('#imgHolder').empty();
+                    $('#imgHolder').empty();
                     var photos = data.photos.split('--/');
-                    photos.forEach(function(value){
-                         var html = "<div class='row'>";
-                         html += "<img src='post_img/"+value+"'>";
-                         html += "</div>";
-                         $('#imgHolder').append(html);
+                    photos.forEach(function (value) {
+                        var html = "<div class='row'>";
+                        html += "<img src='post_img/" + value + "'>";
+                        html += "</div>";
+                        $('#imgHolder').append(html);
                     });
                     //map location
-                    if(data.coord.length > 0){
+                    if (data.coord.length > 0) {
                         var coord = data.coord.split(',');
-                    }else{
-                        var coord = ['123.73333','13.13333'];
+                    } else {
+                        var coord = ['123.73333', '13.13333'];
                     }
-                    
-                    var html = "<iframe id='mapIframe' src='view/googleMap.php?drag=true&long="+coord[0]+"&lat="+coord[1]+"'><iframe>"
+
+                    var html = "<iframe id='mapIframe' src='view/googleMap.php?drag=true&long=" + coord[0] + "&lat=" + coord[1] + "'><iframe>"
                     $(".mapIframe").append(html);
-       
+
 
                 }
             });
@@ -325,7 +334,7 @@ $myProps = UserProperty::GetMyProperties($User);
             $(".mapIframe").empty();
         });
 
-        $("#btnSubmit").click(function(event){
+        $("#btnSubmit").click(function (event) {
             event.preventDefault();
             var loc = $('#mapIframe').contents().find('#coordinate').html();
             $.ajax({
@@ -337,13 +346,13 @@ $myProps = UserProperty::GetMyProperties($User);
                     $("#editForm").submit();
                 }
             });
-            
-            
+
+
         })
 
     });
 
-  
+
 
 
 </script>

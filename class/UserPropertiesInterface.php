@@ -107,7 +107,7 @@ class UserPropertiesInterface
             'user_id' => $this->getUserID(),
             'property_type' => $this->getPropertyType(),
         ];
-        
+
         if (!empty($this->id)) {
             $where = ['id' => $this->getPropertyID()];
             $result = DBcon::update(self::TABLE, $data, $where);
@@ -117,15 +117,18 @@ class UserPropertiesInterface
         }
     }
 
-    public static function GetMyProperties($myID){
-         $sql = "SELECT id FROM ".self::TABLE." WHERE user_id =".$myID;
-         $result = Dbcon::execute($sql);
-         $data = Dbcon::fetch_all_assoc($result);
-         $ids = [];
-         foreach ($data as $item){
-             $ids[] = $item['id'];
-         }
-         return static::LoadArray($ids);
+    public static function GetMyProperties($myID)
+    {
+        $sql = "SELECT ID FROM ".self::TABLE." WHERE user_id =".$myID;
+        $result = Dbcon::execute($sql);
+        $data = Dbcon::fetch_all_assoc($result);
+        $ids = [];
+        foreach ($data as $item) {
+            $ids[] = $item['ID'];
+        }
+        if (count($ids) > 0) {
+            return static::LoadArray($ids);
+        }
     }
 
     public function getPropertyID()
