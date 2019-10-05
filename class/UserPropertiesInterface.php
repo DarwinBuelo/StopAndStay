@@ -107,7 +107,7 @@ class UserPropertiesInterface
             'user_id' => $this->getUserID(),
             'property_type' => $this->getPropertyType(),
         ];
-
+        
         if (!empty($this->id)) {
             $where = ['id' => $this->getPropertyID()];
             $result = DBcon::update(self::TABLE, $data, $where);

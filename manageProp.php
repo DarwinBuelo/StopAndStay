@@ -4,6 +4,7 @@ include_once 'view_ads.php';
 include_once 'init.php';
 $User = $_SESSION['user_id'];
 $Outline->addCSS('css/myProp.css');
+$Outline->addCSS('css/mapModal.css');
 $Outline->header('My Properties');
 $Outline->loadJS();
 //loads the properties of the current user
@@ -19,7 +20,6 @@ $myProps = UserProperty::GetMyProperties($User);
             ?>
             <div class="row myPropContainer">
                 <div class="col-md-3" >
-                   
                     <img src="post_img/<?= $photo[0] ?>">
                 </div>
                 <div class="col-md-6">
@@ -27,7 +27,7 @@ $myProps = UserProperty::GetMyProperties($User);
                         <?= $prop->getTitle() ?>
                     </div>
                     <div class="row">
-                        <?= $prop->getDescription() ?>
+                        <i><?= $prop->getDescription() ?></i>
                     </div>
                 </div>
                 <div class='col-md-3 align-content-center h-100'>
@@ -47,6 +47,7 @@ $myProps = UserProperty::GetMyProperties($User);
     <div class="modalContainer">
         <form id="editForm" method="post" action="process.php">
             <input id="propID" type="hidden" name="ID" value="">
+            <input id="task" type="hidden" name="task" value="savePropEdit">
             <div class="header">
                 Edit Property Details
                 <div class="close" id="modalTriggerClose">x</div>
@@ -238,7 +239,7 @@ $myProps = UserProperty::GetMyProperties($User);
                                     <div class="row">
                                         <div class="col-md-11">
                                             <div class="mapIframe">
-                                                <iframe id="mapIframe" src="view/googleMap.php?drag=true&long=123.73333&lat=13.13333"></iframe>
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -248,9 +249,13 @@ $myProps = UserProperty::GetMyProperties($User);
                     </div>
                 </div>
             </div>
+            <!--- location details---->
+            <input type="hidden" name="coord" id="coord" value="">
+            <input type="hidden" name="location" id="location" value="">
+
             <div class="footer">
                 <button class="btn btn-danger" id="modalTriggerClose">Close</button>
-                <button class="btn btn-primary">Save</button>
+                <button class="btn btn-primary" id="btnSubmit">Save</button>
             </div>
         </form>
     </div>
@@ -270,7 +275,7 @@ $myProps = UserProperty::GetMyProperties($User);
                 success: function(response){
                     var data = JSON.parse(response);
                     //fill up the form
-                    $('#propID').val(data.ID);
+                    $('#propID').val(propID);
                     $('#title').val(data.title);
                     $('#contact').val(data.contact);
                     $('#price').val(data.price);
@@ -294,9 +299,17 @@ $myProps = UserProperty::GetMyProperties($User);
                          html += "</div>";
                          $('#imgHolder').append(html);
                     });
+                    //map location
+                    if(data.coord.length > 0){
+                        var coord = data.coord.split(',');
+                    }else{
+                        var coord = ['123.73333','13.13333'];
+                    }
+                    
+                    var html = "<iframe id='mapIframe' src='view/googleMap.php?drag=true&long="+coord[0]+"&lat="+coord[1]+"'><iframe>"
+                    $(".mapIframe").append(html);
        
 
-                    console.log(data);
                 }
             });
             $('#editProp').fadeIn();
@@ -309,8 +322,28 @@ $myProps = UserProperty::GetMyProperties($User);
             $('#imgHolder').empty();
             $('#editForm').trigger("reset");
             $('#editProp').fadeOut();
+            $(".mapIframe").empty();
         });
 
+        $("#btnSubmit").click(function(event){
+            event.preventDefault();
+            var loc = $('#mapIframe').contents().find('#coordinate').html();
+            $.ajax({
+                url: "https://api.mapbox.com/geocoding/v5/mapbox.places/" + loc + ".json?access_token=pk.eyJ1IjoibWljcm9zYW0iLCJhIjoiY2pwOXdlM2hxMDBsZzNycGs4ODBwbTBxZyJ9.NUTOMtn_cFkY3tNXeffz8A",
+                success: function (response) {
+                    var data = response.features[1].place_name;
+                    $('#coord').val(loc);
+                    $('#location').val(data.slice(0, -13));
+                    $("#editForm").submit();
+                }
+            });
+            
+            
+        })
 
     });
+
+  
+
+
 </script>
