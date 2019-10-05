@@ -79,19 +79,27 @@
                 var marker = new mapboxgl.Marker({
                     draggable: true
                 }).setLngLat([long, lat]).addTo(map);
-            }else{
+            } else {
                 var marker = new mapboxgl.Marker({
                     draggable: false
                 }).setLngLat([long, lat]).addTo(map);
             }
-            
+
             function onDragEnd() {
                 var lngLat = marker.getLngLat();
                 coordinates.style.display = 'block';
                 coordinates.innerHTML = 'Longitude: ' + lngLat.lng + '<br />Latitude: ' + lngLat.lat;
                 coordinate.innerHTML = lngLat.lng + ',' + lngLat.lat;
             }
-            marker.on('dragend', onDragEnd);
+            if (dragable == "true") {
+                map.on('click', function (e) {
+                    marker.setLngLat(e.lngLat);
+                    var lngLat = marker.getLngLat();
+                    coordinates.style.display = 'block';
+                    coordinates.innerHTML = 'Longitude: ' + lngLat.lng + '<br />Latitude: ' + lngLat.lat;
+                    coordinate.innerHTML = lngLat.lng + ',' + lngLat.lat;
+                });
+            }
         </script>
     </body>
 </html>
