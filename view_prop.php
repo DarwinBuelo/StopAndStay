@@ -177,6 +177,7 @@ if (!isset($_GET['viewid'])) {
             <h3>Comment Box</h3>
             <form method="post" action="process.php" class="commentForm">
                 <input type="hidden" name="propID" value="<?= Util::getParam('viewid') ?>">
+                <input type="hidden" name="task" value="rate">
                 Name: <input type="text" name="name" class="sender">
                 Message : <textarea class="message" name="message"></textarea>
                 Rate :

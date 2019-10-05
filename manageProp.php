@@ -6,18 +6,20 @@ $User = $_SESSION['user_id'];
 $Outline->addCSS('css/myProp.css');
 $Outline->header('My Properties');
 $Outline->loadJS();
-$myProps = UserProperty::GetMyProperties($User)
+//loads the properties of the current user
+$myProps = UserProperty::GetMyProperties($User);
 ?>
 
 
 <div class="row myPropList">
-    <div class="col-md-6 offset-md-3">
+    <div class="line">
         <?php
         foreach ($myProps as $prop) {
             $photo = explode('--/', $prop->getPhotos());
             ?>
             <div class="row myPropContainer">
-                <div class="col-md-3">
+                <div class="col-md-3" >
+                   
                     <img src="post_img/<?= $photo[0] ?>">
                 </div>
                 <div class="col-md-6">
@@ -44,6 +46,7 @@ $myProps = UserProperty::GetMyProperties($User)
 <div class="modal" id="editProp">
     <div class="modalContainer">
         <form id="editForm" method="post" action="process.php">
+            <input id="propID" type="hidden" name="ID" value="">
             <div class="header">
                 Edit Property Details
                 <div class="close" id="modalTriggerClose">x</div>
@@ -51,8 +54,7 @@ $myProps = UserProperty::GetMyProperties($User)
 
             <div class="content">
                 <div class="row">
-                    <div class="col-md-3">
-                        <img src="post_img/hnl.jpg">
+                    <div class="col-md-3" id="imgHolder">
                     </div>
                     <div class="col-md-9">
                         <div class="row">
@@ -63,31 +65,31 @@ $myProps = UserProperty::GetMyProperties($User)
                                 <div class="col-md-6">
                                     <div class="row">
                                         <div class="col-md-3">Title :</div>
-                                        <div class="col-md-9"><input type="text"></div>
+                                        <div class="col-md-9"><input name="title" type="text" value="" id="title"></div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-3">Contact:</div>
-                                        <div class="col-md-9"><input type="text"></div>
+                                        <div class="col-md-9"><input name="contact" type="text" value="" id="contact"></div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-3">Monthly Price:</div>
-                                        <div class="col-md-9"><input type="text"></div>
+                                        <div class="col-md-9"><input name="price" type="text" value="" id="price"></div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-3">Advance Payment:</div>
-                                        <div class="col-md-9"><input type="text"></div>
+                                        <div class="col-md-9"><input name="tcf" id="tcf" type="text" value=""></div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-3">Bed Rooms:</div>
-                                        <div class="col-md-9"><input type="text"></div>
+                                        <div class="col-md-9"><input type="text" name="bed" id="bed" value=""></div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-3">Bath Rooms:</div>
-                                        <div class="col-md-9"><input type="text"></div>
+                                        <div class="col-md-9"><input type="text" name="bath" id="bath"></div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-3">Ready by:</div>
-                                        <div class="col-md-9"><input type="text"></div>
+                                        <div class="col-md-9"><input type="date" name="ready" id="ready"></div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
@@ -98,13 +100,13 @@ $myProps = UserProperty::GetMyProperties($User)
                                         <div class="col-md-12">
                                             <div class="row">
                                                 <div class="col-md-1">
-                                                    <input type="checkbox" name="extras[]" value="Balcony">
+                                                    <input type="checkbox" id="extra" name="extras[]" value="Balcony">
                                                 </div>
                                                 <div class="col-md-5">
                                                     Balcony
                                                 </div>
                                                 <div class="col-md-1">
-                                                    <input type="checkbox" name="extras[]"  value="Built n Kitchen Appliances">
+                                                    <input type="checkbox" id="extra" name="extras[]"  value="Built n Kitchen Appliances">
                                                 </div>
                                                 <div class="col-md-5">
                                                     Built n Kitchen Appliances
@@ -112,13 +114,13 @@ $myProps = UserProperty::GetMyProperties($User)
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-1">
-                                                    <input type="checkbox" name="extras[]" value="Built in Wardrobes">
+                                                    <input type="checkbox" id="extra" name="extras[]" value="Built in Wardrobes">
                                                 </div>
                                                 <div class="col-md-5">
                                                     Built in Wardrobes
                                                 </div>
                                                 <div class="col-md-1">
-                                                    <input type="checkbox" name="extras[]"  value="Covered Parking">
+                                                    <input type="checkbox" id="extra" name="extras[]"  value="Covered Parking">
                                                 </div>
                                                 <div class="col-md-5">
                                                     Covered Parking
@@ -126,13 +128,13 @@ $myProps = UserProperty::GetMyProperties($User)
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-1">
-                                                    <input type="checkbox" name="extras[]" value="Maid Service">
+                                                    <input type="checkbox" id="extra" name="extras[]" value="Maid Service">
                                                 </div>
                                                 <div class="col-md-5">
                                                     Maid Service
                                                 </div>
                                                 <div class="col-md-1">
-                                                    <input type="checkbox" name="extras[]"  value="Maids Room">
+                                                    <input type="checkbox" id="extra" name="extras[]"  value="Maids Room">
                                                 </div>
                                                 <div class="col-md-5">
                                                     Maids Room
@@ -140,13 +142,13 @@ $myProps = UserProperty::GetMyProperties($User)
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-1">
-                                                    <input type="checkbox" name="extras[]" value="Pets Allowed">
+                                                    <input type="checkbox" id="extra" name="extras[]" value="Pets Allowed">
                                                 </div>
                                                 <div class="col-md-5">
                                                     Pets Allowed
                                                 </div>
                                                 <div class="col-md-1">
-                                                    <input type="checkbox" name="extras[]"  value="Private Garden">
+                                                    <input type="checkbox" id="extra" name="extras[]"  value="Private Garden">
                                                 </div>
                                                 <div class="col-md-5">
                                                     Private Garden
@@ -154,13 +156,13 @@ $myProps = UserProperty::GetMyProperties($User)
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-1">
-                                                    <input type="checkbox" name="extras[]" value="Private Gym">
+                                                    <input type="checkbox" id="extra" name="extras[]" value="Private Gym">
                                                 </div>
                                                 <div class="col-md-5">
                                                     Private Gym
                                                 </div>
                                                 <div class="col-md-1">
-                                                    <input type="checkbox" name="extras[]"  value="Private Pool">
+                                                    <input type="checkbox" id="extra" name="extras[]"  value="Private Pool">
                                                 </div>
                                                 <div class="col-md-5">
                                                     Private Pool
@@ -168,13 +170,13 @@ $myProps = UserProperty::GetMyProperties($User)
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-1">
-                                                    <input type="checkbox" name="extras[]" value="Security">
+                                                    <input type="checkbox" id="extra" name="extras[]" value="Security">
                                                 </div>
                                                 <div class="col-md-5">
                                                     Security
                                                 </div>
                                                 <div class="col-md-1">
-                                                    <input type="checkbox" name="extras[]"  value="Study">
+                                                    <input type="checkbox" id="extra" name="extras[]"  value="Study">
                                                 </div>
                                                 <div class="col-md-5">
                                                     Study
@@ -182,13 +184,13 @@ $myProps = UserProperty::GetMyProperties($User)
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-1">
-                                                    <input type="checkbox" name="extras[]" value="View of Landmark">
+                                                    <input type="checkbox" id="extra" name="extras[]" value="View of Landmark">
                                                 </div>
                                                 <div class="col-md-5">
                                                     View of Landmark
                                                 </div>
                                                 <div class="col-md-1">
-                                                    <input type="checkbox" name="extras[]"  value="Walk-in Closet">
+                                                    <input type="checkbox" id="extra" name="extras[]"  value="Walk-in Closet">
                                                 </div>
                                                 <div class="col-md-5">
                                                     Walk-in Closet
@@ -196,13 +198,13 @@ $myProps = UserProperty::GetMyProperties($User)
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-1">
-                                                    <input type="checkbox" name="extras[]" value="CCTV">
+                                                    <input type="checkbox" id="extra" name="extras[]" value="CCTV">
                                                 </div>
                                                 <div class="col-md-5">
                                                     CCTV
                                                 </div>
                                                 <div class="col-md-1">
-                                                    <input type="checkbox" name="extras[]"  value="Wifi">
+                                                    <input type="checkbox" id="extra" name="extras[]"  value="Wifi">
                                                 </div>
                                                 <div class="col-md-5">
                                                     Wifi
@@ -210,7 +212,7 @@ $myProps = UserProperty::GetMyProperties($User)
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-1">
-                                                    <input type="checkbox" name="extras[]" value="Fire Extinguisher">
+                                                    <input type="checkbox" id="extra" name="extras[]" value="Fire Extinguisher">
                                                 </div>
                                                 <div class="col-md-5">
                                                     Fire Extinguisher
@@ -228,7 +230,7 @@ $myProps = UserProperty::GetMyProperties($User)
                                         <div class="col">Description :</div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-11"><textarea></textarea></div>
+                                        <div class="col-md-11"><textarea name="description" id="description"></textarea></div>
                                     </div>
                                     <div class="row">
                                         <div class="col-11">Location :</div>
@@ -259,7 +261,44 @@ $myProps = UserProperty::GetMyProperties($User)
         //show modal and load data
         $("[id=modalTrigger]").click(function () {
             var propID = $(this).data("key");
-            console.log(propID);
+            $.ajax({
+                url: 'process.php',
+                data:{
+                    'task': 'editProps',
+                    'propID': propID
+                },
+                success: function(response){
+                    var data = JSON.parse(response);
+                    //fill up the form
+                    $('#propID').val(data.ID);
+                    $('#title').val(data.title);
+                    $('#contact').val(data.contact);
+                    $('#price').val(data.price);
+                    $('#description').val(data.description);
+                    $('#tcf').val(data.tcf);
+                    $('#bed').val(data.bed);
+                    $('#bath').val(data.bath);
+                    $('#ready').val(data.ready);
+                    var extras = data.extras.split(", ");
+                    var input = $("[id=extra]")
+                    input.each(function(){
+                        if(extras.includes($(this).val())){
+                            $(this).attr('checked', true);
+                        }
+                    });
+                     $('#imgHolder').empty();
+                    var photos = data.photos.split('--/');
+                    photos.forEach(function(value){
+                         var html = "<div class='row'>";
+                         html += "<img src='post_img/"+value+"'>";
+                         html += "</div>";
+                         $('#imgHolder').append(html);
+                    });
+       
+
+                    console.log(data);
+                }
+            });
             $('#editProp').fadeIn();
 
         });
@@ -267,6 +306,7 @@ $myProps = UserProperty::GetMyProperties($User)
         //close Modal
         $("[id=modalTriggerClose]").click(function (event) {
             event.preventDefault();
+            $('#imgHolder').empty();
             $('#editForm').trigger("reset");
             $('#editProp').fadeOut();
         });
