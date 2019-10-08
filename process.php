@@ -1,4 +1,5 @@
 <?php
+ini_set('post_max_size', '6400M');
 spl_autoload_register(function ($class) {
     require_once "class/".$class.".php";
 });
@@ -14,6 +15,7 @@ $rate = Util::getParam('rating');
 foreach ($_REQUEST as $key => $value) {
     $$key = Util::getParam($key);
 }
+
 if (isset($task)) {
     switch ($task) {
         case 'rate':
@@ -44,10 +46,35 @@ if (isset($task)) {
                 echo json_encode($data);
             }
             break;
+
+//        save image
         case 'savePropEdit';
+            $imgcounter = 0;
+            $location = "post_img/";
+            foreach ($_FILES['image']['name'] as $file) {
+                $filename[] = $file;
+            }
+            foreach ($_FILES['image']['tmp_name'] as $tempfile) {
+                $tempname[] = $tempfile;
+            }
+            for ($imgcount = 0; $imgcount < count($tempname); $imgcount++) {
+                if (move_uploaded_file($tempname[$imgcount], $location . $filename[$imgcount])) {
+                    //do nun
+                }else{
+                    echo "fail to upload";
+                }
+            }
+            //end of image code
+            $json = json_decode($fileList);
+            $photoList = [];
+            foreach($json as $data){
+                $getData = explode('/',$data);
+                $photoList[] = end($getData);
+            }
+            $photo = implode("--/", array_merge($photoList,$filename));
             $data = [
                 'title' => $title,
-//                'photos' => $photos, // deprecated
+                'photos' => $photo,
                 'contact' => $contact,
                 'price' => $price,
                 'description' => $description,
@@ -62,7 +89,7 @@ if (isset($task)) {
                 'location' => $location,
                 'extras' => implode(', ',$extras),
             ];
-
+            Util::debug($photo);
             if (isset($ID)) {
                 $where = ['ID' => $ID];
                 $result = DBcon::update(UserPropertiesInterface::TABLE, $data, $where);

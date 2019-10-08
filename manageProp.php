@@ -19,11 +19,22 @@ $myProps = UserProperty::GetMyProperties($User);
 
 
             foreach ($myProps as $prop) {
-                $photo = explode('--/', $prop->getPhotos());
+                $photo =[];
+                if($prop->getPhotos() !== ''){
+                    $photo = explode('--/', $prop->getPhotos());
+                }
+                
                 ?>
                 <div class="row myPropContainer">
                     <div class="col-md-3" >
-                        <img src="post_img/<?= $photo[0] ?>">
+                        <?php
+                            if(count($photo)>0){
+                                echo '<img src="post_img/'.$photo[0].'">';
+                            }else{
+                                echo '<img src="img/stopNstay.png">';
+                            }
+                        ?>
+                       
                     </div>
                     <div class="col-md-6">
                         <div class="row">
@@ -41,11 +52,10 @@ $myProps = UserProperty::GetMyProperties($User);
 
                 <?php
             }
-        }else{
+        } else {
             echo "<div class='row'>";
             echo "<div class='col-md-12 text-center'><h3>You Have No Properties Posted</h3></div>";
-            echo  "</div>";
-
+            echo "</div>";
         }
         ?>
     </div>
@@ -54,7 +64,7 @@ $myProps = UserProperty::GetMyProperties($User);
 <!-- modal -->
 <div class="modal" id="editProp">
     <div class="modalContainer">
-        <form id="editForm" method="post" action="process.php">
+        <form id="editForm" method="post" action="process.php" enctype="multipart/form-data">
             <input id="propID" type="hidden" name="ID" value="">
             <input id="task" type="hidden" name="task" value="savePropEdit">
             <div class="header">
@@ -64,8 +74,23 @@ $myProps = UserProperty::GetMyProperties($User);
 
             <div class="content">
                 <div class="row">
-                    <div class="col-md-3" id="imgHolder">
+                    <div class="col-md-3">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="hidden" id="fileList" name="fileList" value="">
+                                <input type="file" name="image[]" id="image" class="hidden" data-multiple-caption="{count} files selected" multiple />
+                                <label for="image">
+                                    <span class="btn btn-primary">Add Photos</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" id="imgHolder">
+
+                            </div>
+                        </div>
                     </div>
+
                     <div class="col-md-9">
                         <div class="row">
                             <div class="row">
@@ -270,6 +295,8 @@ $myProps = UserProperty::GetMyProperties($User);
     </div>
 </div>
 <!-- Script for modal -->
+
+<script src="js/custom-file-input.js"></script>
 <script>
     $(document).ready(function () {
         //show modal and load data
@@ -301,13 +328,23 @@ $myProps = UserProperty::GetMyProperties($User);
                         }
                     });
                     $('#imgHolder').empty();
-                    var photos = data.photos.split('--/');
-                    photos.forEach(function (value) {
-                        var html = "<div class='row'>";
-                        html += "<img src='post_img/" + value + "'>";
-                        html += "</div>";
-                        $('#imgHolder').append(html);
+                    if (data.photos !== '') {
+                        var photos = data.photos.split('--/');
+                        photos.forEach(function (value) {
+                            var html = "<div class='row'>";
+                            html += "<div class='imgthmd' id='imgthmd'>x</div>";
+                            html += "<img id='images' src='post_img/" + value + "'>";
+                            html += "</div>";
+                            $('#imgHolder').append(html);
+                        });
+                    }
+
+                    // add the remove icon and event to the image
+                    $('[id=imgthmd]').click(function () {
+                        $(this).parent().fadeOut();
+                        $(this).parent().remove();
                     });
+
                     //map location
                     if (data.coord.length > 0) {
                         var coord = data.coord.split(',');
@@ -337,6 +374,12 @@ $myProps = UserProperty::GetMyProperties($User);
         $("#btnSubmit").click(function (event) {
             event.preventDefault();
             var loc = $('#mapIframe').contents().find('#coordinate').html();
+            var imageList = [];
+            $('[id=images]').each(function () {
+                imageList.push($(this).attr('src'));
+            });
+            var json = JSON.stringify(imageList)
+            $('#fileList').val(json);
             $.ajax({
                 url: "https://api.mapbox.com/geocoding/v5/mapbox.places/" + loc + ".json?access_token=pk.eyJ1IjoibWljcm9zYW0iLCJhIjoiY2pwOXdlM2hxMDBsZzNycGs4ODBwbTBxZyJ9.NUTOMtn_cFkY3tNXeffz8A",
                 success: function (response) {
@@ -346,13 +389,56 @@ $myProps = UserProperty::GetMyProperties($User);
                     $("#editForm").submit();
                 }
             });
+        });
 
 
-        })
+        // img close button click;
+
 
     });
 
+    $("#image").on('change', function () {
 
+        //Get count of selected files
+        var countFiles = $(this)[0].files.length;
 
+        var imgPath = $(this)[0].value;
+        var extn = imgPath.substring(imgPath.lastIndexOf('.') + 1).toLowerCase();
+        var image_holder = $("#image-holder");
+        image_holder.empty();
+
+        if (extn == "gif" || extn == "png" || extn == "jpg" || extn == "jpeg") {
+            if (typeof (FileReader) != "undefined") {
+
+                //loop for each file selected for uploaded.
+                for (var i = 0; i < countFiles; i++) {
+
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                         var img = $('<img/>').addClass('thumb').attr
+                                ('src', e.target.result) //create image element
+                       
+                       
+                        $('#imgHolder').append(img);
+                        //     $("<img  />", {
+                        //         "src": e.target.result,
+                        //             "class": "img-thumbnail"
+
+                        //     }).appendTo(image_holder);
+
+                    }
+
+                    image_holder.show();
+                    reader.readAsDataURL($(this)[0].files[i]);
+                    console.log("wew");
+                }
+
+            } else {
+                alert("This browser does not support FileReader.");
+            }
+        } else {
+            alert("Pls select only images");
+        }
+    });
 
 </script>

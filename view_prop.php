@@ -151,6 +151,9 @@ if (!isset($_GET['viewid'])) {
                     </p>
                 </form>
                 <?php
+
+                if(isset($_SESSION['user_id'])){
+                
                 $sql = "SELECT * FROM reviews WHERE prop_id='".Util::getParam('viewid')."'";
                 $resultss = Dbcon::execute($sql);
                 $datass = Dbcon::fetch_all_assoc($resultss);
@@ -194,6 +197,7 @@ if (!isset($_GET['viewid'])) {
                 <?= isset($html)? $html : null ?>
             </div>
         </div>
+             <?php   } ?>
     </section>
 </div>
 </div> 
