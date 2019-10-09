@@ -3,12 +3,12 @@ ini_set('post_max_size', '6400M');
 spl_autoload_register(function ($class) {
     require_once "class/".$class.".php";
 });
-
+session_start();
 
 // Process all the data
 //$reviewID = Util::getParam('reviewID');
 $propID = Util::getParam('propID');
-$name = Util::getParam('name');
+$name = User::getName((int) $_SESSION['user_id']);
 $comment = Util::getParam('message');
 $rate = Util::getParam('rating');
 
