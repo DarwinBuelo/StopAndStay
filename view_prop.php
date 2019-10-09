@@ -178,12 +178,12 @@ if (!isset($_GET['viewid'])) {
         </div>
         <div class="col-md-9 commentBoxHolder">
             <h3>Comment Box</h3>
+            <?php if (isset($_SESSION['user_id'])) { ?>
             <form method="post" action="process.php" class="commentForm">
                 <input type="hidden" name="propID" value="<?= Util::getParam('viewid') ?>">
                 <input type="hidden" name="task" value="rate">
-                Name: <input type="text" name="name" class="sender">
-                Message : <textarea class="message" name="message"></textarea>
-                Rate :
+                Comment: <textarea class="message" name="message"></textarea>
+                Rate:
                 <input type="radio" name="rating" value="1">1
                 <input type="radio" name="rating" value="2">2
                 <input type="radio" name="rating" value="3">3
@@ -193,6 +193,7 @@ if (!isset($_GET['viewid'])) {
                     <button type="submit" class="btn btn-primary">Post</button>
                 </div>
             </form>
+            <?php } ?>
             <div class="commentList">
                 <?= isset($html)? $html : null ?>
             </div>
