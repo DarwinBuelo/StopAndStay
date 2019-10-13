@@ -25,6 +25,7 @@ if (isset($_POST['submit_login'])) {
                         $_SESSION['user_number'] = $row['user_contact'];
                         $_SESSION['user_email'] = $row['user_email'];
                         $_SESSION['usertype'] = 'user';
+                        $_SESSION['role'] = $row['role'];
                         header('location: ../admin/index.php');
                     } else {
                         $_SESSION['user_id'] = $row['user_id'];
@@ -34,6 +35,7 @@ if (isset($_POST['submit_login'])) {
                         $_SESSION['user_number'] = $row['user_contact'];
                         $_SESSION['user_email'] = $row['user_email'];
                         $_SESSION['usertype'] = 'user';
+                        $_SESSION['role'] = $row['role'];
                         header('location: ../index.php?login=success');
                     }
                     exit();

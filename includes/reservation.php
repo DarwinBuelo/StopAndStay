@@ -3,7 +3,7 @@ const TABLE_NAME = 'tenant_reservation';
 if (isset($_POST['btnReserve'])) {
     if (isset($_SESSION['user_id'])) {
         $userID = $_SESSION['user_id'];
-        $User = UserProperty::Load($ownerID);
+        $User = UserProperty::Load(Util::getParam('viewid'));
         $tenantName = User::getName($userID);
         if (ifReserved($ownerID, $teabag, $conn) < 1) {
             $data = [

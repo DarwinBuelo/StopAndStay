@@ -8,12 +8,13 @@ if (isset($_POST['submit_signup'])) {
      $fname    = mysqli_real_escape_string($conn, $_POST['fname']);
      $username = mysqli_real_escape_string($conn, $_POST['username']);
      $password = mysqli_real_escape_string($conn, $_POST['pass']);
+     $role = mysqli_real_escape_string($conn, $_POST['role']);
 
     $sql = "SELECT * FROM tbl_users WHERE user_email='$username'";
     $result = mysqli_query($conn, $sql);
     $resultCheck = mysqli_num_rows($result);
     if ($resultCheck < 1) {
-        $sql1 = "INSERT INTO tbl_users (user_email,user_fname,user_pass) VALUES ('$username','$fname','$password') ";
+        $sql1 = "INSERT INTO tbl_users (user_email,user_fname,user_pass, role) VALUES ('$username','$fname','$password', '$role') ";
         $result1 = mysqli_query($conn, $sql1);
         $content = emailBody($fname, $username);
         $subject = 'Account Verification';
