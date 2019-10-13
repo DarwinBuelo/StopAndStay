@@ -1,6 +1,6 @@
 <?php
 
 require_once 'init.php';
-$chat = SMS::send();
+$chat = User::getRole(1);
 Util::debug($chat);
 //EOF

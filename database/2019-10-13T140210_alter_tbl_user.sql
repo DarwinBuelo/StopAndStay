@@ -1,0 +1,1 @@
+ALTER TABLE `tbl_users` ADD `role` INT NOT NULL AFTER `facebook_id`;

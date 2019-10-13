@@ -34,6 +34,7 @@ try {
         if ($row = mysqli_fetch_assoc($count[1])) {
             $_SESSION['fname'] = $user->getField('name');
             $_SESSION['user_id'] = $row['user_id'];
+            $_SESSION['role'] = 0;
         }
         header('Location: https://localhost/stopNstay/index.php?login=success');
    }

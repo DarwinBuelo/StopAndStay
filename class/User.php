@@ -55,6 +55,21 @@ class User
         return $data[0];
     }
 
+    public static function getRole($userID)
+    {
+        $sql = "
+            SELECT
+                role
+            FROM
+                ".self::TABLE_NAME."
+            WHERE
+                user_id = {$userID}
+        ";
+        $result = DBcon::execute($sql);
+        $data = DBcon::fetch_array($result);
+        return $data[0];
+    }
+
     public static function FindName($data)
     {
         $sql = "SELECT user_id from ".static::TABLE_NAME." WHERE user_fname='{$data}'";

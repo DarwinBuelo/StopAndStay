@@ -258,15 +258,19 @@ class Layout
                            <a href="apartment.php">Apartment</a>
                        </li>';
         if (isset($_SESSION['user_id'])) {
-            $html .= ' <li class="active">
+            if ($_SESSION['role'] == 1) {
+                $html .= ' <li class="active">
                            <a href="myAccount.php">My Account</a>
                        </li>';
+            }
             $html .= ' <li class="active">
                            <a href="messages.php">Message</a>
                        </li>';
-              $html .= ' <li class="active">
+            if ($_SESSION['role'] == 1) {
+                $html .= ' <li class="active">
                            <a href="manageProp.php">My Properties</a>
                        </li>';
+            }
         }
 
         $html .= '<li class="active">
@@ -278,30 +282,23 @@ class Layout
                </div><!-- padding-nav Finish -->';
 
         if (isset($_SESSION["user_id"])) {
-            $html .= '<a href="pre-post.php" class="btn navbar-btn btn-primary right">';
+            if ($_SESSION['role'] == 1) {
+                $html .= '<a href="pre-post.php" class="btn navbar-btn btn-primary right">';
+            }
         } else {
             $html .= '<a href="login" class="btn navbar-btn btn-primary right">';
         }
-        $html .= '  <span style="color: #ffffff">Post my Ads</span>
-               </a>
-
-               <div class="navbar-collapse collapse right"><!-- navbar-collapse collapse right Begin -->
-
-                   <!--<button class="btn btn-primary navbar-btn" type="button" data-toggle="collapse" data-target="#search">-->
-
-                       <!--<span class="sr-only">Toggle Search</span>-->
-
-                       <!--<i class="fa fa-search"></i>-->
-
-                   <!--</button>-->
-
+        if (isset($_SESSION['role'])) {
+            if ($_SESSION['role'] == 1) {
+                $html .= '<span style="color: #ffffff">Post my Ads</span>';
+            }
+        } else {
+            $html .= '<span style="color: #ffffff">Post my Ads</span>';
+        }
+        $html .= '</a><div class="navbar-collapse collapse right">
                </div><!-- navbar-collapse collapse right Finish -->
-
-
            </div><!-- navbar-collapse collapse Finish -->
-
        </div><!-- container Finish -->
-
    </div><!-- navbar navbar-default Finish -->
         </header>';
         echo $html;
