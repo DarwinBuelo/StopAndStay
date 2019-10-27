@@ -94,12 +94,13 @@ $Properties = UserProperty::LoadArray();
     foreach ($Properties as $Obj) {
 
         if (!empty($Obj->getCoord())) {
-            echo "new mapboxgl.Marker({draggable: false}).setLngLat([" . $Obj->getCoord() . "]).addTo(map);";
+            //echo "var popup = new mapboxgl.Popup({ offset: 25 }).setText('".stripcslashes($Obj->getLocation())."');".PHP_EOL;
+            //echo "new mapboxgl.Marker({draggable: false}).setLngLat([" . $Obj->getCoord() . "]).setPopup(popup).addTo(map);".PHP_EOL;
+            echo "new mapboxgl.Marker({draggable: false}).setLngLat([" . $Obj->getCoord() . "]).addTo(map);".PHP_EOL;
         }
     }
 
     ?>
-
 </script>
 
 </body>
