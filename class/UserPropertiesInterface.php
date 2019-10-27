@@ -26,7 +26,9 @@ class UserPropertiesInterface
     protected $status;
     protected $userID;
     protected $propertyType;
+    protected $coord;
 
+    //need refactoring for faster execution
     public static function LoadArray(array $ids = null)
     {
         $return = null;
@@ -77,6 +79,7 @@ class UserPropertiesInterface
             $new->setStatus($data['status']);
             $new->setUserID($data['user_id']);
             $new->setPropertyType($data['property_type']);
+            $new->setCoord($data['coord']);
 
             return $new;
         } else {
@@ -320,4 +323,13 @@ class UserPropertiesInterface
     {
         $this->size = $size;
     }
+
+    public function getCoord(){
+        return $this->coord;
+    }
+
+    public function setCoord($coord){
+        $this->coord = $coord;
+    }
+
 }
