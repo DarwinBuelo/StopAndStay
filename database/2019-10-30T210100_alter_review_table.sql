@@ -1,0 +1,1 @@
+ALTER TABLE `reviews` ADD `user_id` INT NOT NULL AFTER `prop_id`;

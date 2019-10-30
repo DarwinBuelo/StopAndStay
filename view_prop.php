@@ -155,12 +155,16 @@ if (!isset($_GET['viewid'])) {
                 if(isset($_SESSION['user_id'])){
                 
                 $sql = "SELECT * FROM reviews WHERE prop_id='".Util::getParam('viewid')."'";
+                $commenter = [];
                 $resultss = Dbcon::execute($sql);
                 $datass = Dbcon::fetch_all_assoc($resultss);
                 if (count($datass) > 0) {
                     $html = null;
                     $rating = 0;
                     foreach ($datass as $item) {
+                        if($item['user_id'] !== 0){
+                            $commenter[] =  $item['user_id'];
+                        }
                         $html .= "<div class='comment'>";
                         $html .= "<div class='name'><b>".$item['name']."</b></div>";
                         $html .= "<div class='commentMessage'>".$item['comment']."</div>";
@@ -178,10 +182,11 @@ if (!isset($_GET['viewid'])) {
         </div>
         <div class="col-md-9 commentBoxHolder">
             <h3>Comment Box</h3>
-            <?php if (isset($_SESSION['user_id'])) { ?>
+            <?php if (isset($_SESSION['user_id']) and !in_array($_SESSION['user_id'],$commenter)) { ?>
             <form method="post" action="process.php" class="commentForm">
-                <input type="hidden" name="propID" value="<?= Util::getParam('viewid') ?>">
                 <input type="hidden" name="task" value="rate">
+                <input type="hidden" name="propID" value="<?= Util::getParam('viewid') ?>">
+                <input type="hidden" name="userID" value="<?= $_SESSION['user_id'] ?>">
                 Comment: <textarea class="message" name="message"></textarea>
                 Rate:
                 <input type="radio" name="rating" value="1">1

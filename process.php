@@ -23,17 +23,20 @@ if (isset($task)) {
                 $sql = "INSERT INTO reviews
             (
                 name,
+                user_id,
                 comment,
                 rate,
                 prop_id
             )   VALUES
             (
                 '{$name}',
+                '{$userID}',
                 '{$comment}',
                 '{$rate}',
                 '{$propID}'
             )";
             }
+            echo $sql;
             DBcon::execute($sql);
             Util::redirect($_SERVER['HTTP_REFERER']);
             break;
