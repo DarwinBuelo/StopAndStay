@@ -49,12 +49,14 @@ class Dbcon
     public static function update($table, array $data, array $where)
     {
         $sql = "UPDATE {$table} SET ";
+        $x = 1;
         foreach ($data as $key => $value) {
-            if ($key === array_key_last($data)) {
+            if ($x === count($data)) {
                 $sql .= " {$key} = '{$value}' ";
             } else {
                 $sql .= " {$key} = '{$value}', ";
             }
+            $x++;
         }
         $sql .= "WHERE true ";
         foreach ($where as $key => $value) {

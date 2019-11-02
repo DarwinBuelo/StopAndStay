@@ -69,6 +69,7 @@
                                                     <input type="hidden" name="userID" value="<?= $user['user_id']; ?>">
                                                     <input type="hidden" name="propertyID" value="<?= $user['tbl_property_id']; ?>">
                                                     <input type="hidden" name="status" value="<?= $user['approve']; ?>">
+                                                    <input type="hidden" name="title" value="<?= $user['title']; ?>">
                                                     <?= $user['title']; ?>
                                                 </td>
                                                 <td><?= $user['description']; ?></td>
