@@ -131,7 +131,7 @@ if ($page == 0) {
                         </div>
 
                         <br>
-                        <textarea class="form-control" cols="4" row="5" placeholder="Describe your property" id="description" name="description" style="height: 100px;"></textarea>
+                        <textarea class="form-control" cols="4" row="5" placeholder="Describe each room-type with description and details including price and vacancy" id="description" name="description" style="height: 100px;"></textarea>
                         <br>
                         <div class="wrap-input100 validate-input m-b-16" data-validate="Please enter size">
                             <input class="input100" type="text" name="size" placeholder="Size">

@@ -22,18 +22,26 @@ if (isset($_POST['btnAction'])) {
         $data = [
             'approve' => 1
         ];
+        $message = 'Your reservation for '.$_POST['title'].' had been approved';
     } else {
         $data = [
             'approve' => 0
         ];
+        $message = 'Your reservation for '.$_POST['title'].' had been rejected';
     }
-
+    $ownerID = $_POST['ownerID'];
+    $receiverID = $_POST['userID'];
     $where = [
-        'owner_id' => $_POST['ownerID'],
-        'user_id' => $_POST['userID'],
+        'owner_id' => $ownerID,
+        'user_id' => $receiverID,
         'tbl_property_id' => $_POST['propertyID']
     ];
     Dbcon::update(Dbcon::TABLE_TENANT_RESERVATION, $data, $where);
+    $chat = new Chat();
+    $chat->setReceiverID($receiverID);
+    $chat->setSenderID($ownerID);
+    $chat->setMessage($message);
+    $chat->submit();
 }
 
 if (isset($_SESSION['user_id'])) {

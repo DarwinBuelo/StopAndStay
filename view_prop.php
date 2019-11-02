@@ -98,13 +98,13 @@ if (!isset($_GET['viewid'])) {
                             </table>
                         </div>
                         <!--  -->
-                        <h4>Description:</h4>
-                        <p class="margin-bottom"><?php echo $res['description']; ?></p>
+                        <h4>Room Details:</h4>
+                        <pre  style="background-color: white; border: none; font-family: Arial;font-size: 10px; line-height: 1.0; color: #666666; margin: 0px;"><?php echo $res['description']; ?></pre>
                         <h4>Extra Features:</h4>
                         <?php
                         $extras = explode(", ", $res['extras']);
                         foreach ($extras as $extra) {
-                            echo '<p class="margin-bottom">'.$extra.'</p>';
+                            echo '<pre  style="background-color: white; border: none; font-family: Arial;font-size: 10px; line-height: 0.5; color: #666666; margin: 0px;">'.$extra.'</pre>';
                         }
                         ?>
                     </div>
@@ -182,7 +182,7 @@ if (!isset($_GET['viewid'])) {
         </div>
         <div class="col-md-9 commentBoxHolder">
             <h3>Comment Box</h3>
-            <?php if (isset($_SESSION['user_id']) and !in_array($_SESSION['user_id'],$commenter)) { ?>
+            <?php if (isset($_SESSION['user_id']) && !in_array($_SESSION['user_id'],$commenter)) { ?>
             <form method="post" action="process.php" class="commentForm">
                 <input type="hidden" name="task" value="rate">
                 <input type="hidden" name="propID" value="<?= Util::getParam('viewid') ?>">

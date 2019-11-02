@@ -37,6 +37,7 @@ if (isset($_POST['btn_sub'])) {
     $pr = mysqli_real_escape_string($conn, $_POST['pr']);
     $location = mysqli_real_escape_string($conn, $_POST['location']);
     $coord = mysqli_real_escape_string($conn,  $_POST['coord']);
+    $description = '<pre style="background-color: white; border: none">'.$description.'</pre>>';
     $extra2 = '';
     if (!empty($_POST['extras'])) {
         $x = 0;
