@@ -45,13 +45,15 @@
             <label for='satellite'>satellite</label>
         </div>
         <pre id='coordinates' class='coordinates'></pre>
-        <div id="coordinate" style="display:none">123.73472378685148,13.138748870162956</div>
+        <div id="coordinate" style="display:none"></div>
         <div id="locName" style="display:none"></div>
         <script>
 
             var url = new URL(window.location.href);
             var long = url.searchParams.get("long");
             var lat = url.searchParams.get("lat");
+
+
             mapboxgl.accessToken = 'pk.eyJ1IjoibWljcm9zYW0iLCJhIjoiY2pwOXdlM2hxMDBsZzNycGs4ODBwbTBxZyJ9.NUTOMtn_cFkY3tNXeffz8A';
             var map = new mapboxgl.Map({
                 container: 'map',

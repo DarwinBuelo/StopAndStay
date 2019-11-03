@@ -320,6 +320,7 @@ $myProps = UserProperty::GetMyProperties($User);
                     $('#bed').val(data.bed);
                     $('#bath').val(data.bath);
                     $('#ready').val(data.ready);
+                    $('#coord').val(data.coord);
                     var extras = data.extras.split(", ");
                     var input = $("[id=extra]")
                     input.each(function () {
@@ -328,7 +329,7 @@ $myProps = UserProperty::GetMyProperties($User);
                         }
                     });
                     $('#imgHolder').empty();
-                    if (data.photos !== '') {
+                    if (data.photos !== '' ) {
                         var photos = data.photos.split('--/');
                         photos.forEach(function (value) {
                             var html = "<div class='row'>";
@@ -374,11 +375,16 @@ $myProps = UserProperty::GetMyProperties($User);
         $("#btnSubmit").click(function (event) {
             event.preventDefault();
             var loc = $('#mapIframe').contents().find('#coordinate').html();
+            if(loc.length <= 0){
+                var loc =$('#coord').val();
+            }
             var imageList = [];
-            $('[id=images]').each(function () {
-                imageList.push($(this).attr('src'));
-            });
-            var json = JSON.stringify(imageList)
+            if($('[id=images]').length > 0){
+                $('[id=images]').each(function () {
+                    imageList.push($(this).attr('src'));
+                });
+            }
+            var json = JSON.stringify(imageList);
             $('#fileList').val(json);
             $.ajax({
                 url: "https://api.mapbox.com/geocoding/v5/mapbox.places/" + loc + ".json?access_token=pk.eyJ1IjoibWljcm9zYW0iLCJhIjoiY2pwOXdlM2hxMDBsZzNycGs4ODBwbTBxZyJ9.NUTOMtn_cFkY3tNXeffz8A",
@@ -430,7 +436,6 @@ $myProps = UserProperty::GetMyProperties($User);
 
                     image_holder.show();
                     reader.readAsDataURL($(this)[0].files[i]);
-                    console.log("wew");
                 }
 
             } else {

@@ -1,14 +1,14 @@
 <?php
 ini_set('post_max_size', '6400M');
 spl_autoload_register(function ($class) {
-    require_once "class/".$class.".php";
+    require_once "class/" . $class . ".php";
 });
 session_start();
 
 // Process all the data
 //$reviewID = Util::getParam('reviewID');
 $propID = Util::getParam('propID');
-$name = User::getName((int) $_SESSION['user_id']);
+$name = User::getName((int)$_SESSION['user_id']);
 $comment = Util::getParam('message');
 $rate = Util::getParam('rating');
 
@@ -43,6 +43,7 @@ if (isset($task)) {
         case 'editProps':
             //returns Json data to be use on the data
             $sql = "SELECT * FROM tbl_property WHERE id = {$propID} ";
+
             $result = DBcon::execute($sql);
             $data = DBcon::fetch_assoc($result);
             if (count($data) > 0) {
@@ -53,28 +54,42 @@ if (isset($task)) {
 //        save image
         case 'savePropEdit';
             $imgcounter = 0;
-            $location = "post_img/";
+            $locationPath = "post_img/";
+
             foreach ($_FILES['image']['name'] as $file) {
-                $filename[] = $file;
-            }
-            foreach ($_FILES['image']['tmp_name'] as $tempfile) {
-                $tempname[] = $tempfile;
-            }
-            for ($imgcount = 0; $imgcount < count($tempname); $imgcount++) {
-                if (move_uploaded_file($tempname[$imgcount], $location . $filename[$imgcount])) {
-                    //do nun
-                }else{
-                    echo "fail to upload";
+                if(!empty($file)){
+                    $filename[] = $file;
                 }
             }
+            foreach ($_FILES['image']['tmp_name'] as $tempfile) {
+                if(!empty($tempfile)){
+                    $tempname[] = $tempfile;
+                }
+            }
+            if(isset($tempname)){
+                for ($imgcount = 0; $imgcount < count($tempname); $imgcount++) {
+                    if (move_uploaded_file($tempname[$imgcount], $locationPath . $filename[$imgcount])) {
+                        //do nun
+                    } else {
+                        echo "fail to upload";
+                    }
+                }
+            }
+
             //end of image code
             $json = json_decode($fileList);
             $photoList = [];
-            foreach($json as $data){
-                $getData = explode('/',$data);
+            foreach ($json as $data) {
+                $getData = explode('/', $data);
                 $photoList[] = end($getData);
             }
-            $photo = implode("--/", array_merge($photoList,$filename));
+            if(isset($filename)){
+                $photo = implode("--/", array_merge($photoList, $filename));
+                $photo  = rtrim($photo, "--/");
+            }else{
+                $photo = null;
+            }
+
             $data = [
                 'title' => $title,
                 'photos' => $photo,
@@ -90,13 +105,14 @@ if (isset($task)) {
 //                'acf' => $this->getAcf(),
                 'coord' => $coord,
                 'location' => $location,
-                'extras' => implode(', ',$extras),
+                'extras' => implode(', ', $extras),
             ];
-            Util::debug($photo);
+            Util::debug($coord);
+            Util::debug($location);
             if (isset($ID)) {
                 $where = ['ID' => $ID];
                 $result = DBcon::update(UserPropertiesInterface::TABLE, $data, $where);
-             
+
             }
             Util::redirect($_SERVER['HTTP_REFERER']);
             break;
