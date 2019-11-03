@@ -1,9 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset='utf-8'/>
-    <title>Change a map's style</title>
-    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no'/>
+<?php
+include_once 'includes/db.php';
+include_once 'view_ads.php';
+include_once 'init.php';
+session_start();
+$Outline->header('Home');
+?>
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.css' rel='stylesheet'/>
     <style>
@@ -14,7 +15,7 @@
 
         #map {
             position: absolute;
-            top: 0;
+            top: 142px;
             bottom: 0;
             width: 100%;
         }
@@ -40,12 +41,10 @@
             display: none;
         }
     </style>
-</head>
-<body>
+
 <?php
 // will handle all the data for the map
 
-include_once 'init.php';
 
 $Properties = UserProperty::LoadArray();
 
@@ -78,6 +77,13 @@ $Properties = UserProperty::LoadArray();
         center: [long, lat]
     });
 
+    map.addControl(new mapboxgl.GeolocateControl({
+        positionOptions: {
+            enableHighAccuracy: true
+        },
+        trackUserLocation: true
+    }));
+
     var layerList = document.getElementById('menu');
     var inputs = layerList.getElementsByTagName('input');
 
@@ -102,6 +108,3 @@ $Properties = UserProperty::LoadArray();
 
     ?>
 </script>
-
-</body>
-</html>

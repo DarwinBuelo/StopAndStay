@@ -262,7 +262,11 @@ class Layout
                 $html .= ' <li class="active">
                            <a href="myAccount.php">My Account</a>
                        </li>';
+
             }
+            $html .= ' <li class="active">
+                           <a href="Map.php">Map</a>
+                       </li>';
             $html .= ' <li class="active">
                            <a href="messages.php">Message</a>
                        </li>';
