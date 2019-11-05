@@ -1,6 +1,6 @@
 <?php
 
 require_once 'init.php';
-$chat = User::getRole(1);
+$chat = Account::getReserveUser(11);
 Util::debug($chat);
 //EOF

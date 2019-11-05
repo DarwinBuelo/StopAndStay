@@ -1,6 +1,7 @@
 <?php
 if (isset($_POST['btn_sub'])) {
     session_start();
+    require '../init.php';
     include '../class/Util.php';
     include_once 'db.php';
     $user_id = $_SESSION['user_id'];
@@ -37,7 +38,6 @@ if (isset($_POST['btn_sub'])) {
     $pr = mysqli_real_escape_string($conn, $_POST['pr']);
     $location = mysqli_real_escape_string($conn, $_POST['location']);
     $coord = mysqli_real_escape_string($conn,  $_POST['coord']);
-    $description = '<pre style="background-color: white; border: none">'.$description.'</pre>>';
     $extra2 = '';
     if (!empty($_POST['extras'])) {
         $x = 0;
@@ -52,6 +52,21 @@ if (isset($_POST['btn_sub'])) {
     }
     $sql1 = "INSERT INTO tbl_property (title,photos,contact,price,description,size,tcf,bed,bath,dev,ready,acf,pri,location,coord,extras, user_id, property_type) values('$title','$img','$contact_num','$price','$description','$size','$tcf','$bed','$bath','$dev','$ready','$acf','$pr','$location','$coord','$extra2', '$user_id', '$page')";
     $result1 = mysqli_query($conn, $sql1);
+    $propertyID = mysqli_insert_id($conn);
+    if ($page == 0) {
+        $details = mysqli_real_escape_string($conn,  $_POST['details']);
+        $details = explode(',', $details);
+        for ($x = 0; $x < count($details); $x+=3) {
+            $dataInsert = [
+                'tbl_property_id' => $propertyID,
+                'room_type' => $details[$x],
+                'capacity' => $details[$x + 1],
+                'price' => $details[$x + 2],
+                'vacant' => $details[$x + 1]
+            ];
+            Dbcon::insert('room_details', $dataInsert);
+        }
+    }
     header('location:../index.php?regsuc=1');
 } else {
     header('location: ../login/posting.php?null');

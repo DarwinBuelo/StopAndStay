@@ -18,15 +18,27 @@ if (isset($_POST['btnAction'])) {
      */
 
     $status = Util::getParam('status');
+    $query = "
+        UPDATE
+            room_details
+        SET
+            vacant =
+    ";
     if ($status == 0) {
         $data = [
             'approve' => 1
         ];
+        $query .= "
+            vacant - 1
+        ";
         $message = 'Your reservation for '.$_POST['title'].' had been approved';
     } else {
         $data = [
             'approve' => 0
         ];
+        $query .= "
+            vacant + 1
+        ";
         $message = 'Your reservation for '.$_POST['title'].' had been rejected';
     }
     $ownerID = $_POST['ownerID'];
@@ -37,6 +49,13 @@ if (isset($_POST['btnAction'])) {
         'tbl_property_id' => $_POST['propertyID']
     ];
     Dbcon::update(Dbcon::TABLE_TENANT_RESERVATION, $data, $where);
+    if (isset($_POST['roomDetailsID'])) {
+        $query .= "
+            WHERE
+                room_details_id = {$_POST['roomDetailsID']}
+        ";
+        Dbcon::execute($query);
+    }
     $chat = new Chat();
     $chat->setReceiverID($receiverID);
     $chat->setSenderID($ownerID);
@@ -45,7 +64,9 @@ if (isset($_POST['btnAction'])) {
 }
 
 if (isset($_SESSION['user_id'])) {
-    $reservedUser = Account::getReserveUser($_SESSION['user_id']);
+    $userID = $_SESSION['user_id'];
+    $reservedUser = Account::getReserveUser($userID);
+    $reservedUserApartment = Account::getReservedApartment($userID);
 }
 
 require 'view/myAccountView.php';

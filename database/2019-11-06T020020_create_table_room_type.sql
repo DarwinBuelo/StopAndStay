@@ -1,0 +1,1 @@
+CREATE TABLE `stop_n_stay`.`room_details` ( `room_details_id` INT NOT NULL AUTO_INCREMENT ,  `tbl_property_id` INT NOT NULL ,  `room_type` VARCHAR(225) NOT NULL ,  `price` INT NOT NULL ,  `capacity` INT NOT NULL ,  `vacant` INT NOT NULL ,    PRIMARY KEY  (`room_details_id`));

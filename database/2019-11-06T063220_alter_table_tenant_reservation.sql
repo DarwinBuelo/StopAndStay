@@ -1,0 +1,1 @@
+ALTER TABLE `tenant_reservation` ADD `date_reserved` DATE NOT NULL AFTER `property_type`, ADD `date_expiration` DATE NOT NULL AFTER `date_reserved`;

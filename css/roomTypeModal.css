@@ -1,0 +1,71 @@
+.roomTypeModal{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: #00000038;
+    padding: 0;
+    margin: auto;
+    display: none;
+    z-index: 1000;
+    top:0;
+    left:0;
+}
+
+.roomTypeModal .mapheader{
+    padding: 5px;
+    float: right;
+    position: absolute;
+    left: 481px;
+    display: inline-block;
+    z-index: 100;
+    width: 100%;
+}
+
+.roomTypeModal .modalBox{
+    margin: 0 auto;
+    padding: 0;
+    width: 40vw;
+    background: white;
+    position: relative;
+    top: 10px;
+    height: 55vh;
+    box-shadow:4px 4px 20px 0px black
+}
+
+.roomTypeModal .input{
+    margin-left: 10%;
+}
+
+.roomTypeModal .mapheader button{
+    background-color: #ff6767;
+    border-radius: 15px;
+    padding: 5px;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 14px;
+    color: white;
+    display: inline-block;
+    box-shadow: 0px 2px 6px #302b2b;
+}
+.roomTypeModal .mapheader button.mapSave{
+    border-radius: 0px;
+    width: auto;
+    height: auto;
+    background-color: #01a301;;
+
+}
+
+.roomTypeModal .mapFooter{
+    position: absolute;
+    bottom: 0;
+    background: white;
+    font-weight: bold;
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+    color: red;
+    font-size: 2rem;
+    z-index: 100;
+}

@@ -3,6 +3,7 @@
 class User
 {
     const TABLE_NAME = 'tbl_users';
+    const TABLE_TENANT_RESERVATION = 'tenant_reservation';
 
     protected $userID;
     protected $userName;
@@ -27,6 +28,21 @@ class User
          */
     }
 
+    public static function getFacebookID($userID)
+    {
+        $sql = "
+            SELECT
+                facebook_id
+            FROM
+                ".self::TABLE_NAME."
+            WHERE
+                user_id = {$userID}
+        ";
+        $result = DBcon::execute($sql);
+        $data = DBcon::fetch_array($result);
+        return $data[0];
+    }
+
     public static function getEmailAddress($userID)
     {
         $sql = "
@@ -39,6 +55,26 @@ class User
         $result = DBcon::execute($sql);
         $data = DBcon::fetch_array($result);
         return $data[0];
+    }
+
+    public static function ifApproved($userID, $propertyID)
+    {
+        $sql = "
+            SELECT
+                approve
+            FROM
+                ".self::TABLE_TENANT_RESERVATION."
+            WHERE
+                user_id = {$userID}
+            AND
+                tbl_property_id = {$propertyID}
+        ";
+        $result = DBcon::execute($sql);
+        $data = DBcon::fetch_array($result);
+        if (!empty($data[0])) {
+            return true;
+        }
+        return false;
     }
 
     public static function getName($userID)

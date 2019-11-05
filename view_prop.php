@@ -25,6 +25,7 @@ if (!isset($_GET['viewid'])) {
         } else {
             $returnTitle = 'Boarding House';
             $href = 'boardingHouse.php';
+            $roomDetailID = Util::getParam('rdID');
         }
     }
     if (isset($_SESSION['user_id'])) {
@@ -48,7 +49,42 @@ if (!isset($_GET['viewid'])) {
             <?php
             $teabag = isset($_GET['viewid']) ? $_GET['viewid'] : 0;
             $title = '';
-            $sql = mysqli_query($conn, "SELECT * FROM tbl_property where id=$teabag");
+            if ($page == 1) {
+                $query = "
+                    SELECT
+                        tl.photos,
+                        tl.title,
+                        rd.price as price,
+                        tl.location,
+                        tl.description,
+                        tl.user_id,
+                        tl.ID,
+                        rd.room_type,
+                        rd.capacity,
+                        rd.vacant,
+                        rd.room_details_id,
+                        tl.extras,
+                        tl.coord,
+                        tl.ready,
+                        tl.contact,
+                        tl.size,
+                        tl.bed,
+                        tl.bath
+                    FROM
+                        tbl_property tl
+                    INNER JOIN
+                        room_details rd
+                    ON
+                        rd.tbl_property_id = tl.ID
+                    WHERE
+                        tl.id=$teabag
+                    AND
+                        rd.room_details_id = {$roomDetailID}
+                ";
+                $sql = mysqli_query($conn, $query);
+            } else {
+                $sql = mysqli_query($conn, "SELECT * FROM tbl_property where id=$teabag");
+            }
             while ($res = mysqli_fetch_array($sql)) {
                 $title = $res['title'];
                 ?>
@@ -98,8 +134,16 @@ if (!isset($_GET['viewid'])) {
                             </table>
                         </div>
                         <!--  -->
+                        <?php
+                            if ($page == 1) {
+                        ?>
                         <h4>Room Details:</h4>
-                        <pre  style="background-color: white; border: none; font-family: Arial;font-size: 10px; line-height: 1.0; color: #666666; margin: 0px;"><?php echo $res['description']; ?></pre>
+                        <p>Room Type: <?= $res['room_type']; ?></p>
+                        <p>Capacity: <?= $res['capacity']; ?></p>
+                        <p>Vacant: <?= $res['vacant']; ?></p>
+                        <?php } ?>
+                        <h4>Description</h4>
+                        <p><?= $res['description']; ?></p>
                         <h4>Extra Features:</h4>
                         <?php
                         $extras = explode(", ", $res['extras']);
@@ -109,10 +153,11 @@ if (!isset($_GET['viewid'])) {
                         ?>
                     </div>
                     <div class="s-12 m-3 l-3 xl-3 xxl-3">
-                        <form class="customform s-12 margin-bottom2x" method="post" action="<?= $_SERVER['PHP_SELF']; ?>?page=<?= $page; ?>&viewid=<?= $teabag; ?>&ownerID=<?= $ownerID; ?>">
+                        <form class="customform s-12 margin-bottom2x" method="post" action="<?= $_SERVER['PHP_SELF']; ?>?page=<?= $page; ?>&viewid=<?= $teabag; ?>&ownerID=<?= $ownerID; ?>&rdID=<?= !empty($roomDetailID) ? $roomDetailID : 0; ?>">
                             <?php
                             include 'includes/reservation.php';
-                            if (ifReserved($ownerID, $teabag, $conn) < 1) {
+                            $roomDetailID = !empty($roomDetailID) ? $roomDetailID : 0;
+                            if (ifReserved($ownerID, $teabag, $conn, $roomDetailID) < 1) {
                                 $bgcolor = '#B91515';
                                 $btnReserve = 'Reserve Now';
                             } else {
@@ -147,8 +192,14 @@ if (!isset($_GET['viewid'])) {
                                     echo $res['location'];
                                 }
                             }
-                            ?></a><br>
+                            ?></a><br><br>
                     </p>
+                            <?php
+                                if (!empty(getExpiration($ownerID, $teabag, $conn, $roomDetailID))) {
+                            ?>
+                            <h3>Expiration</h3>
+                            <p><?= getExpiration($ownerID, $teabag, $conn, $roomDetailID); ?></p>
+                            <?php } ?>
                 </form>
                 <?php
 
@@ -182,7 +233,10 @@ if (!isset($_GET['viewid'])) {
         </div>
         <div class="col-md-9 commentBoxHolder">
             <h3>Comment Box</h3>
-            <?php if (isset($_SESSION['user_id']) && !in_array($_SESSION['user_id'],$commenter)) { ?>
+            <?php
+                $userID = $_SESSION['user_id'];
+                $propertyID = $_GET['viewid'];
+                if (isset($userID) && !in_array($userID, $commenter) && (!empty(User::getFacebookID($userID)) || User::ifApproved($userID, $propertyID) == true )) { ?>
             <form method="post" action="process.php" class="commentForm">
                 <input type="hidden" name="task" value="rate">
                 <input type="hidden" name="propID" value="<?= Util::getParam('viewid') ?>">

@@ -66,11 +66,45 @@ $Outline->header('Boarding House');
 
                             <?php
                             $counterpost = 1;
+                            $query = "
+                                SELECT
+                                    tl.photos,
+                                    tl.title,
+                                    rd.price as price,
+                                    tl.location,
+                                    tl.description,
+                                    tl.user_id,
+                                    tl.ID,
+                                    rd.room_type,
+                                    rd.room_details_id
+                                FROM
+                                    tbl_property tl
+                                INNER JOIN
+                                    room_details rd
+                                ON
+                                    rd.tbl_property_id = tl.ID
+                            ";
                             if (isset($_GET['tagid'])) {
                                 $tag = $_GET['tagid'];
-                                $sql = mysqli_query($conn, "SELECT * FROM tbl_property where title Like '%$tag%' and status = 1 and property_type = 0");
+                                $query .= "
+                                    WHERE 
+                                        tl.title 
+                                    LIKE 
+                                        '%$tag%' 
+                                    AND 
+                                        tl.status = 1 
+                                    AND 
+                                        tl.property_type = 0
+                                ";
+                                $sql = mysqli_query($conn, $query);
                             } else {
-                                $sql = mysqli_query($conn, "SELECT * from tbl_property where status = 1 and property_type = 0");
+                                $query .= "
+                                    WHERE 
+                                        tl.status = 1 
+                                    AND 
+                                        tl.property_type = 0
+                                ";
+                                $sql = mysqli_query($conn, $query);
                             }
                             ?>
                             <div id="bhouseList">
@@ -87,11 +121,11 @@ $Outline->header('Boarding House');
                                 echo "<a href=''><h4><strong>".$res['title']."</strong></h4></a>";
                                 echo "<span class='price' data-price ='".$res['price']."'>".money_formater($res['price'])."</span>";
                                 echo "<p class='specs'>".$res['location']."</p>";
-                                echo '<p class="margin-bottom" style="padding-right:15px;white-space: nowrap;overflow: hidden; text-overflow: ellipsis;">'.$res['description'].'</p>';
+                                echo '<p class="margin-bottom" style="padding-right:15px;white-space: nowrap;overflow: hidden; text-overflow: ellipsis;">'.$res['room_type'].'</p>';
                                 // echo '<form class="customform s-12 margin-bottom2x" action="view_post.php?viewid='.$res['pend_id'].'">
                                 // <div><button class="button rounded-btn submit-btn s-12" type="submit">View Ad</button></div>
                                 // </form>';
-                                echo "<a href='view_prop.php?viewid=".$res['ID']."&ownerID=".$res['user_id']."&page=1' class='button rounded-btn submit-btn s-12 l-10 m-10' type='submit'>View Ad</a>";
+                                echo "<a href='view_prop.php?viewid=".$res['ID']."&ownerID=".$res['user_id']."&page=1&rdID={$res['room_details_id']}' class='button rounded-btn submit-btn s-12 l-10 m-10' type='submit'>View Ad</a>";
                                 echo "</div></div></div>";
                                 //  if($counterpost%3==0)
                                 // {

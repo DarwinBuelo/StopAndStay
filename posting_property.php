@@ -46,6 +46,7 @@ if ($page == 0) {
         <!--===============================================================================================-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="css/mapModal.css">
+        <link rel="stylesheet" href="css/roomTypeModal.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <!--===============================================================================================-->
@@ -53,6 +54,7 @@ if ($page == 0) {
     <body>
         <?php
         require 'view/mapModal.php';
+        require 'view/addRoomType.php';
         ?>
         <div class="limiter">
             <div class="container-login100">
@@ -124,14 +126,33 @@ if ($page == 0) {
                             <span class="focus-input100"></span>
                         </div>
                         <br>
-
+                        <input class="input100" type="hidden" name="details" id="details">
+                        <?php
+                            if ($page == 0) {
+                        ?>
+                        <div class="container-login100-form-btn">
+                            <button class="login100-form-btn roomTypeModalShow" style="width: 400px; background-color: <?= $color; ?>">
+                                Add Room Type
+                            </button>
+                        </div>
+                        <br><br><br>
+                        <div class ="box">
+                            <select id="roomDetails" name="roomDetails">
+                                <option value="" disabled selected style="display: none">Room Details</option>
+                            </select>
+                        </div>
+                        <br><br><br>
+                        <?php } ?>
+                        <?php
+                            if ($page == 1) {
+                        ?>
                         <div class="wrap-input100 validate-input" data-validate="Please enter price">
                             <input class="input100" type="number" name="price" placeholder="Monthly Price">
                             <span class="focus-input100"></span>
                         </div>
-
                         <br>
-                        <textarea class="form-control" cols="4" row="5" placeholder="Describe each room-type with description and details including price and vacancy" id="description" name="description" style="height: 100px;"></textarea>
+                        <?php } ?>
+                        <textarea class="form-control" cols="4" row="5" placeholder="Description" id="description" name="description" style="height: 100px;"></textarea>
                         <br>
                         <div class="wrap-input100 validate-input m-b-16" data-validate="Please enter size">
                             <input class="input100" type="text" name="size" placeholder="Size">
@@ -189,7 +210,7 @@ if ($page == 0) {
                             <span class="focus-input100"></span>
                         </div>
 <input type="hidden" name="coord" id="coord" value="">
-                        <div class="wrap-input100 validate-input mapModalShow" data-validate="Please enter car location">
+                        <div class="wrap-input100 validate-input mapModalShow" data-validate="Please enter property location">
                             
                             <input id="locator" class="input100 mapModalShow" type="text" name="location" placeholder="Locate your property">
                             <span class="focus-input100 mapModalShow"></span>
