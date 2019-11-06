@@ -60,6 +60,8 @@
                                         foreach ($reservedUser as $user) {
                                             $btnApprove = $user['approve'] == 0 ? 'Accept' : 'Decline';
                                             $bgcolor = $user['approve'] == 0 ? '#4FBFA8' : '#B91515';
+                                            $ifExpired = date('Y-m-d') == $user['date_expiration'] ? true : false;
+                                            $buttonStatus = $ifExpired == true ? 'disabled' : '';
                                             ?>
                                         <form method="post" action="<?= $_SERVER['PHP_SELF']; ?>">
                                             <tr>
@@ -76,9 +78,17 @@
                                                 <td><?= $user['room_type']; ?></td>
                                                 <td><?= !empty($user['user_email']) ? $user['user_email'] : $user['user_fname']; ?></td>
                                                 <td><?= $user['location']; ?></td>
-                                                <td><?= $user['approve'] == 0 ? 'Unapprove' : 'Approved'; ?></td>
                                                 <td>
-                                                    <button class="button rounded-btn submit-btn s-12" name="btnAction" style="background-color: <?= $bgcolor; ?>">
+                                                    <?php
+                                                    if ($ifExpired == true) {
+                                                        echo 'Expired';
+                                                    } else {
+                                                        echo $user['approve'] == 0 ? 'Unapprove' : 'Approved';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <button class="button rounded-btn submit-btn s-12" name="btnAction" style="background-color: <?= $bgcolor; ?>" <?= $buttonStatus; ?>>
                                                         <b><?= _($btnApprove); ?></b>
                                                     </button>
                                                 </td>
@@ -135,6 +145,8 @@
                                     foreach ($reservedUserApartment as $user) {
                                         $btnApprove = $user['approve'] == 0 ? 'Accept' : 'Decline';
                                         $bgcolor = $user['approve'] == 0 ? '#4FBFA8' : '#B91515';
+                                        $ifExpired = date('Y-m-d') == $user['date_expiration'] ? true : false;
+                                        $buttonStatus = $ifExpired == true ? 'disabled' : '';
                                         ?>
                                         <form method="post" action="<?= $_SERVER['PHP_SELF']; ?>">
                                             <tr>
@@ -149,9 +161,17 @@
                                                 <td><?= $user['description']; ?></td>
                                                 <td><?= !empty($user['user_email']) ? $user['user_email'] : $user['user_fname']; ?></td>
                                                 <td><?= $user['location']; ?></td>
-                                                <td><?= $user['approve'] == 0 ? 'Unapprove' : 'Approved'; ?></td>
                                                 <td>
-                                                    <button class="button rounded-btn submit-btn s-12" name="btnAction" style="background-color: <?= $bgcolor; ?>">
+                                                    <?php
+                                                    if ($ifExpired == true) {
+                                                        echo 'Expired';
+                                                    } else {
+                                                        echo $user['approve'] == 0 ? 'Unapprove' : 'Approved';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <button class="button rounded-btn submit-btn s-12" name="btnAction" style="background-color: <?= $bgcolor; ?>" <?= $buttonStatus; ?>>
                                                         <b><?= _($btnApprove); ?></b>
                                                     </button>
                                                 </td>

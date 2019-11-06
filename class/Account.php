@@ -16,7 +16,8 @@ class Account
                 tr.approve,
                 tr.tenant_reservation_id,
                 rd.room_type,
-                rd.room_details_id
+                rd.room_details_id,
+                tr.date_expiration
             FROM
                 ".Dbcon::TABLE_TENANT_RESERVATION." tr
             INNER JOIN
@@ -56,7 +57,8 @@ class Account
                 tr.owner_id,
                 tr.tbl_property_id,
                 tr.approve,
-                tr.tenant_reservation_id
+                tr.tenant_reservation_id,
+                tr.date_expiration
             FROM
                 ".Dbcon::TABLE_TENANT_RESERVATION." tr
             INNER JOIN
