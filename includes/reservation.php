@@ -58,26 +58,28 @@ function ifReserved($ownerID, $tblPropertyID, $conn, $roomDetailsID = null)
 
 function getExpiration($ownerID, $tblPropertyID, $conn, $roomDetailsID = null)
 {
-    $sql = "
-        SELECT
-            CONCAT(date_reserved, ' - ', date_expiration) as data_expiration
-        FROM
-            tenant_reservation
-        WHERE
-            user_id = {$_SESSION['user_id']}
-        AND
-            owner_id = {$ownerID}
-        AND
-            tbl_property_id = {$tblPropertyID}
-    ";
-    if (!empty($roomDetailsID)) {
-        $sql .= "
-            AND
-                room_details_id = {$roomDetailsID}
-        ";
-    }
-    $result = DBcon::execute($sql);
-    $data = DBcon::fetch_array($result);
-    return $data[0];
+	if (isset($_SESSION['user_id'])) {
+	    $sql = "
+	        SELECT
+	            CONCAT(date_reserved, ' - ', date_expiration) as data_expiration
+	        FROM
+	            tenant_reservation
+	        WHERE
+	            user_id = {$_SESSION['user_id']}
+	        AND
+	            owner_id = {$ownerID}
+	        AND
+	            tbl_property_id = {$tblPropertyID}
+	    ";
+	    if (!empty($roomDetailsID)) {
+	        $sql .= "
+	            AND
+	                room_details_id = {$roomDetailsID}
+	        ";
+	    }
+	    $result = DBcon::execute($sql);
+	    $data = DBcon::fetch_array($result);
+	    return $data[0];
+	}
 }
 //EOF
