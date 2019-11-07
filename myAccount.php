@@ -10,6 +10,12 @@ if (!isset($_SESSION['user_id'])) {
 
 $Outline->header('My Account');
 
+$query = "
+    UPDATE
+        room_details
+    SET
+        vacant =
+";
 if (isset($_POST['btnAction'])) {
     /**
      *  @TODO : Inject SMS trigger here
@@ -18,29 +24,16 @@ if (isset($_POST['btnAction'])) {
      */
 
     $status = Util::getParam('status');
-    $query = "
-        UPDATE
-            room_details
-        SET
-            vacant =
-    ";
     if ($status == 0) {
         $data = [
             'approve' => 1
         ];
-        $query .= "
-            vacant - 1
-        ";
-        $message = 'Your reservation for '.$_POST['title'].' had been approved';
     } else {
         $data = [
-            'approve' => 0
+            'remove' => 1
         ];
-        $query .= "
-            vacant + 1
-        ";
-        $message = 'Your reservation for '.$_POST['title'].' had been rejected';
     }
+    $message = 'Your reservation for '.$_POST['title'].' had been approved';
     $ownerID = $_POST['ownerID'];
     $receiverID = $_POST['userID'];
     $where = [
@@ -56,6 +49,27 @@ if (isset($_POST['btnAction'])) {
         ";
         Dbcon::execute($query);
     }
+    $chat = new Chat();
+    $chat->setReceiverID($receiverID);
+    $chat->setSenderID($ownerID);
+    $chat->setMessage($message);
+    $chat->submit();
+}
+
+if (isset($_POST['btnDecline'])) {
+    $data = [
+        'approve' => 0,
+        'remove' => 1
+    ];
+    $message = 'Your reservation for '.$_POST['title'].' had been rejected';
+    $ownerID = $_POST['ownerID'];
+    $receiverID = $_POST['userID'];
+    $where = [
+        'owner_id' => $ownerID,
+        'user_id' => $receiverID,
+        'tbl_property_id' => $_POST['propertyID']
+    ];
+    Dbcon::update(Dbcon::TABLE_TENANT_RESERVATION, $data, $where);
     $chat = new Chat();
     $chat->setReceiverID($receiverID);
     $chat->setSenderID($ownerID);

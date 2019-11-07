@@ -89,15 +89,16 @@
                                             <th>User</th>
                                             <th>Location</th>
                                             <th>Status</th>
-                                            <th>Actions</th>
+                                            <th></th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
                                         $x = 1;
                                         foreach ($reservedUser as $user) {
-                                            $btnApprove = $user['approve'] == 0 ? 'Accept' : 'Decline';
-                                            $bgcolor = $user['approve'] == 0 ? '#4FBFA8' : '#B91515';
+                                            $btnApprove = $user['approve'] ==1 ? 'End of Contract' : 'Accept';
+                                            $bgcolor = '#4FBFA8';
                                             $ifExpired = date('Y-m-d') == $user['date_expiration'] ? true : false;
                                             $buttonStatus = $ifExpired == true ? 'disabled' : '';
                                             ?>
@@ -128,6 +129,11 @@
                                                 <td>
                                                     <button class="button rounded-btn submit-btn s-12" name="btnAction" style="background-color: <?= $bgcolor; ?>" <?= $buttonStatus; ?>>
                                                         <b><?= _($btnApprove); ?></b>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <button class="button rounded-btn submit-btn s-12 decline" name="btnDecline" style="background-color: #B91515; " <?= $buttonStatus; ?>>
+                                                        <b>Decline</b>
                                                     </button>
                                                 </td>
                                             </tr>
@@ -174,15 +180,16 @@
                                         <th>User</th>
                                         <th>Location</th>
                                         <th>Status</th>
-                                        <th>Actions</th>
+                                        <th></th>
+                                        <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <?php
                                     $x = 1;
                                     foreach ($reservedUserApartment as $user) {
-                                        $btnApprove = $user['approve'] == 0 ? 'Accept' : 'Decline';
-                                        $bgcolor = $user['approve'] == 0 ? '#4FBFA8' : '#B91515';
+                                        $btnApprove = $user['approve'] ==1 ? 'End of Contract' : 'Accept';
+                                        $bgcolor = '#4FBFA8';
                                         $ifExpired = date('Y-m-d') == $user['date_expiration'] ? true : false;
                                         $buttonStatus = $ifExpired == true ? 'disabled' : '';
                                         ?>
@@ -209,8 +216,13 @@
                                                     ?>
                                                 </td>
                                                 <td>
-                                                    <button class="button rounded-btn submit-btn s-12" name="btnAction" style="background-color: <?= $bgcolor; ?>" <?= $buttonStatus; ?>>
+                                                    <button class="button rounded-btn submit-btn s-12" name="btnAction" style="background-color: <?= $bgcolor; ?> " <?= $buttonStatus; ?>>
                                                         <b><?= _($btnApprove); ?></b>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <button class="button rounded-btn submit-btn s-12" name="btnDecline" style="background-color: #B91515;" <?= $buttonStatus; ?>>
+                                                        <b>Decline</b>
                                                     </button>
                                                 </td>
                                             </tr>
