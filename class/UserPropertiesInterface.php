@@ -154,8 +154,6 @@ class UserPropertiesInterface
                 tp.id = tr.tbl_property_id
             WHERE
                 tr.date_expiration <= now()
-            AND
-                tr.remove = 1
         ";
         if (!empty($ownerID)) {
             $sql .= "

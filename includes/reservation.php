@@ -1,11 +1,17 @@
 <?php
 const TABLE_NAME = 'tenant_reservation';
+const TABLE_ROOM_DETAILS = 'room_details';
 if (isset($_POST['btnReserve'])) {
     if (isset($_SESSION['user_id'])) {
         $userID = $_SESSION['user_id'];
         $User = UserProperty::Load(Util::getParam('viewid'));
         $roomDetailID = Util::getParam('rdID');
         $tenantName = User::getName($userID);
+        $query = "
+            UPDATE
+                ".TABLE_ROOM_DETAILS."
+            SET
+        ";
         if (ifReserved($ownerID, $teabag, $conn) < 1) {
             $data = [
                 'user_id'  =>  $userID,
@@ -17,6 +23,9 @@ if (isset($_POST['btnReserve'])) {
                 'date_expiration' => date('Y-m-d', strtotime(' + 3 days'))
             ];
             Dbcon::insert(TABLE_NAME, $data);
+            $query .= "
+                    vacant = vacant - 1
+            ";
             SMS::send($tenantName, $tenantName.' has booked a reservation for '.$title, $User->getContact());
         } else {
             $where = [
@@ -26,8 +35,16 @@ if (isset($_POST['btnReserve'])) {
                 'owner_id'  =>  $ownerID
             ];
             Dbcon::delete(TABLE_NAME, $where);
+            $query .= "
+                    vacant = vacant + 1
+            ";
             SMS::send($tenantName, $tenantName.' has cancelled reservation for '.$title, $User->getContact());
         }
+        $query .= "
+            WHERE
+                room_details_id = {$roomDetailID}
+        ";
+        Dbcon::execute($query);
     }
 }
 
