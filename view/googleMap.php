@@ -100,8 +100,10 @@
                     coordinates.style.display = 'block';
                     coordinates.innerHTML = 'Longitude: ' + lngLat.lng + '<br />Latitude: ' + lngLat.lat;
                     coordinate.innerHTML = lngLat.lng + ',' + lngLat.lat;
+
                 });
             }
+             marker.on('dragend', onDragEnd);
         </script>
     </body>
 </html>

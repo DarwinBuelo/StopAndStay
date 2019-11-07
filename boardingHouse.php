@@ -83,11 +83,13 @@ $Outline->header('Boarding House');
                                     room_details rd
                                 ON
                                     rd.tbl_property_id = tl.ID
+                                WHERE
+                                    TRUE
                             ";
                             if (isset($_GET['tagid'])) {
                                 $tag = $_GET['tagid'];
                                 $query .= "
-                                    WHERE 
+                                    AND
                                         tl.title 
                                     LIKE 
                                         '%$tag%' 
@@ -96,14 +98,21 @@ $Outline->header('Boarding House');
                                     AND 
                                         tl.property_type = 0
                                 ";
+                                if(!empty(Util::getParam('view'))){
+                                    $query .= " AND tl.ID = " . Util::getParam('view');
+                                }
                                 $sql = mysqli_query($conn, $query);
                             } else {
                                 $query .= "
-                                    WHERE 
+                                    AND
                                         tl.status = 1 
                                     AND 
                                         tl.property_type = 0
                                 ";
+
+                                if(!empty(Util::getParam('view'))){
+                                    $query .= " AND tl.ID = " . Util::getParam('view');
+                                }
                                 $sql = mysqli_query($conn, $query);
                             }
                             ?>

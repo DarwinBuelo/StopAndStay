@@ -100,10 +100,18 @@ $Properties = UserProperty::LoadArray();
     foreach ($Properties as $Obj) {
 
         if (!empty($Obj->getCoord())) {
-            $link = addslashes("<br><br><a href='view_prop.php?viewid={$Obj->getPropertyID()}&ownerID={$Obj->getUserID()}' target='_blank'>View</a>");
+            if($Obj->getPropertyType() == 0){
+                $link = addslashes("<br><br><a href='boardingHouse.php?view={$Obj->getPropertyID()}' target='_blank'>View</a>");
+            echo "var popup = new mapboxgl.Popup({ offset: 25 }).setHTML('".addslashes($Obj->getLocation()). $link ."');".PHP_EOL;
+                echo "new mapboxgl.Marker({draggable: false, color: '#b40219'}).setLngLat([" . $Obj->getCoord() . "]).setPopup(popup).addTo(map);".PHP_EOL;
+//            echo "new mapboxgl.Marker({draggable: false}).setLngLat([" . $Obj->getCoord() . "]).addTo(map);".PHP_EOL;
+            }else{
+                 $link = addslashes("<br><br><a href='view_prop.php?viewid={$Obj->getPropertyID()}&ownerID={$Obj->getUserID()}' target='_blank'>View</a>");
             echo "var popup = new mapboxgl.Popup({ offset: 25 }).setHTML('".addslashes($Obj->getLocation()). $link ."');".PHP_EOL;
             echo "new mapboxgl.Marker({draggable: false}).setLngLat([" . $Obj->getCoord() . "]).setPopup(popup).addTo(map);".PHP_EOL;
 //            echo "new mapboxgl.Marker({draggable: false}).setLngLat([" . $Obj->getCoord() . "]).addTo(map);".PHP_EOL;
+            }
+           
         }
     }
 
