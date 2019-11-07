@@ -46,7 +46,7 @@ $Outline->header('Home');
 // will handle all the data for the map
 
 
-$Properties = UserProperty::LoadArray();
+$Properties = UserProperty::getProps(1);
 
 ?>
 <div id='map'></div>

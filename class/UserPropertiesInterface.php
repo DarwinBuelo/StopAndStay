@@ -54,6 +54,18 @@ class UserPropertiesInterface
         return $return;
     }
 
+    public static function getProps($status){
+         $sql = "SELECT id FROM ".self::TABLE." WHERE status={$status}";
+         $result = DBcon::execute($sql);
+            $data = DBcon::fetch_all_assoc($result);
+            if (!empty($data)) {
+                foreach ($data as $item) {
+                    $return[$item['id']] = static::Load($item['id']);
+                }
+            }
+        return $return;
+    }
+
     // mali to
     public static function Load($id)
     {
