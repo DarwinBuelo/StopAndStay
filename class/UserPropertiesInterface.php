@@ -6,6 +6,8 @@
 class UserPropertiesInterface
 {
     const TABLE = "tbl_property";
+    const TABLE_TENANT_RESERVATION = 'tenant_reservation';
+    const TABLE_USER = 'tbl_users';
 
     protected $propertyID;
     protected $title;
@@ -118,6 +120,39 @@ class UserPropertiesInterface
             $result = DBcon::insert(self::TABLE, $data);
             $this->setPropertyID($result);
         }
+    }
+
+    public static function getExpiredReservation($ownerID = null)
+    {
+        $sql = "
+            SELECT
+                tu.user_fname,
+                tu.user_email,
+                tp.title,
+                tr.date_expiration
+            FROM
+                ".self::TABLE_TENANT_RESERVATION." tr
+            INNER JOIN
+                ".self::TABLE_USER." tu
+            ON
+                tu.user_id = tr.user_id
+            INNER JOIN
+                ".self::TABLE." tp
+            ON
+                tp.id = tr.tbl_property_id
+            WHERE
+                tr.date_expiration <= now()
+            AND
+                tr.remove = 1
+        ";
+        if (!empty($ownerID)) {
+            $sql .= "
+                AND
+                    tr.owner_id = {$ownerID}
+            ";
+        }
+        $result = DBcon::execute($sql);
+        return DBcon::fetch_all_assoc($result);
     }
 
     public static function GetMyProperties($myID)

@@ -38,6 +38,8 @@ class Account
                 tr.owner_id = {$ownerID}
             AND
                 tp.property_type = 0
+            AND
+                remove = 0
         ";
         $result = Dbcon::execute($sql);
         $data = DBcon::fetch_all_assoc($result, 'user_id');
@@ -73,6 +75,8 @@ class Account
                 tr.owner_id = {$ownerID}
             AND
                 tp.property_type = 1
+            AND
+                remove = 0
         ";
         $result = Dbcon::execute($sql);
         $data = DBcon::fetch_all_assoc($result, 'user_id');

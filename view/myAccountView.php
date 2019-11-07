@@ -38,6 +38,44 @@
                     <!-- Pruducts -->
                     <div class="margin">
                         <div class="s-12 m-12 l-12 xl-12 xxl-12 center ">
+                            <h3>Expired Reservation</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="tspots_all" class="table table-striped table-bordered table-sm" style="width:100%">
+                                    <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Date Expired</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    $x = 1;
+                                    foreach ($expiredReservation as $user) {
+                                        $ifExpired = date('Y-m-d') == $user['date_expiration'] ? true : false;
+                                        $buttonStatus = $ifExpired == true ? 'disabled' : '';
+                                        ?>
+                                        <form method="post" action="<?= $_SERVER['PHP_SELF']; ?>">
+                                            <tr>
+                                                <td><?= $user['title']; ?></td>
+                                                <td><?= $user['user_fname']; ?></td>
+                                                <td><?= $user['user_email']; ?></td>
+                                                <td><?= $user['date_expiration']; ?></td>
+                                            </tr>
+                                        </form>
+                                        <?php $x++;
+                                    }
+                                    ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="margin">
+                        <div class="s-12 m-12 l-12 xl-12 xxl-12 center ">
                             <h3>My Boarding House</h3>
                         </div>
                         <div class="card-body">

@@ -117,5 +117,30 @@ class User
             return false;
         }
     }
+
+    public static function ifReserved($ownerID, $tblPropertyID, $roomDetailsID = null)
+    {
+        if (isset($_SESSION['user_id'])) {
+            $sql = "
+            SELECT
+                user_id
+            FROM
+                tenant_reservation
+            WHERE
+                user_id = {$_SESSION['user_id']}
+            AND
+                owner_id = {$ownerID}
+            AND
+                tbl_property_id = {$tblPropertyID}
+        ";
+            if (!empty($roomDetailsID)) {
+                $sql .= "
+                AND
+                    room_details_id = {$roomDetailsID}
+            ";
+            }
+            return Dbcon::fetch_num_rows($sql);
+        }
+    }
 }
 //EOF

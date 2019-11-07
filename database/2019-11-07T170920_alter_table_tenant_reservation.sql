@@ -1,0 +1,1 @@
+ALTER TABLE `tenant_reservation` ADD `remove` INT NOT NULL AFTER `date_expiration`;

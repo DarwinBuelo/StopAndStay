@@ -67,6 +67,7 @@ if (isset($_SESSION['user_id'])) {
     $userID = $_SESSION['user_id'];
     $reservedUser = Account::getReserveUser($userID);
     $reservedUserApartment = Account::getReservedApartment($userID);
+    $expiredReservation = UserProperty::getExpiredReservation($userID);
 }
 
 require 'view/myAccountView.php';
