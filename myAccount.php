@@ -9,13 +9,6 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $Outline->header('My Account');
-
-$query = "
-    UPDATE
-        room_details
-    SET
-        vacant =
-";
 if (isset($_POST['btnAction'])) {
     /**
      *  @TODO : Inject SMS trigger here
@@ -42,13 +35,6 @@ if (isset($_POST['btnAction'])) {
         'tbl_property_id' => $_POST['propertyID']
     ];
     Dbcon::update(Dbcon::TABLE_TENANT_RESERVATION, $data, $where);
-    if (isset($_POST['roomDetailsID'])) {
-        $query .= "
-            WHERE
-                room_details_id = {$_POST['roomDetailsID']}
-        ";
-        Dbcon::execute($query);
-    }
     $chat = new Chat();
     $chat->setReceiverID($receiverID);
     $chat->setSenderID($ownerID);

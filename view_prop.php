@@ -165,7 +165,7 @@ if (!isset($_GET['viewid'])) {
                                 $btnReserve = 'Reserved';
                             }
                             ?>
-                            <button class="button rounded-btn submit-btn s-12" style="background-color: <?= $bgcolor; ?>" name="btnReserve" <?=
+                            <button class="button rounded-btn submit-btn s-12" style="background-color: <?= $bgcolor; ?>" id="btnReserve" name="btnReserve" <?=
                             (isset($_SESSION['user_id']) ? '' : 'disabled');
                             ?>>
                                 <b><?= $btnReserve; ?></b>
@@ -279,7 +279,7 @@ if (!isset($_GET['viewid'])) {
             autoplay: true,
             autoplayTimeout: 3000
         });
-    })
+    });
 </script>
 </body>
 </html>
@@ -290,3 +290,4 @@ function money_formater($value)
 {
     return 'Php '.number_format($value, 2);
 }
+//EOF
