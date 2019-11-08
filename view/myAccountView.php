@@ -3,7 +3,6 @@
     <?php
     $adsLocation = view_ads::ADS_LOCATION_LEFT;
     view_ads::viewingAds($conn, $adsLocation);
-
     ?>
     <!-- ================== END OF DISPLAYING AD POSTINGS ============================ -->
     <!-- ADSPACE HERE -->&nbsp;
@@ -26,7 +25,6 @@
                             <?php
                             $adsLocation = view_ads::ADS_LOCATION_HEADER;
                             view_ads::viewingAds($conn, $adsLocation);
-
                             ?>
                         </div>
                     </div>
@@ -46,21 +44,19 @@
                             <div class="table-responsive">
                                 <table id="tspots_all" class="table table-striped table-bordered table-sm" style="width:100%">
                                     <thead>
-                                        <tr>
-                                            <th>Title</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Date Expired</th>
-                                        </tr>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Date Expired</th>
+                                    </tr>
                                     </thead>
                                     <tbody>
-                                        <?php
-                                        $x = 1;
-                                        foreach ($expiredReservation as $user) {
-                                            $ifExpired = date('Y-m-d') == $user['date_expiration'] ? true : false;
-                                            $buttonStatus = $ifExpired == true ? 'disabled' : '';
-
-                                            ?>
+                                    <?php
+                                    $x = 1;
+                                    foreach ($expiredReservation as $user) {
+                                        $ifExpired = date('Y-m-d') >= $user['date_expiration'] ? true : false;
+                                        ?>
                                         <form method="post" action="<?= $_SERVER['PHP_SELF']; ?>">
                                             <tr>
                                                 <td><?= $user['title']; ?></td>
@@ -69,11 +65,9 @@
                                                 <td><?= $user['date_expiration']; ?></td>
                                             </tr>
                                         </form>
-    <?php
-    $x++;
-}
-
-?>
+                                        <?php $x++;
+                                    }
+                                    ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -102,54 +96,64 @@
                                         <?php
                                         $x = 1;
                                         foreach ($reservedUser as $user) {
-                                            $btnApprove = $user['approve'] == 1 ? 'End of Contract' : 'Accept';
+                                            $btnApprove = $user['approve'] ==1 ? 'End of Contract' : 'Accept';
                                             $bgcolor = '#4FBFA8';
-                                            $ifExpired = date('Y-m-d') == $user['date_expiration'] ? true : false;
+                                            $ifExpired = date('Y-m-d') >= $user['date_expiration'] ? true : false;
                                             $buttonStatus = $ifExpired == true ? 'disabled' : '';
+                                            if ($ifExpired == true) {
 
-                                            ?>
-                                        <form method="post" action="<?= $_SERVER['PHP_SELF']; ?>">
-                                            <tr>
-                                                <td>
-                                                    <input type="hidden" name="ownerID" value="<?= $user['owner_id']; ?>">
-                                                    <input type="hidden" name="userID" value="<?= $user['user_id']; ?>">
-                                                    <input type="hidden" name="propertyID" value="<?= $user['tbl_property_id']; ?>">
-                                                    <input type="hidden" name="status" value="<?= $user['approve']; ?>">
-                                                    <input type="hidden" name="title" value="<?= $user['title']; ?>">
-                                                    <input type="hidden" name="roomDetailsID" value="<?= $user['room_details_id']; ?>">
-                                                    <?= $user['title']; ?>
-                                                </td>
-                                                <td><?= $user['description']; ?></td>
-                                                <td><?= $user['room_type']; ?></td>
-                                                <td><?= !empty($user['user_email']) ? $user['user_email'] : $user['user_fname']; ?></td>
-                                                <td><?= $user['location']; ?></td>
-                                                <td>
-                                                    <?php
-                                                    if ($ifExpired == true) {
-                                                        echo 'Expired';
-                                                    } else {
-                                                        echo $user['approve'] == 0 ? 'Unapprove' : 'Approved';
-                                                    }
-
-                                                    ?>
-                                                </td>
-                                                <td>
-                                                    <button type="submit" id="btnAction" class="button rounded-btn submit-btn s-12"  name="btnAction"  style="background-color: <?= $bgcolor; ?>" <?= $buttonStatus; ?>>
-                                                        <b><?= _($btnApprove); ?></b>
-                                                    </button>
-                                                </td>
-                                                <td>
-                                                    <button  type="submit" id="decline" class="button rounded-btn submit-btn s-12 decline" name="btnDecline" style="background-color: #B91515; " <?= $buttonStatus; ?>>
-                                                        <b>Decline</b>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        </form>
-    <?php
-    $x++;
-}
-
-?>
+                                            } else {
+                                                ?>
+                                                <form method="post" action="<?= $_SERVER['PHP_SELF']; ?>">
+                                                    <tr>
+                                                        <td>
+                                                            <input type="hidden" name="ownerID"
+                                                                   value="<?= $user['owner_id']; ?>">
+                                                            <input type="hidden" name="userID"
+                                                                   value="<?= $user['user_id']; ?>">
+                                                            <input type="hidden" name="propertyID"
+                                                                   value="<?= $user['tbl_property_id']; ?>">
+                                                            <input type="hidden" name="status"
+                                                                   value="<?= $user['approve']; ?>">
+                                                            <input type="hidden" name="title"
+                                                                   value="<?= $user['title']; ?>">
+                                                            <input type="hidden" name="roomDetailsID"
+                                                                   value="<?= $user['room_details_id']; ?>">
+                                                            <?= $user['title']; ?>
+                                                        </td>
+                                                        <td><?= $user['description']; ?></td>
+                                                        <td><?= $user['room_type']; ?></td>
+                                                        <td><?= !empty($user['user_email']) ? $user['user_email'] : $user['user_fname']; ?></td>
+                                                        <td><?= $user['location']; ?></td>
+                                                        <td>
+                                                            <?php
+                                                            if ($ifExpired == true) {
+                                                                echo 'Expired';
+                                                            } else {
+                                                                echo $user['approve'] == 0 ? 'Unapprove' : 'Approved';
+                                                            }
+                                                            ?>
+                                                        </td>
+                                                        <td>
+                                                            <button class="button rounded-btn submit-btn s-12"
+                                                                    name="btnAction"
+                                                                    style="background-color: <?= $bgcolor; ?>" <?= $buttonStatus; ?>>
+                                                                <b><?= _($btnApprove); ?></b>
+                                                            </button>
+                                                        </td>
+                                                        <td>
+                                                            <button class="button rounded-btn submit-btn s-12 decline"
+                                                                    name="btnDecline"
+                                                                    style="background-color: #B91515; " <?= $buttonStatus; ?>>
+                                                                <b>Decline</b>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </form>
+                                                <?php $x++;
+                                            }
+                                    }
+                                    ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -161,11 +165,10 @@
                     <!-- CAROUSEL -->
                     <div class="line hide-s">
                         <div id="header-carousel" class="owl-carousel owl-theme">
-<?php
-$adsLocation = view_ads::ADS_LOCATION_HEADER;
-view_ads::viewingAds($conn, $adsLocation);
-
-?>
+                            <?php
+                            $adsLocation = view_ads::ADS_LOCATION_HEADER;
+                            view_ads::viewingAds($conn, $adsLocation);
+                            ?>
                         </div>
                     </div>
                     <!--                    <nav class="breadcrumb-nav">-->
@@ -184,66 +187,75 @@ view_ads::viewingAds($conn, $adsLocation);
                             <div class="table-responsive">
                                 <table id="tspots_all" class="table table-striped table-bordered table-sm" style="width:100%">
                                     <thead>
-                                        <tr>
-                                            <th>Title</th>
-                                            <th>Description</th>
-                                            <th>User</th>
-                                            <th>Location</th>
-                                            <th>Status</th>
-                                            <th></th>
-                                            <th></th>
-                                        </tr>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Description</th>
+                                        <th>User</th>
+                                        <th>Location</th>
+                                        <th>Status</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
                                     </thead>
                                     <tbody>
-<?php
-$x = 1;
-foreach ($reservedUserApartment as $user) {
-    $btnApprove = $user['approve'] == 1 ? 'End of Contract' : 'Accept';
-    $bgcolor = '#4FBFA8';
-    $ifExpired = date('Y-m-d') == $user['date_expiration'] ? true : false;
-    $buttonStatus = $ifExpired == true ? 'disabled' : '';
+                                    <?php
+                                    $x = 1;
+                                    foreach ($reservedUserApartment as $user) {
+                                        $btnApprove = $user['approve'] ==1 ? 'End of Contract' : 'Accept';
+                                        $bgcolor = '#4FBFA8';
+                                        $ifExpired = date('Y-m-d') >= $user['date_expiration'] ? true : false;
+                                        $buttonStatus = $ifExpired == true ? 'disabled' : '';
+                                        if ($ifExpired == true) {
 
-    ?>
-                                        <form method="post" action="<?= $_SERVER['PHP_SELF']; ?>" id="approvalForm">
-                                            <tr>
-                                                <td>
-                                                    <input type="hidden" name="ownerID" value="<?= $user['owner_id']; ?>">
-                                                    <input type="hidden" name="userID" value="<?= $user['user_id']; ?>">
-                                                    <input type="hidden" name="propertyID" value="<?= $user['tbl_property_id']; ?>">
-                                                    <input type="hidden" name="status" value="<?= $user['approve']; ?>">
-                                                    <input type="hidden" name="title" value="<?= $user['title']; ?>">
-                                                    <?= $user['title']; ?>
-                                                </td>
-                                                <td><?= $user['description']; ?></td>
-                                                <td><?= !empty($user['user_email']) ? $user['user_email'] : $user['user_fname']; ?></td>
-                                                <td><?= $user['location']; ?></td>
-                                                <td>
-    <?php
-    if ($ifExpired == true) {
-        echo 'Expired';
-    } else {
-        echo $user['approve'] == 0 ? 'Unapprove' : 'Approved';
-    }
-
-    ?>
-                                                </td>
-                                                <td>
-                                                    <button class="button rounded-btn submit-btn s-12" name="btnAction" id="btnApprove" data-id="<?= $user['tbl_property_id'] ?>" style="background-color: <?= $bgcolor; ?> " <?= $buttonStatus; ?>>
-                                                        <b><?= _($btnApprove); ?></b>
-                                                    </button>
-                                                </td>
-                                                <td>
-                                                    <button class="button rounded-btn submit-btn s-12" name="btnDecline" style="background-color: #B91515;" <?= $buttonStatus; ?>>
-                                                        <b>Decline</b>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        </form>
-    <?php
-    $x++;
-}
-
-?>
+                                        } else {
+                                            ?>
+                                            <form method="post" action="<?= $_SERVER['PHP_SELF']; ?>">
+                                                <tr>
+                                                    <td>
+                                                        <input type="hidden" name="ownerID"
+                                                               value="<?= $user['owner_id']; ?>">
+                                                        <input type="hidden" name="userID"
+                                                               value="<?= $user['user_id']; ?>">
+                                                        <input type="hidden" name="propertyID"
+                                                               value="<?= $user['tbl_property_id']; ?>">
+                                                        <input type="hidden" name="status"
+                                                               value="<?= $user['approve']; ?>">
+                                                        <input type="hidden" name="title"
+                                                               value="<?= $user['title']; ?>">
+                                                        <?= $user['title']; ?>
+                                                    </td>
+                                                    <td><?= $user['description']; ?></td>
+                                                    <td><?= !empty($user['user_email']) ? $user['user_email'] : $user['user_fname']; ?></td>
+                                                    <td><?= $user['location']; ?></td>
+                                                    <td>
+                                                        <?php
+                                                        if ($ifExpired == true) {
+                                                            echo 'Expired';
+                                                        } else {
+                                                            echo $user['approve'] == 0 ? 'Unapprove' : 'Approved';
+                                                        }
+                                                        ?>
+                                                    </td>
+                                                    <td>
+                                                        <button class="button rounded-btn submit-btn s-12"
+                                                                name="btnAction"
+                                                                style="background-color: <?= $bgcolor; ?> " <?= $buttonStatus; ?>>
+                                                            <b><?= _($btnApprove); ?></b>
+                                                        </button>
+                                                    </td>
+                                                    <td>
+                                                        <button class="button rounded-btn submit-btn s-12"
+                                                                name="btnDecline"
+                                                                style="background-color: #B91515;" <?= $buttonStatus; ?>>
+                                                            <b>Decline</b>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </form>
+                                            <?php $x++;
+                                        }
+                                    }
+                                    ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -251,18 +263,6 @@ foreach ($reservedUserApartment as $user) {
                     </div>
                 </section>
             </div>
-        </div>
-    </div>
-</div>
-
-<div class="mymodal" id="mymodal">
-    <div class="modalBox">
-       <span id="modalMessage">
-        Are you sure you want to accept this reservation?
-       </span>
-        <div class="myfooter">
-            <button class="btn btn-success" id="btnAccept">Accept</button>
-            <button class="btn btn-danger" id="btnCancel">Cancel</button>
         </div>
     </div>
 </div>
