@@ -1,6 +1,6 @@
 
 $("document").ready(function () {
-    $('#approvalForm').one('submit', function (e) {
+    $('#approvalForm').on('submit', function (e) {
         e.preventDefault();
 //            $('#mymodal').fadeIn();
 //            

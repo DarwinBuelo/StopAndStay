@@ -209,7 +209,7 @@
 
                                         } else {
                                             ?>
-                                            <form method="post" action="<?= $_SERVER['PHP_SELF']; ?>">
+                                            <form method="post" action="<?= $_SERVER['PHP_SELF']; ?>" id="approvalForm">
                                                 <tr>
                                                     <td>
                                                         <input type="hidden" name="ownerID"
@@ -237,14 +237,14 @@
                                                         ?>
                                                     </td>
                                                     <td>
-                                                        <button class="button rounded-btn submit-btn s-12"
+                                                        <button  type="submit" class="button rounded-btn submit-btn s-12"
                                                                 name="btnAction"
                                                                 style="background-color: <?= $bgcolor; ?> " <?= $buttonStatus; ?>>
                                                             <b><?= _($btnApprove); ?></b>
                                                         </button>
                                                     </td>
                                                     <td>
-                                                        <button class="button rounded-btn submit-btn s-12"
+                                                        <button type="submit" class="button rounded-btn submit-btn s-12"
                                                                 name="btnDecline"
                                                                 style="background-color: #B91515;" <?= $buttonStatus; ?>>
                                                             <b>Decline</b>
