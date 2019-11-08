@@ -398,3 +398,34 @@ body{
 #copyright p{
     margin: 0px;
 }
+
+
+
+.mymodal{
+    width: 100vw;
+    height: 100vh;
+    background-color: #00000070;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10000;
+    display: none;
+}
+
+.mymodal .modalBox{
+    position: relative;
+    margin: 0 auto;
+    width: 50vw;
+    height: 15vw;
+    background: white;
+    margin-top: 20px;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.mymodal .myfooter{
+    position: absolute;
+    bottom: 11px;
+    right: 10px;
+    float: right
+}

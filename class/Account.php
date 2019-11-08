@@ -76,7 +76,7 @@ class Account
             AND
                 tp.property_type = 1
             AND
-                remove = 0
+                tr.remove = 0
         ";
         $result = Dbcon::execute($sql);
         $data = DBcon::fetch_all_assoc($result, 'user_id');
